@@ -25,6 +25,10 @@
       "collapsed": true,
       "children": [
         {
+          "title": "基于Docker部署SDV Platform",
+          "path": "installation/install_sdv_platform_on_linux"
+        },
+        {
           "title": "使用 .tar.gz 包安装",
           "path": "installation/targz"
         },
