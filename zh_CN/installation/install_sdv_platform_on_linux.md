@@ -15,7 +15,7 @@ EMQX SDV Platform 部署前，请确认您的环境满足以下要求：
 
 ## 获取安装包
 
-欢迎访问 EMQ 官网获取 SDV Platform 和 EMQX Edge Operator 的安装包。
+欢迎访问 EMQ 官网获取 SDV Platform 的安装包。
 
 1. 进入[联系我们](https://www.emqx.com/zh/contact?product=emqx-ecp)页面。
 2. 输入必要的联系信息，如姓名、公司、工作邮箱，国家和地区，以及您的联系方式。
