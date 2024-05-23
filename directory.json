@@ -6,6 +6,10 @@
       "collapsed": true,
       "children": [
         {
+          "title": "设计理念和愿景",
+          "path": "introduction/rationale"
+        },
+        {
           "title": "架构",
           "path": "introduction/architecture"
         },
@@ -25,7 +29,7 @@
       "collapsed": true,
       "children": [
         {
-          "title": "基于Docker部署SDV Platform",
+          "title": "基于Docker部署 SDV Flow & Platform",
           "path": "installation/install_sdv_platform_on_linux"
         },
         {
@@ -47,7 +51,83 @@
       ]
     },
     {
-      "title": "数据接入",
+      "title": "配置文件",
+      "path": "configuration/introduction",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "数据总线配置",
+          "path": "configuration/nanomq"
+        },
+        {
+          "title": "协议转换配置",
+          "path": "configuration/nanolink"
+        },
+        {
+          "title": "流处理引擎配置",
+          "path": "configuration/ekuiper"
+        },
+        {
+          "title": "云管理平台配置",
+          "path": "configuration/ecp"
+        },
+        {
+          "title": "边缘协同代理配置",
+          "path": "configuration/agent"
+        }
+      ]
+    },
+    {
+      "title": "数据总线",
+      "path": "communication-databus/introduction",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "MQTT 消息服务",
+          "path": "communication-databus/mqtt-broker"
+        },
+        {
+          "title": "Parquet 消息队列",
+          "path": "communication-databus/protocol-proxy"
+          
+        },
+        {
+          "title": "跨域通信和协议转换",
+          "path": "communication-databus/multi-protocol-proxy",
+          "children": [
+            {
+              "title": "DDS",
+              "path": "communication-databus/multi-protocol-proxy"
+            },
+            {
+              "title": "SOME/IP",
+              "path": "communication-databus/multi-protocol-proxy"
+            },
+            {
+              "title": "ROS2",
+              "path": "communication-databus/multi-protocol-proxy"
+            },
+            {
+              "title": "最佳实践",
+              "path": "communication-databus/multi-protocol-proxy/best-practice"
+            }
+          ]
+        },
+      ]
+    },
+    {
+      "title": "流处理引擎",
+      "path": "communication-databus/introduction",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "跨域通信和协议转换",
+          "path": "installation/"
+        },
+      ]
+    },
+    {
+      "title": "数据总线",
       "path": "configuration/introduction",
       "collapsed": true,
       "children": [
