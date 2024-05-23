@@ -6,7 +6,7 @@
       "collapsed": true,
       "children": [
         {
-          "title": "设计理念和愿景",
+          "title": "云边数据闭环",
           "path": "introduction/rationale"
         },
         {
@@ -83,58 +83,83 @@
       "collapsed": true,
       "children": [
         {
-          "title": "MQTT 消息服务",
+          "title": "MQTT Broker",
           "path": "communication-databus/mqtt-broker"
+          "children": [
+            {
+              "title": "访问控制",
+              "path": "communication-databus/mqtt-broker/ACL"
+            },
+            {
+              "title": "WebHook",
+              "path": "communication-databus/mqtt-broker/WebHook"
+            },
         },
         {
-          "title": "Parquet 消息队列",
-          "path": "communication-databus/protocol-proxy"
-          
+          "title": "MQTT Stream",
+          "path": "communication-databus/mqtt-stream",
+          "children": [
+            {
+              "title": "环形队列配置",
+              "path": "communication-databus/mqtt-broker/ringbus"
+            },
+            {
+              "title": "搜索数据和触发上传",
+              "path": "communication-databus/mqtt-broker/data-fetch"
+            }
+        },
+        {
+          "title": "文件传输服务",
+          "path": "communication-databus/file-transfer"
         },
         {
           "title": "跨域通信和协议转换",
           "path": "communication-databus/multi-protocol-proxy",
           "children": [
             {
+              "title": "共享内存",
+              "path": "communication-databus/multi-protocol-proxy/iceoryx"
+            },
+            {
               "title": "DDS",
-              "path": "communication-databus/multi-protocol-proxy"
+              "path": "communication-databus/multi-protocol-proxy/dds"
             },
             {
               "title": "SOME/IP",
-              "path": "communication-databus/multi-protocol-proxy"
+              "path": "communication-databus/multi-protocol-proxy/SOME-IP"
             },
             {
               "title": "ROS2",
-              "path": "communication-databus/multi-protocol-proxy"
+              "path": "communication-databus/multi-protocol-proxy/ROS2"
             },
             {
-              "title": "最佳实践",
-              "path": "communication-databus/multi-protocol-proxy/best-practice"
+              "title": "*CAN",
+              "path": "communication-databus/multi-protocol-proxy/socketcan"
             }
           ]
-        },
+        }，
+        {
+          "title": "桥接数据同步",
+          "path": "communication-databus/data-bridging",
+          "children": [
+            {
+              "title": "MQTT over TCP/TLS",
+              "path": "communication-databus/data-bridging/mqtt-tcp-tls"
+            },
+            {
+              "title": "MQTT over Quic",
+              "path": "communication-databus/data-bridging/mqtt-quic"
+            }
+          ]
+        }
+        {
+            "title": "最佳实践",
+            "path": "communication-databus/best-practice"
+        }
       ]
     },
     {
       "title": "流处理引擎",
-      "path": "communication-databus/introduction",
-      "collapsed": true,
-      "children": [
-        {
-          "title": "跨域通信和协议转换",
-          "path": "installation/"
-        },
-      ]
-    },
-    {
-      "title": "数据总线",
-      "path": "configuration/introduction",
-      "collapsed": true,
-      "children": [
-      ]
-    },
-    {
-      "title": "数据处理",
       "path": "streaming-processing/overview",
       "collapsed": true,
       "children": [
@@ -162,8 +187,8 @@
               ]
             },
             {
-              "title": "Neuron",
-              "path": "streaming-processing/neuron"
+              "title": "NNG",
+              "path": "streaming-processing/pair0"
             },
             {
               "title": "MQTT",
@@ -190,12 +215,12 @@
               "path": "streaming-processing/file"
             },
             {
-              "title": "Video",
-              "path": "streaming-processing/video"
+              "title": "RTSP",
+              "path": "streaming-processing/RTSP"
             },
             {
-              "title": "Simulator",
-              "path": "streaming-processing/simulator"
+              "title": "CAN",
+              "path": "streaming-processing/socketcan"
             },
             {
               "title": "Redis",
@@ -259,24 +284,12 @@
                   "path": "streaming-processing/sink/sql"
                 },
                 {
-                  "title": "InfluxDB V1",
-                  "path": "streaming-processing/sink/influx"
-                },
-                {
-                  "title": "InfluxDB V2",
-                  "path": "streaming-processing/sink/influx2"
-                },
-                {
                   "title": "文件",
                   "path": "streaming-processing/sink/file"
                 },
                 {
                   "title": "Nop",
                   "path": "streaming-processing/sink/nop"
-                },
-                {
-                  "title": "Kafka",
-                  "path": "streaming-processing/sink/kafka"
                 }
               ]
             }
@@ -406,7 +419,7 @@
       ]
       },
     {
-        "title": "HTTP API",
+        "title": "SDV Platform API",
         "path": "api/api",
         "collapsed": true,
         "children": [
@@ -415,16 +428,20 @@
             "path": "api/jwt"
           },
           {
-            "title": "数据采集功能数据类型描述",
-            "path": "api/data-type"
+            "title": "告警",
+            "path": "api/alarm"
           },
           {
-            "title": "数据采集功能错误代码描述",
+            "title": "功能错误代码描述",
             "path": "api/error-code"
           },
           {
+            "title": "汽车数字孪生",
+            "path": "api/digital-vehicle-twin"
+          },
+          {
             "title": "API文档",
-            "path": "https://docs.emqx.com/zh/neuronex/latest/api/api-docs.html"
+            "path": "https://docs.emqx.com/zh/emqx-ecp/latest/"
           }
         ]
       },
