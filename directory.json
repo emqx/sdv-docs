@@ -248,6 +248,25 @@
             {
               "title": "规则流水线",
               "path": "streaming-processing/rule_pipeline"
+            },
+            {
+              "title": "规则去重",
+              "path": "streaming-processing/rule_dedup"
+            }          
+          ]
+        },
+        {
+          "title": "在线数据标注",
+          "path": "streaming-processing/annotation",
+          "collapsed": true,
+          "children": [
+            {
+              "title": "DBC 解码",
+              "path": "streaming-processing/DBC-decode"
+            },
+            {
+              "title": "信号白名单",
+              "path": "streaming-processing/dynamic_schema"
             }
           ]
         },
@@ -268,8 +287,12 @@
                   "path": "streaming-processing/sink/mqtt"
                 },
                 {
-                  "title": "Neuron",
-                  "path": "streaming-processing/sink/neuron"
+                  "title": "Nano触发上传",
+                  "path": "streaming-processing/sink/NanoTrigger"
+                },
+                {
+                  "title": "Nano搜索数据",
+                  "path": "streaming-processing/sink/NanoFetch"
                 },
                 {
                   "title": "REST",
@@ -436,8 +459,16 @@
             "path": "api/alarm"
           },
           {
+            "title": "资源监控",
+            "path": "admin/monitoring"
+          },
+          {
             "title": "功能错误代码描述",
             "path": "api/error-code"
+          },
+          {
+            "title": "灵活更新规则",
+            "path": "api/remote-update"
           },
           {
             "title": "汽车数字孪生",
@@ -462,6 +493,10 @@
           {
             "title": "链路追踪",
             "path": "admin/trace"
+          },
+          {
+            "title": "资源隔离和性能调优",
+            "path": "admin/tunning"
           },
           {
             "title": "管理日志文件",
