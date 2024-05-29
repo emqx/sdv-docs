@@ -1,5 +1,5 @@
 # 快速开始
-sdv-flow 是一款车载端产品,集成了数据采集、分析处理及规则执行等功能,为数据驱动型的汽车研发和运营等业务赋能。它可以帮助企业更好地收集、分析和利用车载数据,支持数据驱动的业务决策和运营管理。
+sdv-flow 是一款车载端产品，集成了数据采集、分析处理及规则执行等功能,为数据驱动型的汽车研发和运营等业务赋能。它可以帮助企业更好地收集、分析和利用车载数据,支持数据驱动的业务决策和运营管理。
 sdv-flow 作为一款车载管理软件，集成了 NanoMQ 和 kuiper 的商业版，从而实现边缘数据分析预处理，以及到云端的数据闭环功能。
 本章节将带您体验从下载安装开始，到启动 sdv-flow 服务，到通过 NanoMQ 对数据进行落盘，kuiper 下发规则，以及对落盘文件的处理与上传的完整流程。
 
@@ -8,7 +8,7 @@ sdv-flow 作为一款车载管理软件，集成了 NanoMQ 和 kuiper 的商业�
 ```bash
 docker run -d --name emqx-enterprise -p 1883:1883 -p 8083:8083 -p 8084:8084 -p 8883:8883 -p 18083:18083 emqx/emqx-enterprise:5.6.0
 ```
-- 查看 emqx-enterprise 是否正常启动
+- 查看 emqx-enterprise 是否已正常启动。
 ```bash
 docker ps -a | grep emqx-enterprise
 ```
@@ -17,7 +17,7 @@ docker ps -a | grep emqx-enterprise
 ```bash
 tar zxvf emqx-sdv-platform-docker-compose-installer-0.9.0-beta.3.tar.gz
 ```
-- 解压得到 docker-compose 目录，包含如下文件
+- 解压得到 docker-compose 目录，包含如下文件。
 ```bash
 .
 ├── configs
@@ -30,7 +30,8 @@ tar zxvf emqx-sdv-platform-docker-compose-installer-0.9.0-beta.3.tar.gz
 └── templates
 ```
 - 执行 `./emqx_sdv_platform_ctl --help` 获取帮助信息。
-- 执行 `./emqx_sdv_platform_ctl configure` 进行配置，只需要更改 mqtt external address 选项，改为云端 broker 的 host 地址。这里假设 emqx 和 platform 在同一台机器。
+> 注意：下面的 mqtt external address 不能使用回环地址 localhost 或 127.0.0.1，需要使用外部地址。
+- 执行 `./emqx_sdv_platform_ctl configure` 进行配置，只需要更改 mqtt external address 选项，改为云端 broker 的 host 地址。这里以本机的地址 `192.168.21.19` 为例。其他选项使用默认选项。：
 ```bash
 $ ./emqx_sdv_platform_ctl configure
 Generating docker-compose .env file
@@ -38,14 +39,12 @@ Please input EMQX SDV PLATFORM image tag (default: latest):
 Please input EMQX SDV PLATFORM docker registry URL (default: docker.io):
 Please input MQTT external address(which will be used for emqx agent) (default: host.docker.internal): 192.168.21.19
 Please input EMQX SDV PLATFORM data volume path (default: ./datavolumes/):
-stat: 无法读取 '%a' 的文件系统信息: 没有那个文件或目录
 copy prometheus.yaml files ...
 Generating docker-compose env file ...
 Generating SDV PLATFORM config files ...
 Generating ecp.yaml ...
 All configurations are done.
 ```
-![](_assets/platform-configure.png)
 - 执行 `./emqx_sdv_platform_ctl start` 启动 compose 容器，结果如下：
 ```bash
 $ ./emqx_sdv_platform_ctl start
@@ -72,7 +71,7 @@ Creating org default-org ...
 Creating project default-project ...
 {"id":"05bb4710","name":"default-project","members":[{"userId":"66fdb875","roleIds":[1]}],"createdAt":"2024-05-29T08:07:20.505576111Z"}
 ```
-- 执行 `./emqx_sdv_platform_ctl create-org-project` 创建用户名密码（需与上面的保持一致）
+- 执行 `./emqx_sdv_platform_ctl create-org-project` 创建组织用户名密码（需与上面的保持一致）
 ```bash
 Please input email: sdv@emqx.io
 Please input password:
@@ -87,7 +86,7 @@ Creating org default-org ...
 Creating project default-project ...
 {"id":"f0b4a050","name":"default-project","members":[{"userId":"6a775382","roleIds":[1]}],"createdAt":"2024-05-29T08:24:27.690085198Z"}
 ```
-- 查看容器是否全部启动，完全启动结果如下：
+- 查看容器是否全部启动，如下所示：
 ```bash
 $ docker ps -a | grep sdv
 e8f92c03806b   emqx/sdv-platform:latest            "/ecp/sdv-platform"      14 minutes ago   Up 14 minutes                   0.0.0.0:8082->8082/tcp, :::8082->8082/tcp                                                                                                                                                                                sdv-platform
@@ -129,7 +128,7 @@ sdv-flow 提供多种安装方式，用户可在 安装 中查看详细的安装
         ├── parquet
         └── readme.txt
 ```
-首先需要修改 nanomq 配置，将 `bridges.mqtt.emqx1` 的 server 地址修改为执行 `./emqx_sdv_platform_ctl configure` 所配置的地址。
+首先需要修改 nanomq 配置文件 `software/nanomq/etc/nanomq.conf`， 将 `bridges.mqtt.emqx1` 的 server 地址修改为执行 `./emqx_sdv_platform_ctl configure` 所配置的云端 emqx 的地址。
 ```conf
 bridges.mqtt.emqx1 {
         server = "mqtt-tcp://192.168.21.19:1883"
@@ -168,7 +167,7 @@ time="2024-05-29T17:41:38+08:00" level=info msg="[Agent]heartbeat is enabled ,in
 time="2024-05-29T17:41:38+08:00" level=info msg="MQTT Tunnel Proxy Agent connected to tcp://127.0.0.1:1883" file="mqtt/proxy.go:88" func=ecp-tunnel/mqtt.SubTunnelTopic
 time="2024-05-29T17:41:38+08:00" level=info msg="MQTT Tunnel Proxy Subscribed topic agent/ubuntu/proxy/request/+" file="mqtt/proxy.go:116" func=ecp-tunnel/mqtt.SubTunnelTopic.func1
 ```
-此时可以订阅 `ecp/#` 获取边缘端状态![](_assets/sdv-flow-heartbeat.png)，如图所示，
+同时可以订阅 `ecp/#` 获取边缘端状态![](_assets/sdv-flow-heartbeat.png)，如图所示：
 
 也可以在 software/nanomq/log 和 software/ekuiper/log 目录查看 nanomq 和 ekuiper 对应组件的日志。此时的 nanomq 默认已开启 mq stream 落盘和文件上传功能。
 
@@ -257,4 +256,4 @@ parquet {
 }
 
 ```
-我们可以发送 mqtt 消息到 canudp 主题。根据上面的配置可以观测到每一千条消息，会触发一次落盘，具体根据数据内容的大小，可能会生成多个文件。数据落盘文件在 parquet 目录。持续发消息会有新的文件落盘。生成得非加密的文件可以通过 parquet-tools 查看结果。
+我们可以发送 mqtt 消息到 canudp 主题。根据上面的配置可以观测到每一千条消息，会触发一次数据落盘，具体根据数据内容的大小，可能会生成多个文件。数据落盘文件在 parquet 目录。持续发消息会有新的文件落盘。生成得非加密的文件可以通过 parquet-tools 查看结果。
