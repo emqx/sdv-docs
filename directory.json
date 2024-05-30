@@ -84,7 +84,7 @@
       "children": [
         {
           "title": "MQTT Broker",
-          "path": "communication-databus/mqtt-broker"
+          "path": "communication-databus/mqtt-broker",
           "children": [
             {
               "title": "访问控制",
@@ -93,7 +93,8 @@
             {
               "title": "WebHook",
               "path": "communication-databus/mqtt-broker/WebHook"
-            },
+            }
+          ]
         },
         {
           "title": "MQTT Stream",
@@ -106,11 +107,12 @@
             {
               "title": "消费者协议和SDK",
               "path": "communication-databus/mqtt-broker/consumer"
-            },            
+            },
             {
               "title": "搜索数据和触发上传",
               "path": "communication-databus/mqtt-broker/data-fetch"
             }
+          ]
         },
         {
           "title": "文件传输服务",
@@ -141,7 +143,7 @@
               "path": "communication-databus/multi-protocol-proxy/socketcan"
             }
           ]
-        }，
+        },
         {
           "title": "桥接数据同步",
           "path": "communication-databus/data-bridging",
@@ -155,10 +157,10 @@
               "path": "communication-databus/data-bridging/mqtt-quic"
             }
           ]
-        }
+        },
         {
-            "title": "最佳实践",
-            "path": "communication-databus/best-practice"
+          "title": "最佳实践",
+          "path": "communication-databus/best-practice"
         }
       ]
     },
@@ -252,7 +254,7 @@
             {
               "title": "规则去重",
               "path": "streaming-processing/rule_dedup"
-            }          
+            }
           ]
         },
         {
@@ -326,7 +328,7 @@
           "title": "算法集成",
           "path": "streaming-processing/extension",
           "collapsed": true,
-          "children":[
+          "children": [
             {
               "title": "Python 便携插件示例",
               "path": "streaming-processing/portable_python"
@@ -444,69 +446,69 @@
           ]
         }
       ]
-      },
+    },
     {
-        "title": "SDV Platform API",
-        "path": "api/api",
-        "collapsed": true,
-        "children": [
-          {
-            "title": "JWT身份验证",
-            "path": "api/jwt"
-          },
-          {
-            "title": "告警",
-            "path": "api/alarm"
-          },
-          {
-            "title": "资源监控",
-            "path": "admin/monitoring"
-          },
-          {
-            "title": "功能错误代码描述",
-            "path": "api/error-code"
-          },
-          {
-            "title": "灵活更新规则",
-            "path": "api/remote-update"
-          },
-          {
-            "title": "汽车数字孪生",
-            "path": "api/digital-vehicle-twin"
-          },
-          {
-            "title": "API文档",
-            "path": "https://docs.emqx.com/zh/emqx-ecp/latest/"
-          }
-        ]
-      },
+      "title": "SDV Platform API",
+      "path": "api/api",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "JWT身份验证",
+          "path": "api/jwt"
+        },
+        {
+          "title": "告警",
+          "path": "api/alarm"
+        },
+        {
+          "title": "资源监控",
+          "path": "admin/monitoring"
+        },
+        {
+          "title": "功能错误代码描述",
+          "path": "api/error-code"
+        },
+        {
+          "title": "灵活更新规则",
+          "path": "api/remote-update"
+        },
+        {
+          "title": "汽车数字孪生",
+          "path": "api/digital-vehicle-twin"
+        },
+        {
+          "title": "API文档",
+          "path": "https://docs.emqx.com/zh/emqx-ecp/latest/"
+        }
+      ]
+    },
     {
-        "title": "远程诊断指南",
-        "path": "admin/introduction",
-        "url": "",
-        "collapsed": true,
-        "children": [
-          {
-            "title": "常见问题",
-            "path": "admin/QA"
-          },
-          {
-            "title": "链路追踪",
-            "path": "admin/trace"
-          },
-          {
-            "title": "资源隔离和性能调优",
-            "path": "admin/tunning"
-          },
-          {
-            "title": "管理日志文件",
-            "path": "admin/log"
-          }
-        ]
-      },
-      {
-        "title": "发版历史",
-        "path": "release_history/release_history"
-      }
-    ]
+      "title": "远程诊断指南",
+      "path": "admin/introduction",
+      "url": "",
+      "collapsed": true,
+      "children": [
+        {
+          "title": "常见问题",
+          "path": "admin/QA"
+        },
+        {
+          "title": "链路追踪",
+          "path": "admin/trace"
+        },
+        {
+          "title": "资源隔离和性能调优",
+          "path": "admin/tunning"
+        },
+        {
+          "title": "管理日志文件",
+          "path": "admin/log"
+        }
+      ]
+    },
+    {
+      "title": "发版历史",
+      "path": "release_history/release_history"
+    }
+  ]
 }
