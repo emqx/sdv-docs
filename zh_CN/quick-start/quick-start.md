@@ -256,4 +256,38 @@ parquet {
 }
 
 ```
-我们可以发送 mqtt 消息到 canudp 主题。根据上面的配置可以观测到每一千条消息，会触发一次数据落盘，具体根据数据内容的大小，可能会生成多个文件。数据落盘文件在 parquet 目录。持续发消息会有新的文件落盘。生成得非加密的文件可以通过 parquet-tools 查看结果。
+我们可以发送 mqtt 消息到 canudp 主题。下面以 [emqtt_bench](https://github.com/emqx/emqtt-bench) 为例，持续发送数据：
+```bash
+$ emqtt_bench pub -p 1883 -i 1 -I 3 -c 1 -s 100 -t canudp -V 5
+```
+
+根据上面的配置可以观测到每一千条消息，会触发一次数据落盘，具体根据数据内容的大小以及 file_size 的限制，可能会生成多个文件。数据落盘文件在 parquet 目录。数据文件的命名规则为 
+```bash
+total 20K
+-rw-r--r-- 1 root root 1.2K May 30 15:39 nanomq_08d1fc56c9ebaf5eaeccdf9fbf8ed7df-1717054759843~1717054759879.parquet
+-rw-r--r-- 1 root root 1.2K May 30 15:39 nanomq_52a5dfea2fd844c443c673cea04e1402-1717054759981~1717054760008.parquet
+-rw-r--r-- 1 root root 1.2K May 30 15:39 nanomq_606b60e89326bcba7e30c0e93ccb2494-1717054759879~1717054759912.parquet
+-rw-r--r-- 1 root root 1.2K May 30 15:39 nanomq_6c22bf89dc2e67ba3c0ac1003a6033c8-1717054759945~1717054759981.parquet
+-rw-r--r-- 1 root root 1.2K May 30 15:39 nanomq_72c6d7c788d3d5df8c78ecbe29586868-1717054759912~1717054759945.parquet
+```
+持续发消息会有新的文件落盘。生成得非加密的文件可以通过 [parquet-tools](https://pypi.org/project/parquet-tools/) 查看结果。
+```bash
+$ parquet-tools show nanomq_6c22bf89dc2e67ba3c0ac1003a6033c8-1717054759945~1717054759981.parquet
+
++---------------+------------------------------------------------------------------------------------------------------+
+|           key | data                                                                                                 |
+|---------------+------------------------------------------------------------------------------------------------------|
+| 1717054759945 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa |
+| 1717054759948 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa |
+| 1717054759952 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa |
+| 1717054759954 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa |
+| 1717054759957 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa |
+| 1717054759960 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa |
+| 1717054759963 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa |
+| 1717054759969 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa |
+| 1717054759970 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa |
+| 1717054759975 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa |
+| 1717054759978 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa |
+| 1717054759981 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa |
++---------------+------------------------------------------------------------------------------------------------------+
+```
