@@ -73,7 +73,7 @@
         },
         {
           "title": "边缘协同代理配置",
-          "path": "configuration/agent"
+          "path": "configuration/sdv-flow"
         }
       ]
     },
