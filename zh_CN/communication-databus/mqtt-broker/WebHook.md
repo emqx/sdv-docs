@@ -4,7 +4,7 @@ NanoMQ 提供了可拓展的事件驱动型 WebHook 接口，用户可通过规�
 
 - [HOCON（推荐）](WebHookHocon.md)
 
-- [经典 KV 格式](../../configuration/v013.md)
+- [经典 KV 格式](../../configuration/conf.md)
 
 ## 通过 HOCON 格式配置
 
