@@ -34,7 +34,7 @@
         },
         {
           "title": "使用 .tar.gz 包安装",
-          "path": "installation/targz"
+          "path": "installation/install_sdv_flow"
         },
         {
           "title": "使用 deb 包安装",
