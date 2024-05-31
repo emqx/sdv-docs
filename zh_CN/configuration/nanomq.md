@@ -1,9 +1,9 @@
 # 配置说明
-NanoMQ 配置文件有 2 个版本：经典 KV 版本和 HOCON 版本。
+NanoMQ 配置文件有 2 个版本：[经典 KV 版本](./conf.md)和 [HOCON 版本](./hocon.md)。
 
 **本章重点介绍 NanoMQ 最新的 HOCON 配置语法。**
 
-NanoMQ 会长期保持对 KV 版本配置文件的支持，具体配置，可参考[经典 KV 格式配置说明](./v013.md)。注意：一些新功能将只支持新 HOCON 配置格式。
+NanoMQ 会长期保持对 KV 版本配置文件的支持，具体配置，可参考[经典 KV 格式配置说明](./conf.md)。注意：一些新功能将只支持新 HOCON 配置格式。
 
 ## HOCON
 NanoMQ 的默认配置文件格式是 HOCON 。 HOCON（ Human-Optimized Config Object Notation ）是一个 JSON 的超集，非常适用于易于人类读写的配置数据存储。你可以在 etc 目录找到这些配置文件，周边功能如鉴权/网关等可以使用独立的配置文件（通过 Include 方式指定路径），主要配置文件包括：
