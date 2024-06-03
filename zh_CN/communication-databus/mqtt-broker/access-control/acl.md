@@ -39,29 +39,3 @@ rules = [
 ```bash
 acl = {include "/etc/nanomq_acl.conf"}
 ```
-
-## 通过 KV 格式配置
-
-希望使用 KV 配置格式的用户，可参考以下格式，将配置写入 `nanomq_old.conf `文件，相关设置将在 NanoMQ 重启后生效。
-
-完整的配置项列表，可参考[配置说明 - v013](../config-description/v013.md)
-
-语法
-
-```
-acl.rule.<No>=<Spec>
-```
-
-示例
-
-```bash
-## Allow MQTT client using username "dashboard"  to subscribe to "$SYS/#" topics
-acl.rule.1={"permit": "allow", "username": "dashboard", "action": "subscribe", "topics": ["$SYS/#"]}
-
-## Deny "All Users" subscribe to "$SYS/#" "#" Topics
-acl.rule.2={"permit": "deny", "username": "#", "action": "subscribe", "topics": ["$SYS/#", "#"]}
-
-## Allow any other publish/subscribe operation
-acl.rule.3={"permit": "allow"}
-```
-
