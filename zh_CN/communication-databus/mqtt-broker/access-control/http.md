@@ -16,7 +16,7 @@ NanoMQ 同时支持 HTTP 认证。HTTP 认证功能支持用户使用外部 HTTP
 
 如果需要使用 `http_auth`，可按着下面示例的格式修改，然后将 `http_auth` 的配置放到配置文件 `nanomq.conf` 文件的 `auth {}` 内。相关设置将在 NanoMQ 重启后生效。
 
-- 完成的配置项列表，可参考[配置说明](../../../configuration/hocon.md)
+- 完成的配置项列表，可参考[配置说明](../../../configuration/nanomq.md)
 
 ```bash
 auth {
