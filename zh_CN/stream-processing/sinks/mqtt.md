@@ -20,6 +20,7 @@
 | insecureSkipVerify | 是    | 如果 InsecureSkipVerify 设置为 `true`, TLS接受服务器提供的任何证书以及该证书中的任何主机名。 在这种模式下，TLS容易受到中间人攻击。默认值为 `false`。配置项只能用于TLS连接。                                                                             |
 | retained           | 是    | 如果 retained 设置为 `true`,Broker会存储每个 Topic 的最后一条保留消息及其 Qos。默认值是 `false`                                                                                                                     |
 | compression        | 是    | 使用指定的压缩方法压缩 Payload。当前支持 zlib, gzip, flate, zstd  算法。                                                                                                                                     |
+| encryption         | 是    | 使用指定的加密方法加密 Payload。当前支持 AES 算法，详情请参考[加密](./overview.md#加密)。                                                                                                                              |
 | connectionSelector | 是    | 重用到 MQTT Broker 的连接，详细信息，[请参考](../sources/mqtt.md#connectionselector)                                                                                                                     |
 
 其他通用的 sink 属性也支持，请参阅[公共属性](./overview.md#公共属性)。
