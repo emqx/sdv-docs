@@ -188,3 +188,41 @@ Sink 缓存的配置有两个层次。`etc/kuiper.yaml` 中的全局配置，定
   ]
 }
 ```
+
+## 加密
+
+部分 sink 支持数据加密。配置流程如下：
+
+1. 配置 AES key。当前开发版本中，在 `etc/kuiper.yaml` 中，配置 `aesKey` 选项。其值为 AES 密钥的 base64 编码。
+2. 在规则中配置加密选项 encryption ，目前仅支持 aes 加密。
+
+当压缩和加密同时配置时，会先进行压缩后再加密。数据加密固定采用 AES 算法，加密模式为 CFB，iv（16位） 添加到密文的开头。解密时，需要将密文的前 16 位作为 iv，后续的密文作为密文输入解密算法。
+
+示例的解密 Go 程序如下。使用 Decrypt 函数进行解密。其中，参数 key 为 AES 密钥（二进制串格式），contents 为密文。返回值为解密后的明文。
+
+```go
+package main
+
+import (
+   "crypto/aes"
+   "crypto/cipher"
+)
+
+func Decrypt(key []byte, contents []byte) []byte {
+   // Create a new AES cipher block using the key
+   block, err := aes.NewCipher(key)
+   if err != nil {
+      panic(err)
+   }
+   // Get IV from the encrypted data
+   iv := contents[:aes.BlockSize]
+   // Get the actual encrypted data
+   secret := contents[aes.BlockSize:]
+   // create a new CFB decrypter
+   dstream := cipher.NewCFBDecrypter(block, iv)
+   // decrypt the data
+   decrypted := make([]byte, len(secret))
+   dstream.XORKeyStream(decrypted, secret)
+   return decrypted
+}
+```
