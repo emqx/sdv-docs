@@ -57,10 +57,6 @@ $ make -j1
 
 希望使用 HOCON 配置格式的用户，可参考以下格式，将配置写入 `nanomq.conf`文件，相关设置将在 NanoMQ 重启后生效。
 
-- 完整的配置项列表，可参考[配置说明 - v019](../config-description/bridges.md)
-
-- NanoMQ 0.14 ~ 0.18 版本用户，可参考 [配置说明 - v0.14](../config-description/v014.md)
-
 ```bash
 bridges.mqtt.name {
 	## TCP URL 格式:  mqtt-tcp://host:port
@@ -114,35 +110,6 @@ bridges.mqtt.name {
 }
 ```
 
-:::
-
-::: tab 经典 KV 配置格式
-
-希望使用 KV 配置格式的用户，可参考以下格式，将配置写入 `nanomq_old.conf `文件，相关设置将在 NanoMQ 重启后生效。
-
-完整的配置项列表，可参考[经典 KV 格式配置说明](../config-description/v013.md)
-
-```bash
-bridge.mqtt.emqx.bridge_mode=true
-bridge.mqtt.emqx.address=mqtt-quic://your_server_address:port
-bridge.mqtt.emqx.proto_ver=4
-bridge.mqtt.emqx.quic_keepalive=120
-bridge.mqtt.emqx.quic_idle_timeout=120
-bridge.mqtt.emqx.hybrid_bridging=false
-bridge.mqtt.emqx.quic_multi_stream=false
-bridge.mqtt.emqx.clientid=bridge_client
-bridge.mqtt.emqx.clean_start=false
-bridge.mqtt.emqx.forwards=topic1/#,topic2/#
-bridge.mqtt.emqx.subscription.1.topic=cmd/topic1
-bridge.mqtt.emqx.subscription.1.qos=1
-bridge.mqtt.emqx.parallel=2
-bridge.mqtt.emqx.max_send_queue_len=32
-bridge.mqtt.emqx.max_recv_queue_len=128
-```
-
-:::
-
-::::
 
 ::: tip 
 
@@ -184,14 +151,6 @@ include "path/to/nanomq_bridge.conf"
 
 ```bash
 $ nanomq start --conf nanomq.conf
-```
-
-:::
-
-::: tab 经典 KV 配置格式
-
-```bash
-$ nanomq start --old_conf nanomq.conf
 ```
 
 :::
@@ -275,23 +234,6 @@ QUIC 协议相较于 TCP 的一大优势在于解决了队首阻塞的问题，�
 ```bash
 quic_multi_stream = true
 quic_qos_priority=true
-```
-
-:::
-
-::: tab 旧版本配置
-
-```bash
-## multi-stream: enable or disable the multi-stream bridging mode
-## Value: true/false
-## Default: false
-bridge.mqtt.emqx.quic_multi_stream=true
-
-## 在流中是否赋予Qos消息高传输优先级
-## 针对每个流单独生效，非主题优先级
-## Value: true/false
-## Default: true
-bridge.mqtt.emqx.quic_qos_priority=true
 ```
 
 :::
