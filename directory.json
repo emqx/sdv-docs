@@ -88,7 +88,7 @@
           "children": [
             {
               "title": "访问控制",
-              "path": "communication-databus/mqtt-broker/ACL"
+              "path": "communication-databus/mqtt-broker/access-control/introduction",
             },
             {
               "title": "WebHook",
