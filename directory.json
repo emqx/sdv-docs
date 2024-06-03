@@ -150,11 +150,11 @@
           "children": [
             {
               "title": "MQTT over TCP/TLS",
-              "path": "communication-databus/data-bridging/mqtt-tcp-tls"
+              "path": "communication-databus/data-bridging/tcp-tls-bridge"
             },
             {
               "title": "MQTT over Quic",
-              "path": "communication-databus/data-bridging/mqtt-quic"
+              "path": "communication-databus/data-bridging/quic-bridge"
             }
           ]
         },

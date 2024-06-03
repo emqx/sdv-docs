@@ -138,5 +138,4 @@ $ nanomq start --conf nanomq.conf
 
 ![message from broker](./assets/hellofrombroker.png)
 
-
-
+TLS 证书自签名配置以及，以及 TLS 桥接配置参考 [TLS 配置](SSL_TLS.md)
