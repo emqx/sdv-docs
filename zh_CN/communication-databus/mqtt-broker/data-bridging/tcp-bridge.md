@@ -4,7 +4,7 @@ MQTT over TCP 桥接是一种使用传输控制协议（TCP）作为底层通信
 
 ## 配置 MQTT over TCP 桥接
 
-NanoMQ 已内置对 MQTT over TCP 桥接的支持，因此当您通过各种方式[安装 NanoMQ](../installation/introduction.md) 后，即可直接通过配置文件配置并启用 MQTT over TCP 桥接。
+NanoMQ 已内置对 MQTT over TCP 桥接的支持，因此当您通过 sdv-flow 安装后，即可直接通过配置文件配置并启用 MQTT over TCP 桥接。
 
 这里将使用 EMQ 提供的[免费公共桥接 broker.emqx.io:1883](https://www.emqx.com/en/mqtt/public-mqtt5-broker) 来构建 MQTT over TCP 数据桥接。
 
@@ -13,10 +13,6 @@ NanoMQ 已内置对 MQTT over TCP 桥接的支持，因此当您通过各种方�
 ::: tab Hocon 配置格式
 
 希望使用 HOCON 配置格式的用户，可参考以下格式，将配置写入 `nanomq.conf`文件，相关设置将在 NanoMQ 重启后生效。
-
-- 完整的配置项列表，可参考[配置说明 - v019](../config-description/bridges.md)
-
-- NanoMQ 0.14 ~ 0.18 版本用户，可参考 [配置说明 - v0.14](../config-description/v014.md)
 
 ```bash
 bridges.mqtt.name {
@@ -69,30 +65,6 @@ bridges.mqtt.name {
 
 :::
 
-::: tab 经典 KV 配置格式
-
-希望使用 KV 配置格式的用户，可参考以下格式，将配置写入 `nanomq_old.conf `文件，相关设置将在 NanoMQ 重启后生效。
-
-完整的配置项列表，可参考[经典 KV 格式配置说明](../config-description/v013.md)
-
-```bash
-bridge.mqtt.emqx.bridge_mode=true
-bridge.mqtt.emqx.address=mqtt-tcp://your_server_address:port
-bridge.mqtt.emqx.proto_ver=4
-bridge.mqtt.emqx.clientid=bridge_client
-bridge.mqtt.emqx.clean_start=false
-bridge.mqtt.emqx.forwards.1.remote_topic=fwd/topic1
-bridge.mqtt.emqx.forwards.1.local_topic=topic1
-bridge.mqtt.emqx.subscription.1.remote_topic=cmd/topic1
-bridge.mqtt.emqx.subscription.1.local_topic=topic1
-bridge.mqtt.emqx.subscription.1.qos=1
-bridge.mqtt.emqx.parallel=2
-bridge.mqtt.emqx.max_send_queue_len=32
-bridge.mqtt.emqx.max_recv_queue_len=128
-```
-
-:::
-
 ::::
 
 ::: tip 
@@ -108,9 +80,7 @@ bridge.mqtt.emqx.max_recv_queue_len=128
 - 转发远端 Topic 数组（支持 MQTT 通配符）： `bridges.mqtt.name.forwards`
 - 订阅远端 Topic 数组（支持 MQTT 通配符）：  `bridges.mqtt.name.subscription`
 
-具体配置参数请参考桥接 [Hocon 版本配置](../config-description/bridges.md) 或 [旧版本配置](../config-description/v013.md) (*不推荐*)
-
-如使用 Hocon 版本配置项且 NanoMQ 版本在 0.19 及以上，除将相关配置直接写入  `nanomq.conf ` 中外，您也可单独为桥接定义一份配置文件，如 `nanomq_bridge.conf` ，然后通过 HOCON 的 `include` 语法在 `nanomq.conf` 中引用此文件：
+除将相关配置直接写入  `nanomq.conf ` 中外，您也可单独为桥接定义一份配置文件，如 `nanomq_bridge.conf` ，然后通过 HOCON 的 `include` 语法在 `nanomq.conf` 中引用此文件：
 
 示例：
 
@@ -130,14 +100,6 @@ include "path/to/nanomq_bridge.conf"
 
 ```bash
 $ nanomq start --conf nanomq.conf
-```
-
-:::
-
-::: tab KV 配置格式
-
-```bash
-$ nanomq start --old_conf nanomq.conf
 ```
 
 :::
