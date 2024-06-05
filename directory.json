@@ -69,7 +69,7 @@
         },
         {
           "title": "云管理平台配置",
-          "path": "configuration/ecp"
+          "path": "configuration/platform"
         },
         {
           "title": "边缘协同代理配置",
