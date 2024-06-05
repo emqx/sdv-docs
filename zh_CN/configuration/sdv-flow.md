@@ -2,7 +2,7 @@ sdv-flow 的配置是基于 yaml 文件，允许通过更新文件进行配置�
 
 # 配置文件
 
-本文档提供了关于配置文件的详细说明和使用教程，帮助你了解和配置系统的不同模块以及日志设置。
+本文档提供了关于配置文件的详细说明和使用教程，帮助你了解和配置系统的不同模块，服务以及日志设置。
 
 ## 日志配置
 
@@ -59,3 +59,31 @@ modules:
 - `version`: 模块的版本号。
 - `dependencies`: 模块的依赖关系列表。列出模块所依赖的其他模块。
 - `run-on`: 模块的运行时机。可选值有`early-init`、`init`和`finit`。`early-init`表示早期初始化时运行，`init`表示初始化时运行，`finit`表示最终初始化时运行。
+
+## 服务配置
+
+配置文件中的`server`部分包含了系统中其他功能点的配置。
+
+```yaml
+server:
+  parquet:
+    path: /tmp/parquet
+    days: 30
+  heartbeat:
+    enable: true
+    interval: 15
+    metricsEnable: true
+#    common or debug
+    level: common
+```
+
+- `parquet`：每次 sdv-flow 启动时将按配置项清除 parquet 文件。
+  - `path`：待清除的 parquet 文件夹的路径。
+  - `days`：parquet 文件保留的天数。
+
+- `heartbeat`：sdv-flow 将按配置向云端上报心跳信息
+  - `enable`：开启还是关闭上报。
+  - `interval`：上报间隔。
+  - `metricsEnable`：上报心跳时，是否上报指标信息。
+  - `level`：`metricsEnable`为 true 时，指标的内容级别，common 为基础信息，debug 为全部信息，方便调试。
+
