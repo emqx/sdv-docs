@@ -1,0 +1,6131 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "title": "SDV Platform API.",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8082",
+  "basePath": "/api",
+  "paths": {
+    "/account/activate": {
+      "get": {
+        "description": "验证token，返回成功重定向 url 或失败重定向 url",
+        "tags": [
+          "account"
+        ],
+        "operationId": "activate",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Token",
+            "name": "token",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "302": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/account/avatar": {
+      "put": {
+        "description": "上传头像",
+        "tags": [
+          "account"
+        ],
+        "operationId": "uploadAvatar",
+        "parameters": [
+          {
+            "x-go-name": "File",
+            "name": "file",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FileHeader"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/uploadAvatarResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/account/login": {
+      "post": {
+        "description": "登录获取访问令牌",
+        "tags": [
+          "account"
+        ],
+        "operationId": "login",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "description": "用户登录信息",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/tokenResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/account/logout": {
+      "get": {
+        "description": "注销",
+        "tags": [
+          "account"
+        ],
+        "operationId": "logout",
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/account/password": {
+      "post": {
+        "description": "设置密码",
+        "tags": [
+          "account"
+        ],
+        "operationId": "updatePassword",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatePasswordRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/account/password/reset": {
+      "post": {
+        "description": "重置密码",
+        "tags": [
+          "account"
+        ],
+        "operationId": "resetPassword",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResetPasswordRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/account/profile": {
+      "get": {
+        "description": "获取个人信息",
+        "tags": [
+          "account"
+        ],
+        "operationId": "getProfile",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getProfileResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "put": {
+        "description": "修改个人信息",
+        "tags": [
+          "account"
+        ],
+        "operationId": "updateProfile",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateProfileRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/updateProfileResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/account/roles": {
+      "get": {
+        "description": "查询用户角色",
+        "tags": [
+          "account"
+        ],
+        "operationId": "getUserRoles",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getUserRolesResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/account/setup": {
+      "post": {
+        "description": "设置账户",
+        "tags": [
+          "account"
+        ],
+        "operationId": "setup",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetupAccountRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/tokenResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/account/token/refresh": {
+      "post": {
+        "description": "刷新访问令牌",
+        "tags": [
+          "account"
+        ],
+        "operationId": "refreshToken",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "description": "刷新令牌信息",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RefreshTokenRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/refreshTokenResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/configuration/common/{name}": {
+      "post": {
+        "description": "查询全局配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "queryGlobalConfig",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getGlobalConfigurationResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "delete": {
+        "description": "删除全局配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "deleteGlobalConfig",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/configuration/common/{name}/org/{orgId}": {
+      "get": {
+        "description": "查询组织配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "queryOrgConfig",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getOrgConfigurationResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "post": {
+        "description": "创建组织配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "createOrgConfig",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {}
+            }
+          },
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "delete": {
+        "description": "删除组织配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "deleteOrgConfig",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/configuration/common/{name}/org/{orgId}/project/{projectId}": {
+      "get": {
+        "description": "查询项目配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "queryProjectConfig",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getProjectConfigurationResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "post": {
+        "description": "创建项目配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "createProjectConfig",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {}
+            }
+          },
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "delete": {
+        "description": "删除项目配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "deleteProjectConfig",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/configuration/languages": {
+      "get": {
+        "description": "查询支持的语言列表",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "getSupportedLanguages",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getSupportedLanguagesResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "put": {
+        "description": "更新系统语言",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "updateSystemLanguage",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateSystemLanguageRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/configuration/server-access-name": {
+      "get": {
+        "description": "查询访问域名配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "queryGlobalConfigBCServer",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/bcServerResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "post": {
+        "description": "更新访问域名配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "createGlobalConfigBCServer",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BCServerData"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/configuration/server-access-name/testing": {
+      "post": {
+        "description": "测试访问域名",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "testGlobalConfigBCServer",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BCServerData"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/configuration/smtp": {
+      "get": {
+        "description": "查询邮件配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "queryGlobalConfigSMTP",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/smtpResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "post": {
+        "description": "更新邮件配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "createSmtp",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SMTPConfigData"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/configuration/smtp/testing": {
+      "post": {
+        "description": "测试邮件配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "testSmtp",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SMTPConfigData"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/configuration/user-management": {
+      "get": {
+        "description": "查询用户管理配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "queryGlobalConfigUserManagement",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/queryGlobalConfigUserManagementResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "post": {
+        "description": "更新用户管理配置",
+        "tags": [
+          "configuration"
+        ],
+        "operationId": "updateGlobalConfigUserManagement",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateGlobalConfigUserManagementRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/edgeagents": {
+      "get": {
+        "description": "分页查询agent列表",
+        "tags": [
+          "edgeagent"
+        ],
+        "operationId": "getEdgeAgentsByPage",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Size",
+            "description": "每页大小",
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Offset",
+            "description": "偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getEdgeAgentsResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/edgeagents/deregister": {
+      "get": {
+        "description": "查询注销agent列表",
+        "tags": [
+          "edgeagent"
+        ],
+        "operationId": "getDeregisterAgents",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getDeregisterAgentsResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "post": {
+        "description": "注销agent",
+        "tags": [
+          "edgeagent"
+        ],
+        "operationId": "deregister",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeregisterEdgeAgentRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "delete": {
+        "description": "取消注销agent",
+        "tags": [
+          "edgeagent"
+        ],
+        "operationId": "delDeregister",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeregisterEdgeAgentRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/edgeagents/online": {
+      "post": {
+        "description": "批量发送在线上报消息",
+        "tags": [
+          "edgeagent"
+        ],
+        "operationId": "multiSendOnlineReport",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "description": "批量操作边缘服务ID信息",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendMultiOnlineReportMessageRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/sendMultiOnlineReportMessageResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/edgeagents/{vin}/filelist": {
+      "post": {
+        "description": "查询文件列表",
+        "tags": [
+          "edgeagent"
+        ],
+        "operationId": "fetchFilelist",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "VIN",
+            "description": "VIN",
+            "name": "vin",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "description": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FetchFilelistRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/fetchFilelistResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/edgeagents/{vin}/fileupload": {
+      "post": {
+        "description": "上传文件",
+        "tags": [
+          "edgeagent"
+        ],
+        "operationId": "uploadFiles",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "VIN",
+            "description": "VIN",
+            "name": "vin",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "description": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UploadFilesRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/uploadFilesResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/edgeagents/{vin}/fileupload/result": {
+      "get": {
+        "description": "查询上传结果",
+        "tags": [
+          "edgeagent"
+        ],
+        "operationId": "uploadFilesResult",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "VIN",
+            "description": "VIN",
+            "name": "vin",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "RequestID",
+            "description": "Body",
+            "name": "requestId",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/uploadFilesResult"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/edgeagents/{vin}/online": {
+      "post": {
+        "description": "发送在线上报消息",
+        "tags": [
+          "edgeagent"
+        ],
+        "operationId": "sendOnlineReport",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "VIN",
+            "description": "VIN",
+            "name": "vin",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/sendOnlineReportResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/edgeservice/proxy/message_bus/{serviceId}/{path}": {
+      "get": {
+        "description": "nanomq 边缘服务代理通道",
+        "tags": [
+          "edgetunnel"
+        ],
+        "operationId": "nanomqTunnelGet",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ServiceID",
+            "description": "Service ID",
+            "name": "serviceId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Path",
+            "description": "Path",
+            "name": "path",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/proxyResponse"
+          },
+          "502": {
+            "$ref": "#/responses/gatewayError"
+          }
+        }
+      },
+      "put": {
+        "description": "nanomq 边缘服务代理通道",
+        "tags": [
+          "edgetunnel"
+        ],
+        "operationId": "nanomqTunnelPut",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ServiceID",
+            "description": "Service ID",
+            "name": "serviceId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Path",
+            "description": "Path",
+            "name": "path",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/proxyResponse"
+          },
+          "502": {
+            "$ref": "#/responses/gatewayError"
+          }
+        }
+      },
+      "post": {
+        "description": "nanomq 边缘服务代理通道",
+        "tags": [
+          "edgetunnel"
+        ],
+        "operationId": "nanomqTunnelPost",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ServiceID",
+            "description": "Service ID",
+            "name": "serviceId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Path",
+            "description": "Path",
+            "name": "path",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/proxyResponse"
+          },
+          "502": {
+            "$ref": "#/responses/gatewayError"
+          }
+        }
+      },
+      "delete": {
+        "description": "nanomq 边缘服务代理通道",
+        "tags": [
+          "edgetunnel"
+        ],
+        "operationId": "nanomqTunneldelete",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ServiceID",
+            "description": "Service ID",
+            "name": "serviceId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Path",
+            "description": "Path",
+            "name": "path",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/proxyResponse"
+          },
+          "502": {
+            "$ref": "#/responses/gatewayError"
+          }
+        }
+      }
+    },
+    "/edgeservice/proxy/{serviceId}/{path}": {
+      "get": {
+        "description": "ekuiper 边缘服务代理通道",
+        "tags": [
+          "edgetunnel"
+        ],
+        "operationId": "ekuiperTunnelGet",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ServiceID",
+            "description": "Service ID",
+            "name": "serviceId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Path",
+            "description": "Path",
+            "name": "path",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/proxyResponse"
+          },
+          "502": {
+            "$ref": "#/responses/gatewayError"
+          }
+        }
+      },
+      "put": {
+        "description": "ekuiper 边缘服务代理通道",
+        "tags": [
+          "edgetunnel"
+        ],
+        "operationId": "ekuiperTunnelPut",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ServiceID",
+            "description": "Service ID",
+            "name": "serviceId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Path",
+            "description": "Path",
+            "name": "path",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/proxyResponse"
+          },
+          "502": {
+            "$ref": "#/responses/gatewayError"
+          }
+        }
+      },
+      "post": {
+        "description": "ekuiper 边缘服务代理通道",
+        "tags": [
+          "edgetunnel"
+        ],
+        "operationId": "ekuiperTunnelPost",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ServiceID",
+            "description": "Service ID",
+            "name": "serviceId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Path",
+            "description": "Path",
+            "name": "path",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/proxyResponse"
+          },
+          "502": {
+            "$ref": "#/responses/gatewayError"
+          }
+        }
+      },
+      "delete": {
+        "description": "ekuiper 边缘服务代理通道",
+        "tags": [
+          "edgetunnel"
+        ],
+        "operationId": "ekuiperTunneldelete",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ServiceID",
+            "description": "Service ID",
+            "name": "serviceId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Path",
+            "description": "Path",
+            "name": "path",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/proxyResponse"
+          },
+          "502": {
+            "$ref": "#/responses/gatewayError"
+          }
+        }
+      }
+    },
+    "/edgeservices": {
+      "get": {
+        "description": "分页查询边缘服务列表",
+        "tags": [
+          "edgeservice"
+        ],
+        "operationId": "getEdgeServicesByPage",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "description": "按名称查询",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int8"
+            },
+            "x-go-name": "Category",
+            "description": "按分类查询",
+            "name": "category",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Size",
+            "description": "每页大小",
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Offset",
+            "description": "偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getEdgeServicesByPageResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/edgeservices/config": {
+      "post": {
+        "description": "批量配置下发",
+        "tags": [
+          "edgeservice"
+        ],
+        "operationId": "batchConfig",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "description": "批量操作信息",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchConfigRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/batchConfigResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/edgeservices/config/result": {
+      "get": {
+        "description": "获取批量配置下发结果",
+        "tags": [
+          "edgeservice"
+        ],
+        "operationId": "batchConfigResult",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "TaskID",
+            "description": "任务ID",
+            "name": "id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/batchConfigResultResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/license": {
+      "get": {
+        "description": "查询当前许可证信息",
+        "tags": [
+          "license"
+        ],
+        "operationId": "getLicenseInfo",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/licenseInfoResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "post": {
+        "description": "更新上传许可证",
+        "tags": [
+          "license"
+        ],
+        "operationId": "uploadLicense",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UploadLicenseRequestBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/licenseInfoResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/license/deduce_record": {
+      "get": {
+        "description": "查询许可证抵扣记录",
+        "tags": [
+          "license"
+        ],
+        "operationId": "getLicenseDeduceList",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Size",
+            "description": "每页大小",
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Page",
+            "description": "当前页",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Mode",
+            "description": "license 按模式查询，支持 one-time-activation",
+            "name": "mode",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "LicenseNum",
+            "description": "license 按许可证编号查询",
+            "name": "licenseNum",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/deduceListResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/license/list": {
+      "get": {
+        "description": "查询许可证记录",
+        "tags": [
+          "license"
+        ],
+        "operationId": "getLicenseList",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/licenseListResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/metric/conf": {
+      "post": {
+        "description": "指标配置",
+        "tags": [
+          "metric"
+        ],
+        "operationId": "metricConfig",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/MetricConfigRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/sendMultiMetricConfigResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/metric/{vin}": {
+      "post": {
+        "description": "查询车端指标",
+        "tags": [
+          "metric"
+        ],
+        "operationId": "queryMetric",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "VIN",
+            "name": "vin",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/queryMetricResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs": {
+      "get": {
+        "description": "查询组织列表",
+        "tags": [
+          "oraganization"
+        ],
+        "operationId": "orglist",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "x-go-name": "Size",
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "x-go-name": "Offset",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/orgListResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "post": {
+        "description": "创建组织",
+        "tags": [
+          "oraganization"
+        ],
+        "operationId": "createOrg",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateOrgRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/createOrgResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/names": {
+      "get": {
+        "description": "查询组织名称",
+        "tags": [
+          "oraganization"
+        ],
+        "operationId": "orgNames",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getOrgNamesResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}": {
+      "get": {
+        "description": "查询组织",
+        "tags": [
+          "oraganization"
+        ],
+        "operationId": "getOrg",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "ID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getOrgResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "put": {
+        "description": "更新组织信息",
+        "tags": [
+          "oraganization"
+        ],
+        "operationId": "updateOrg",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "description": "组织信息",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateOrgRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/updateOrgResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "delete": {
+        "description": "删除组织",
+        "tags": [
+          "oraganization"
+        ],
+        "operationId": "delOrg",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects": {
+      "get": {
+        "description": "分页查询项目",
+        "tags": [
+          "project"
+        ],
+        "operationId": "getProjectsByPage",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "description": "按项目名称查询",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "按组织ID查询",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "x-go-name": "Size",
+            "description": "分页大小",
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "x-go-name": "Offset",
+            "description": "分页偏移",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getOrgProjectsByPageResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "post": {
+        "description": "创建项目",
+        "tags": [
+          "project"
+        ],
+        "operationId": "createProj",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "description": "项目信息",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateProjectRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/createProjectResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects/names": {
+      "get": {
+        "description": "查询项目名称",
+        "tags": [
+          "project"
+        ],
+        "operationId": "getProjectNames",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getProjectNamesResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects/{projectId}": {
+      "get": {
+        "description": "根据项目id查询项目",
+        "tags": [
+          "project"
+        ],
+        "operationId": "getProjectByID",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "description": "项目ID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getOrgProjectsByPageResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "put": {
+        "description": "更新项目",
+        "tags": [
+          "project"
+        ],
+        "operationId": "updateProject",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "description": "项目ID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "description": "项目信息",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateProjectRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/updateProjectResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "delete": {
+        "description": "删除项目",
+        "tags": [
+          "project"
+        ],
+        "operationId": "delProj",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "description": "项目ID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects/{projectId}/edgeagents": {
+      "get": {
+        "description": "查询指定组织项目下的边缘agent列表",
+        "tags": [
+          "edgeagent"
+        ],
+        "operationId": "edgeAgentList",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "description": "项目ID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Size",
+            "description": "Size",
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Offset",
+            "description": "Offset",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/listAgentResp"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects/{projectId}/edgeagents/{edgeAgentId}": {
+      "delete": {
+        "description": "删除边缘agent",
+        "tags": [
+          "edgeagent"
+        ],
+        "operationId": "delEdgeagent",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "description": "项目ID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "EdgeAgentID",
+            "description": "EdgeAgent ID (VIN)",
+            "name": "edgeAgentId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects/{projectId}/edgeservices": {
+      "get": {
+        "description": "查询组织项目下的边缘服务列表",
+        "tags": [
+          "edgeservice"
+        ],
+        "operationId": "edgeservicelist",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "description": "项目ID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Size",
+            "description": "分页大小",
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Offset",
+            "description": "分页偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/edgeserviceListResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects/{projectId}/edgeservices/names": {
+      "get": {
+        "description": "查询边缘服务列表名称",
+        "tags": [
+          "edgeservice"
+        ],
+        "operationId": "edgeserviceNames",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "description": "项目ID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getEdgeServiceNamesResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects/{projectId}/edgeservices/tag": {
+      "post": {
+        "description": "给边缘服务绑定标签",
+        "tags": [
+          "edgeservice"
+        ],
+        "operationId": "batchAddTag",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "description": "项目ID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/BatchTagRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/batchAddTagResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects/{projectId}/edgeservices/{edgeServiceId}": {
+      "get": {
+        "description": "获取边缘服务",
+        "tags": [
+          "edgeservice"
+        ],
+        "operationId": "getEdgeservice",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "description": "项目ID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ServiceID",
+            "description": "EdgeService ID",
+            "name": "edgeServiceId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getEdgeserviceResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "delete": {
+        "description": "删除边缘服务",
+        "tags": [
+          "edgeservice"
+        ],
+        "operationId": "delEdgeservice",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "description": "项目ID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ServiceID",
+            "description": "EdgeService ID",
+            "name": "edgeServiceId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects/{projectId}/edgeservices/{edgeServiceId}/tag": {
+      "post": {
+        "description": "给边缘服务绑定标签",
+        "tags": [
+          "edgeservice"
+        ],
+        "operationId": "addTag",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "description": "项目ID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ServiceID",
+            "description": "EdgeService ID",
+            "name": "edgeServiceId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "description": "Tag",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AddTagRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/addTagResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects/{projectId}/tags": {
+      "get": {
+        "description": "查询项目标签列表",
+        "tags": [
+          "tags"
+        ],
+        "operationId": "getTagsByPage",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "description": "标签名称",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "x-go-name": "Size",
+            "description": "页大小",
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "x-go-name": "Offset",
+            "description": "偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getTagsByPageResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "post": {
+        "description": "创建项目标签",
+        "tags": [
+          "tags"
+        ],
+        "operationId": "createTag",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateTagRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/createTagResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects/{projectId}/tags/{tagId}": {
+      "put": {
+        "description": "更新项目标签",
+        "tags": [
+          "tags"
+        ],
+        "operationId": "updateTag",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "uint64",
+            "x-go-name": "TagID",
+            "name": "tagId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateTagRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/updateTagResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "delete": {
+        "description": "删除项目标签",
+        "tags": [
+          "tags"
+        ],
+        "operationId": "deleteTag",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "uint64",
+            "x-go-name": "TagID",
+            "name": "tagId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/orgs/{orgId}/projects/{projectId}/tags/{tagId}/edgeservices": {
+      "get": {
+        "description": "查询项目标签下的边缘服务",
+        "tags": [
+          "tags"
+        ],
+        "operationId": "getTaggedEdgeServices",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "uint64",
+            "x-go-name": "TagID",
+            "name": "tagId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getTaggedEdgeServicesResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/password/send-reset-email": {
+      "post": {
+        "description": "发送密码重置邮件",
+        "tags": [
+          "account"
+        ],
+        "operationId": "sendResetPasswordEmail",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendResetPasswordEmailRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/password/verify-reset-email": {
+      "post": {
+        "description": "验证重置邮件",
+        "tags": [
+          "account"
+        ],
+        "operationId": "verifyResetPasswordEmail",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "description": "查询用户列表",
+        "tags": [
+          "users"
+        ],
+        "operationId": "getUserList",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "NameOrEmail",
+            "description": "用户姓名或邮箱",
+            "name": "nameOrEmail",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "x-go-name": "IsAdministrator",
+            "description": "是否管理员",
+            "name": "admin",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "x-go-name": "Size",
+            "description": "分页大小",
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "x-go-name": "Offset",
+            "description": "分页偏移",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/searchUsersResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "post": {
+        "description": "创建用户",
+        "tags": [
+          "users"
+        ],
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateUserRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/createOrgResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/users/email/invite": {
+      "get": {
+        "description": "邮箱是否已邀请",
+        "tags": [
+          "users"
+        ],
+        "operationId": "isEmailAlreadyInvited",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Email",
+            "name": "email",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/isEmailAlreadyInvitedResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/users/search": {
+      "get": {
+        "description": "通过姓名搜索用户",
+        "tags": [
+          "users"
+        ],
+        "operationId": "searchUsers",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "description": "用户姓名",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "x-go-name": "Verified",
+            "description": "是否已验证",
+            "name": "verified",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "x-go-name": "Enabled",
+            "description": "是否启用",
+            "name": "enabled",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "x-go-name": "Size",
+            "description": "分页大小",
+            "name": "size",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "x-go-name": "Offset",
+            "description": "分页偏移",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/searchUsersResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "description": "查询用户信息",
+        "tags": [
+          "users"
+        ],
+        "operationId": "getUserByUserID",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "UserID",
+            "description": "用户ID",
+            "name": "userId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/getUserByUserIDResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "put": {
+        "description": "更新用户",
+        "tags": [
+          "users"
+        ],
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "UserID",
+            "name": "userId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateUserRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/createOrgResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      },
+      "delete": {
+        "description": "删除用户",
+        "tags": [
+          "users"
+        ],
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "UserID",
+            "description": "用户ID",
+            "name": "userId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/users/{userId}/add-to-orgs": {
+      "get": {
+        "description": "将用户添加到组织",
+        "tags": [
+          "users"
+        ],
+        "operationId": "addToOrgs",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "UserID",
+            "name": "userId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AddToOrgsRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/users/{userId}/enabled": {
+      "get": {
+        "description": "启用/禁用用户",
+        "tags": [
+          "users"
+        ],
+        "operationId": "updateEnabled",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "UserID",
+            "name": "userId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/EnableUserRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/activateUserResponse"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/users/{userId}/password/reset": {
+      "post": {
+        "description": "重置用户密码",
+        "tags": [
+          "users"
+        ],
+        "operationId": "resetUserPassword",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "UserID",
+            "name": "userId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ResetUserPasswordRequestData"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/users/{userId}/reinvite": {
+      "get": {
+        "description": "重新发送邀请邮件",
+        "tags": [
+          "users"
+        ],
+        "operationId": "resendUserInvitationEmail",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "UserID",
+            "name": "userId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
+    "/version": {
+      "get": {
+        "description": "查询版本信息",
+        "tags": [
+          "version"
+        ],
+        "operationId": "version",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ecpVersion"
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ActivateUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string",
+          "x-go-name": "User"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "AddTagRequestData": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "x-go-name": "Tag"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "AddTagResponse": {
+      "type": "object",
+      "properties": {
+        "tags": {
+          "description": "边缘服务绑定的标签列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Tags"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "AddToOrgsRequestData": {
+      "type": "object",
+      "properties": {
+        "orgIds": {
+          "description": "组织ID列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "OrgIDs"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "AddToOrgsResponse": {
+      "type": "object",
+      "properties": {
+        "orgIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "OrgIDs"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "AuthTokenConfig": {
+      "type": "object",
+      "properties": {
+        "accessTokenDuration": {
+          "description": "AccessToken有效期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "AccessTokenDuration"
+        },
+        "refreshTokenDuration": {
+          "description": "RefreshToken有效期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "RefreshTokenDuration"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/configuration"
+    },
+    "BCServerData": {
+      "type": "object",
+      "required": [
+        "server_name",
+        "scheme"
+      ],
+      "properties": {
+        "scheme": {
+          "description": "协议",
+          "type": "string",
+          "x-go-name": "Scheme"
+        },
+        "server_name": {
+          "description": "服务名",
+          "type": "string",
+          "x-go-name": "ServerName"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/logic/configuration/global"
+    },
+    "BatchAddTagResponse": {
+      "type": "object",
+      "properties": {
+        "failedServiceNames": {
+          "description": "绑定失败的边缘服务名称列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "FailedEdgeServiceNames"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "BatchConfigRequestData": {
+      "type": "object",
+      "required": [
+        "ids",
+        "method",
+        "path"
+      ],
+      "properties": {
+        "body": {
+          "description": "请求体",
+          "type": "string",
+          "x-go-name": "Body"
+        },
+        "category": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "Category"
+        },
+        "header": {
+          "description": "请求Header",
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "x-go-name": "Header"
+        },
+        "ids": {
+          "description": "边缘服务ID列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "EdgeServiceIDs"
+        },
+        "method": {
+          "description": "请求方法",
+          "type": "string",
+          "x-go-name": "Method"
+        },
+        "path": {
+          "description": "请求路径",
+          "type": "string",
+          "x-go-name": "Path"
+        },
+        "query": {
+          "description": "请求Query",
+          "type": "string",
+          "x-go-name": "Query"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "BatchConfigResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "任务ID",
+          "type": "string",
+          "x-go-name": "TaskID"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "BatchTagRequestData": {
+      "type": "object",
+      "required": [
+        "serviceIds"
+      ],
+      "properties": {
+        "serviceIds": {
+          "description": "边缘服务ID列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "EdgeServiceIDs"
+        },
+        "tag": {
+          "description": "标签名",
+          "type": "string",
+          "x-go-name": "Tag"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "CreateOrgRequestData": {
+      "type": "object",
+      "required": [
+        "name",
+        "members"
+      ],
+      "properties": {
+        "members": {
+          "description": "组织成员",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrgMember"
+          },
+          "x-go-name": "Members"
+        },
+        "name": {
+          "description": "组织名称",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/org"
+    },
+    "CreateOrgResponse": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "创建时间",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "members": {
+          "description": "组织成员",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrgMember"
+          },
+          "x-go-name": "Members"
+        },
+        "name": {
+          "description": "组织名称",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/org"
+    },
+    "CreateProjectRequestData": {
+      "type": "object",
+      "required": [
+        "name",
+        "members"
+      ],
+      "properties": {
+        "members": {
+          "description": "项目成员",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProjectMember"
+          },
+          "x-go-name": "Members"
+        },
+        "name": {
+          "description": "项目名称",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/project"
+    },
+    "CreateProjectResponse": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "创建时间",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "members": {
+          "description": "项目成员",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProjectMember"
+          },
+          "x-go-name": "Members"
+        },
+        "name": {
+          "description": "项目名称",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/project"
+    },
+    "CreateTagRequestData": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "description": "标签名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "serviceIds": {
+          "description": "边缘服务ID 列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "EdgeServiceIDs"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/tag"
+    },
+    "CreateTagResponse": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "创建时间",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "failedServiceNames": {
+          "description": "创建失败的边缘服务名称列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "FailedEdgeServiceNames"
+        },
+        "id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "description": "标签名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "tagged": {
+          "description": "标签下边缘服务数量",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "TaggedCount"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/tag"
+    },
+    "CreateUserRequestData": {
+      "type": "object",
+      "required": [
+        "name",
+        "email",
+        "admin",
+        "password"
+      ],
+      "properties": {
+        "admin": {
+          "description": "是否管理员",
+          "type": "boolean",
+          "x-go-name": "IsAdmin"
+        },
+        "email": {
+          "description": "用户邮箱",
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "name": {
+          "description": "用户姓名",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "password": {
+          "description": "用户密码",
+          "type": "string",
+          "x-go-name": "Password"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "CreateUserResponse": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "boolean",
+          "x-go-name": "Admin"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "DeduceRecordData": {
+      "type": "object",
+      "properties": {
+        "deduced_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "DeducedAt"
+        },
+        "id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ID"
+        },
+        "licenseNumber": {
+          "type": "string",
+          "x-go-name": "LicenseNum"
+        },
+        "mode": {
+          "type": "string",
+          "x-go-name": "Mode"
+        },
+        "vin": {
+          "type": "string",
+          "x-go-name": "Vin"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/license"
+    },
+    "DeduceRecordsResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DeduceRecordData"
+          },
+          "x-go-name": "Data"
+        },
+        "page": {
+          "description": "当前页",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Page"
+        },
+        "size": {
+          "description": "每页大小",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Size"
+        },
+        "total": {
+          "description": "总数",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/license"
+    },
+    "DeregisterEdgeAgent": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "integer",
+          "format": "uint64"
+        },
+        "Vin": {
+          "type": "string"
+        },
+        "deregistered_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "DeregisteredAt"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/model/entity"
+    },
+    "DeregisterEdgeAgentRequestData": {
+      "type": "object",
+      "required": [
+        "vinIds"
+      ],
+      "properties": {
+        "vinIds": {
+          "description": "边缘服务ID列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "EdgeServiceIDs"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "EcpVersion": {
+      "type": "object",
+      "properties": {
+        "commit": {
+          "type": "string",
+          "x-go-name": "Commit"
+        },
+        "created": {
+          "type": "string",
+          "x-go-name": "Created"
+        },
+        "version": {
+          "type": "string",
+          "x-go-name": "Version"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/version"
+    },
+    "EdgeAgentItem": {
+      "type": "object",
+      "properties": {
+        "agentId": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "orgId": {
+          "type": "string",
+          "x-go-name": "OrgID"
+        },
+        "projectId": {
+          "type": "string",
+          "x-go-name": "ProjectID"
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EdgeServiceItem"
+          },
+          "x-go-name": "Services"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "Status"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        },
+        "version": {
+          "type": "string",
+          "x-go-name": "Version"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "EdgeServiceItem": {
+      "type": "object",
+      "properties": {
+        "agentId": {
+          "type": "string",
+          "x-go-name": "AgentID"
+        },
+        "apiVersion": {
+          "type": "string",
+          "x-go-name": "Version"
+        },
+        "category": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "Category"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "desc": {
+          "type": "string",
+          "x-go-name": "Desc"
+        },
+        "endpoint": {
+          "type": "string",
+          "x-go-name": "Endpoint"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "nodeType": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "NodeType"
+        },
+        "orgId": {
+          "type": "string",
+          "x-go-name": "OrgID"
+        },
+        "projectId": {
+          "type": "string",
+          "x-go-name": "ProjectID"
+        },
+        "serviceId": {
+          "type": "string",
+          "x-go-name": "ServiceID"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "Status"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Tags"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "EnableUserRequestData": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "x-go-name": "Enabled"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "ErrorResponseParams": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "description": "错误码",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Code"
+        },
+        "message": {
+          "description": "错误信息",
+          "type": "string",
+          "x-go-name": "Message"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/api"
+    },
+    "FetchFilelistFile": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Size"
+        },
+        "update": {
+          "type": "string",
+          "x-go-name": "Update"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "FetchFilelistPath": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FetchFilelistFile"
+          },
+          "x-go-name": "Files"
+        },
+        "path": {
+          "type": "string",
+          "x-go-name": "Path"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "FetchFilelistRequestData": {
+      "type": "object",
+      "required": [
+        "paths"
+      ],
+      "properties": {
+        "paths": {
+          "description": "查询路径",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Paths"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "FetchFilelistResponse": {
+      "type": "object",
+      "properties": {
+        "paths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FetchFilelistPath"
+          },
+          "x-go-name": "Paths"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "FileHeader": {
+      "type": "object",
+      "title": "A FileHeader describes a file part of a multipart request.",
+      "properties": {
+        "Filename": {
+          "type": "string"
+        },
+        "Header": {
+          "$ref": "#/definitions/MIMEHeader"
+        },
+        "Size": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "x-go-package": "mime/multipart"
+    },
+    "GatewayErrorResponseParams": {
+      "type": "object",
+      "required": [
+        "error"
+      ],
+      "properties": {
+        "error": {
+          "description": "错误信息",
+          "type": "string",
+          "x-go-name": "Error"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/api"
+    },
+    "GetBatchConfigResultResponse": {
+      "type": "object",
+      "properties": {
+        "failed": {
+          "description": "失败的服务ID列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Failed"
+        },
+        "failed_reasons": {
+          "description": "失败原因",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "FailedReasons"
+        },
+        "processing": {
+          "description": "运行中的服务ID列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Procesing"
+        },
+        "success": {
+          "description": "成功的服务ID列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Success"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "GetEdgeAgentsResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EdgeAgentItem"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "总数",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "GetEdgeServiceListResp": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/ListInfo"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "GetEdgeServiceNamesItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "GetEdgeServiceNamesResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetEdgeServiceNamesItem"
+          },
+          "x-go-name": "Data"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "GetEdgeServicesResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EdgeServiceItem"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "GetGlobalConfigurationResponse": {
+      "type": "object",
+      "properties": {
+        "configuration": {
+          "type": "object",
+          "additionalProperties": {},
+          "x-go-name": "Configuration"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Level"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/configuration"
+    },
+    "GetOrgConfigurationResponse": {
+      "$ref": "#/definitions/GetGlobalConfigurationResponse"
+    },
+    "GetOrgNamesResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrgName"
+          },
+          "x-go-name": "Data"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/org"
+    },
+    "GetOrgResponse": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "创建时间",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "members": {
+          "description": "组织成员",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MemberInfo"
+          },
+          "x-go-name": "Members"
+        },
+        "name": {
+          "description": "组织名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "updatedAt": {
+          "description": "更新时间",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/org"
+    },
+    "GetOrganizationsByPageResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "description": "数据",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrgInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "description": "总数量",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/org"
+    },
+    "GetProfileResponse": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "description": "是否是admin",
+          "type": "boolean",
+          "x-go-name": "Admin"
+        },
+        "avatar": {
+          "description": "头像",
+          "type": "string",
+          "x-go-name": "Avatar"
+        },
+        "email": {
+          "description": "邮箱",
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "mobile": {
+          "description": "手机号",
+          "type": "string",
+          "x-go-name": "Mobile"
+        },
+        "name": {
+          "description": "姓名",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "userId": {
+          "type": "string",
+          "x-go-name": "UserID"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "GetProjectNamesResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProjectName"
+          },
+          "x-go-name": "Data"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/project"
+    },
+    "GetProjectResponse": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "creator": {
+          "description": "创建者",
+          "type": "string",
+          "x-go-name": "Creator"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "members": {
+          "description": "项目成员",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProjectMember"
+          },
+          "x-go-name": "Members"
+        },
+        "name": {
+          "description": "项目名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/project"
+    },
+    "GetProjectsByPageResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrgProjectInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/project"
+    },
+    "GetSupportedLanguagesResponse": {
+      "type": "object",
+      "properties": {
+        "languages": {
+          "description": "支持的语言列表",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SupportedLanguageItem"
+          },
+          "x-go-name": "Languages"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/configuration"
+    },
+    "GetTaggedEdgeServiceItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/tag"
+    },
+    "GetTaggedEdgeServicesResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetTaggedEdgeServiceItem"
+          },
+          "x-go-name": "Data"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/tag"
+    },
+    "GetTagsByPageResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetTagsByPageTagItem"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/tag"
+    },
+    "GetTagsByPageTagItem": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "tagged": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Tagged"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/tag"
+    },
+    "GetUserByUserIDResponse": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "boolean",
+          "x-go-name": "IsAdministrator"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "enabled": {
+          "type": "boolean",
+          "x-go-name": "Enabled"
+        },
+        "mobile": {
+          "type": "string",
+          "x-go-name": "Mobile"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "userId": {
+          "type": "string",
+          "x-go-name": "UserID"
+        },
+        "verified": {
+          "type": "boolean",
+          "x-go-name": "Verified"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "GetUserListResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "GetUserRolesResponse": {
+      "type": "object",
+      "properties": {
+        "orgs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserOrgRole"
+          },
+          "x-go-name": "Orgs"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Roles"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "InviteUserByEmailRequestData": {
+      "type": "object",
+      "required": [
+        "emails",
+        "admin"
+      ],
+      "properties": {
+        "admin": {
+          "description": "是否管理员",
+          "type": "boolean",
+          "x-go-name": "IsAdministrator"
+        },
+        "emails": {
+          "description": "邮箱列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Emails"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "IsEmailAlreadyInvitedResponse": {
+      "type": "object",
+      "properties": {
+        "invited": {
+          "type": "boolean",
+          "x-go-name": "Invited"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "ListAgentResp": {
+      "type": "object",
+      "properties": {
+        "agents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EdgeAgentItem"
+          },
+          "x-go-name": "Agents"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "ListInfo": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EdgeServiceItem"
+          },
+          "x-go-name": "List"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeservice"
+    },
+    "LoginRequestData": {
+      "type": "object",
+      "required": [
+        "username",
+        "password"
+      ],
+      "properties": {
+        "password": {
+          "description": "用户密码",
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "username": {
+          "description": "用户邮箱",
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "MIMEHeader": {
+      "description": "A MIMEHeader represents a MIME-style header mapping\nkeys to sets of values.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "x-go-package": "net/textproto"
+    },
+    "MemberInfo": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "boolean",
+          "x-go-name": "Admin"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "enabled": {
+          "type": "boolean",
+          "x-go-name": "Enabled"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "roleIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "x-go-name": "RoleIDs"
+        },
+        "userId": {
+          "type": "string",
+          "x-go-name": "UserID"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/org"
+    },
+    "MetricConfigRequestData": {
+      "type": "object",
+      "required": [
+        "level",
+        "vinIds",
+        "enable"
+      ],
+      "properties": {
+        "enable": {
+          "description": "是否启用",
+          "type": "boolean",
+          "x-go-name": "Enable"
+        },
+        "level": {
+          "description": "级别 common or debug",
+          "type": "string",
+          "x-go-name": "Level"
+        },
+        "vinIds": {
+          "description": "边缘agentID列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "EdgeServiceIDs"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/metric"
+    },
+    "MetricReportResponse": {
+      "type": "object",
+      "properties": {
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Metrics"
+        },
+        "ts": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Timestamp"
+        },
+        "vin": {
+          "type": "string",
+          "x-go-name": "VIN"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/pkg/iov-api/mqtt"
+    },
+    "OneTimeActivationLicenseInfo": {
+      "type": "object",
+      "properties": {
+        "availableInstances": {
+          "description": "当前可用实例数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "AvailableInstances"
+        },
+        "customerContact": {
+          "description": "客户联系方式",
+          "type": "string",
+          "x-go-name": "CustomerContact"
+        },
+        "customerName": {
+          "description": "客户名称",
+          "type": "string",
+          "x-go-name": "CustomerName"
+        },
+        "licenseNumber": {
+          "description": "许可证编号",
+          "type": "string",
+          "x-go-name": "LicenseNumber"
+        },
+        "licenseType": {
+          "description": "许可证类型",
+          "type": "string",
+          "x-go-name": "LicenseType"
+        },
+        "mode": {
+          "description": "模式",
+          "type": "string",
+          "x-go-name": "Mode"
+        },
+        "sumUsedInstances": {
+          "description": "总的已使用实例数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "SumUsedInstances"
+        },
+        "totalInstances": {
+          "description": "许可证总实例数",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "TotalInstances"
+        },
+        "validFrom": {
+          "description": "颁发日期",
+          "type": "string",
+          "x-go-name": "ValidFrom"
+        },
+        "version": {
+          "description": "版本",
+          "type": "integer",
+          "format": "uint32",
+          "x-go-name": "Version"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/logic/license"
+    },
+    "OrgInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/org"
+    },
+    "OrgMember": {
+      "type": "object",
+      "properties": {
+        "roleIds": {
+          "description": "角色ID 列表",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "x-go-name": "RoleIDs"
+        },
+        "userId": {
+          "description": "用户ID",
+          "type": "string",
+          "x-go-name": "UserID"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/org"
+    },
+    "OrgName": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "projectCount": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ProjectCount"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/org"
+    },
+    "OrgProjectInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "description": "OrgID     string       `json:\"orgId\"`\nOrgName   string       `json:\"orgName\"`",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/project"
+    },
+    "ProjectMember": {
+      "type": "object",
+      "required": [
+        "userId",
+        "roleIds"
+      ],
+      "properties": {
+        "roleIds": {
+          "description": "角色ID 列表",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "x-go-name": "RoleIDs"
+        },
+        "userId": {
+          "description": "用户ID",
+          "type": "string",
+          "x-go-name": "UserID"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/project"
+    },
+    "ProjectName": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/project"
+    },
+    "QueryGlobalConfigUserManagementResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "$ref": "#/definitions/AuthTokenConfig"
+        },
+        "verification": {
+          "$ref": "#/definitions/UserManagementVerificationConfig"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/configuration"
+    },
+    "RefreshTokenRequestData": {
+      "type": "object",
+      "required": [
+        "refreshToken"
+      ],
+      "properties": {
+        "refreshToken": {
+          "description": "刷新令牌",
+          "type": "string",
+          "x-go-name": "RefreshToken"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "RefreshTokenResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "description": "访问令牌",
+          "type": "string",
+          "x-go-name": "AccessToken"
+        },
+        "expiresIn": {
+          "description": "访问令牌过期时间，单位秒",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpiresIn"
+        },
+        "refreshExpiresIn": {
+          "description": "刷新令牌过期时间，单位秒",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "RefreshExpiresIn"
+        },
+        "refreshToken": {
+          "description": "刷新令牌",
+          "type": "string",
+          "x-go-name": "RefreshToken"
+        },
+        "tokenType": {
+          "description": "令牌类型，Bearer",
+          "type": "string",
+          "x-go-name": "TokenType"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "ResetPasswordRequestData": {
+      "type": "object",
+      "required": [
+        "token",
+        "password"
+      ],
+      "properties": {
+        "password": {
+          "description": "新密码",
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "token": {
+          "description": "token",
+          "type": "string",
+          "x-go-name": "Token"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "ResetUserPasswordRequestData": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "SMTPConfigData": {
+      "type": "object",
+      "required": [
+        "host",
+        "port",
+        "username",
+        "password"
+      ],
+      "properties": {
+        "encryption": {
+          "description": "SMTP server encryption",
+          "type": "string",
+          "x-go-name": "Encryption"
+        },
+        "host": {
+          "description": "SMTP server host",
+          "type": "string",
+          "x-go-name": "Host"
+        },
+        "password": {
+          "description": "SMTP server password",
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "port": {
+          "description": "SMTP server port",
+          "type": "integer",
+          "format": "uint16",
+          "x-go-name": "Port"
+        },
+        "username": {
+          "description": "SMTP server username",
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/logic/configuration/global"
+    },
+    "SearchUsersResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SearchedUserInfo"
+          },
+          "x-go-name": "Data"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "SearchedUserInfo": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "boolean",
+          "x-go-name": "Admin"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "userId": {
+          "type": "string",
+          "x-go-name": "UserID"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "SendMultiMetricConfigResponse": {
+      "type": "object",
+      "properties": {
+        "failed": {
+          "description": "失败的服务 key 为vinId，value 为 错误信息",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "Failed"
+        },
+        "success": {
+          "description": "成功的服务 key 为vinId，value 为 requestID",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Success"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/metric"
+    },
+    "SendMultiOnlineReportMessageRequestData": {
+      "type": "object",
+      "required": [
+        "vinIds"
+      ],
+      "properties": {
+        "vinIds": {
+          "description": "边缘服务ID列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "EdgeServiceIDs"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "SendMultiOnlineReportMessageResponse": {
+      "type": "object",
+      "properties": {
+        "failed": {
+          "description": "失败的服务 key 为vinId，value 为 错误信息",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "Failed"
+        },
+        "success": {
+          "description": "成功的服务 key 为vinId，value 为 requestID",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "Success"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "SendOnlineReportMessageResponse": {
+      "type": "object",
+      "required": [
+        "requestId"
+      ],
+      "properties": {
+        "requestId": {
+          "description": "请求ID",
+          "type": "string",
+          "x-go-name": "RequestID"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "SendResetPasswordEmailRequestData": {
+      "type": "object",
+      "required": [
+        "email"
+      ],
+      "properties": {
+        "email": {
+          "description": "邮箱",
+          "type": "string",
+          "x-go-name": "Email"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "SetupAccountRequestData": {
+      "type": "object",
+      "required": [
+        "token",
+        "name",
+        "password"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "token": {
+          "type": "string",
+          "x-go-name": "Token"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "SupportedLanguageItem": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "description": "语言key",
+          "type": "string",
+          "x-go-name": "Key"
+        },
+        "name": {
+          "description": "语言名称",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/configuration"
+    },
+    "TokenResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "description": "访问令牌",
+          "type": "string",
+          "x-go-name": "AccessToken"
+        },
+        "admin": {
+          "description": "是否为系统管理员",
+          "type": "boolean",
+          "x-go-name": "IsAdministrator"
+        },
+        "expiresIn": {
+          "description": "访问令牌过期时间，单位秒",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ExpiresIn"
+        },
+        "refreshExpiresIn": {
+          "description": "刷新令牌过期时间，单位秒",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "RefreshExpiresIn"
+        },
+        "refreshToken": {
+          "description": "刷新令牌",
+          "type": "string",
+          "x-go-name": "RefreshToken"
+        },
+        "tokenType": {
+          "description": "令牌类型，Bearer",
+          "type": "string",
+          "x-go-name": "TokenType"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "UpdateGlobalConfigUserManagementRequestData": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "$ref": "#/definitions/AuthTokenConfig"
+        },
+        "verification": {
+          "$ref": "#/definitions/UserManagementVerificationConfig"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/configuration"
+    },
+    "UpdateOrgRequestData": {
+      "type": "object",
+      "properties": {
+        "members": {
+          "description": "组织成员",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrgMember"
+          },
+          "x-go-name": "Members"
+        },
+        "name": {
+          "description": "组织名称",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/org"
+    },
+    "UpdateOrgResponse": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrgMember"
+          },
+          "x-go-name": "Members"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/org"
+    },
+    "UpdatePasswordRequestData": {
+      "type": "object",
+      "required": [
+        "newPassword",
+        "originPassword"
+      ],
+      "properties": {
+        "newPassword": {
+          "description": "新密码",
+          "type": "string",
+          "x-go-name": "NewPassword"
+        },
+        "originPassword": {
+          "description": "旧密码",
+          "type": "string",
+          "x-go-name": "OriginPassword"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "UpdateProfileRequestData": {
+      "type": "object",
+      "required": [
+        "name",
+        "mobile",
+        "originPassword",
+        "newPassword"
+      ],
+      "properties": {
+        "mobile": {
+          "description": "手机号",
+          "type": "string",
+          "x-go-name": "Mobile"
+        },
+        "name": {
+          "description": "姓名",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "newPassword": {
+          "description": "新密码",
+          "type": "string",
+          "x-go-name": "NewPassword"
+        },
+        "originPassword": {
+          "description": "原密码",
+          "type": "string",
+          "x-go-name": "OriginPassword"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "UpdateProfileResponse": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "mobile": {
+          "type": "string",
+          "x-go-name": "Mobile"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "UpdateProjectRequestData": {
+      "type": "object",
+      "required": [
+        "name",
+        "members"
+      ],
+      "properties": {
+        "members": {
+          "description": "项目成员",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProjectMember"
+          },
+          "x-go-name": "Members"
+        },
+        "name": {
+          "description": "项目名称",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/project"
+    },
+    "UpdateProjectResponse": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "members": {
+          "description": "项目成员",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Members"
+        },
+        "name": {
+          "description": "项目名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/project"
+    },
+    "UpdateSystemLanguageRequestData": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "description": "语言",
+          "type": "string",
+          "x-go-name": "Language"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/configuration"
+    },
+    "UpdateTagRequestData": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "description": "标签名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "serviceIDs": {
+          "description": "边缘服务ID 列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "EdgeServiceIDs"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/tag"
+    },
+    "UpdateTagResponse": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "description": "创建时间",
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "failedServiceNames": {
+          "description": "创建失败的边缘服务名称列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "FailedEdgeServiceNames"
+        },
+        "id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "description": "标签名称",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "tagged": {
+          "description": "标签下边缘服务数量",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "TaggedCount"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/tag"
+    },
+    "UpdateUICustomizationConfigResponse": {
+      "type": "object",
+      "properties": {
+        "loginBg": {
+          "description": "登录背景图",
+          "type": "string",
+          "x-go-name": "LoginBackgroundImage"
+        },
+        "logo": {
+          "description": "logo",
+          "type": "string",
+          "x-go-name": "Logo"
+        },
+        "name": {
+          "description": "名称",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/configuration"
+    },
+    "UpdateUserRequestData": {
+      "type": "object",
+      "required": [
+        "email",
+        "name",
+        "admin"
+      ],
+      "properties": {
+        "admin": {
+          "description": "是否管理员",
+          "type": "boolean",
+          "x-go-name": "Admin"
+        },
+        "email": {
+          "description": "用户姓名",
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "name": {
+          "description": "用户邮箱",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "UpdateUserResponse": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "boolean",
+          "x-go-name": "Admin"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "UploadAvatarResponse": {
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "type": "string",
+          "x-go-name": "Avatar"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "UploadFilesRequestData": {
+      "type": "object",
+      "required": [
+        "request_id",
+        "files",
+        "filenames",
+        "delete"
+      ],
+      "properties": {
+        "delete": {
+          "description": "删除文件  // unit s, \u003c0: don't delete file after transfer file successed =0: delete file immediately when transfer file successed \u003e0: delete file after n(max: 7 days)",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "x-go-name": "Delete"
+        },
+        "filenames": {
+          "description": "文件名列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "FileNames"
+        },
+        "files": {
+          "description": "文件列表",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Files"
+        },
+        "request_id": {
+          "description": "请求ID",
+          "type": "string",
+          "x-go-name": "RequestID"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "UploadFilesResponse": {
+      "type": "object",
+      "properties": {
+        "requestId": {
+          "type": "string",
+          "x-go-name": "RequestID"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "UploadFilesResult": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "x-go-name": "Error"
+        },
+        "status": {
+          "type": "string",
+          "x-go-name": "Status"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/edgeagent"
+    },
+    "UploadLicenseRequestBody": {
+      "type": "object",
+      "required": [
+        "license"
+      ],
+      "properties": {
+        "license": {
+          "description": "更新的许可证内容",
+          "type": "string",
+          "x-go-name": "License"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/license"
+    },
+    "UserInfo": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "boolean",
+          "x-go-name": "IsAdministrator"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "enabled": {
+          "type": "boolean",
+          "x-go-name": "Enabled"
+        },
+        "lastLoginTime": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "LastLoginAt"
+        },
+        "mobile": {
+          "type": "string",
+          "x-go-name": "Mobile"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "userId": {
+          "type": "string",
+          "x-go-name": "UserID"
+        },
+        "verified": {
+          "type": "boolean",
+          "x-go-name": "Verified"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/user"
+    },
+    "UserManagementEmailVerificationConfig": {
+      "type": "object",
+      "properties": {
+        "invitationEmailDuration": {
+          "description": "邀请邮件有效期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "InvitationEmailDuration"
+        },
+        "passwordResetEmailDuration": {
+          "description": "重置密码邮件有效期",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PasswordResetEmailDuration"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/configuration"
+    },
+    "UserManagementVerificationConfig": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "$ref": "#/definitions/UserManagementEmailVerificationConfig"
+        },
+        "mode": {
+          "description": "验证模式",
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "Mode"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/configuration"
+    },
+    "UserOrgRole": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserProjectRole"
+          },
+          "x-go-name": "Projects"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Roles"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    },
+    "UserProjectRole": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Roles"
+        }
+      },
+      "x-go-package": "github.com/emqx/sdv-platform/server/account"
+    }
+  },
+  "responses": {
+    "activateUserResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/ActivateUserResponse"
+      }
+    },
+    "addTagResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/AddTagResponse"
+      }
+    },
+    "addToOrgsResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/AddToOrgsResponse"
+      }
+    },
+    "batchAddTagResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/BatchAddTagResponse"
+      }
+    },
+    "batchConfigResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/BatchConfigResponse"
+      }
+    },
+    "batchConfigResultResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetBatchConfigResultResponse"
+      }
+    },
+    "bcServerResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/BCServerData"
+      }
+    },
+    "createOrgResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/CreateOrgResponse"
+      }
+    },
+    "createProjectResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/CreateProjectResponse"
+      }
+    },
+    "createTagResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/CreateTagResponse"
+      }
+    },
+    "createUserResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/CreateUserResponse"
+      }
+    },
+    "deduceListResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/DeduceRecordsResponse"
+      }
+    },
+    "ecpVersion": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/EcpVersion"
+      }
+    },
+    "edgeserviceListResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetEdgeServiceListResp"
+      }
+    },
+    "fetchFilelistResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/FetchFilelistResponse"
+      }
+    },
+    "gatewayError": {
+      "description": "网关错误",
+      "schema": {
+        "$ref": "#/definitions/GatewayErrorResponseParams"
+      }
+    },
+    "getDeregisterAgentsResponse": {
+      "description": "成功结果",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/DeregisterEdgeAgent"
+        }
+      }
+    },
+    "getEdgeAgentsResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetEdgeAgentsResponse"
+      }
+    },
+    "getEdgeServiceNamesResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetEdgeServiceNamesResponse"
+      }
+    },
+    "getEdgeServicesByPageResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetEdgeServicesResponse"
+      }
+    },
+    "getEdgeserviceResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/EdgeServiceItem"
+      }
+    },
+    "getGlobalConfigurationResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetGlobalConfigurationResponse"
+      }
+    },
+    "getOrgConfigurationResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetOrgConfigurationResponse"
+      }
+    },
+    "getOrgNamesResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetOrgNamesResponse"
+      }
+    },
+    "getOrgProjectsByPageResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetProjectsByPageResponse"
+      }
+    },
+    "getOrgResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetOrgResponse"
+      }
+    },
+    "getProfileResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetProfileResponse"
+      }
+    },
+    "getProjectConfigurationResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetOrgConfigurationResponse"
+      }
+    },
+    "getProjectNamesResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetProjectNamesResponse"
+      }
+    },
+    "getProjectResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetProjectResponse"
+      }
+    },
+    "getSupportedLanguagesResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetSupportedLanguagesResponse"
+      }
+    },
+    "getTaggedEdgeServicesResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetTaggedEdgeServicesResponse"
+      }
+    },
+    "getTagsByPageResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetTagsByPageResponse"
+      }
+    },
+    "getUserByUserIDResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetUserByUserIDResponse"
+      }
+    },
+    "getUserListResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetUserListResponse"
+      }
+    },
+    "getUserRolesResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetUserRolesResponse"
+      }
+    },
+    "isEmailAlreadyInvitedResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/IsEmailAlreadyInvitedResponse"
+      }
+    },
+    "licenseInfoResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/OneTimeActivationLicenseInfo"
+      }
+    },
+    "licenseListResponse": {
+      "description": "成功结果",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": {}
+        }
+      }
+    },
+    "listAgentResp": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/ListAgentResp"
+      }
+    },
+    "orgListResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetOrganizationsByPageResponse"
+      }
+    },
+    "projectListResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/GetProjectsByPageResponse"
+      }
+    },
+    "proxyResponse": {
+      "description": "代理通道结果",
+      "schema": {}
+    },
+    "queryGlobalConfigUserManagementResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/QueryGlobalConfigUserManagementResponse"
+      }
+    },
+    "queryMetricResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/MetricReportResponse"
+      }
+    },
+    "refreshTokenResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/RefreshTokenResponse"
+      }
+    },
+    "requestError": {
+      "description": "请求错误",
+      "schema": {
+        "$ref": "#/definitions/ErrorResponseParams"
+      }
+    },
+    "searchUsersResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/SearchUsersResponse"
+      }
+    },
+    "sendMultiMetricConfigResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/SendMultiMetricConfigResponse"
+      }
+    },
+    "sendMultiOnlineReportMessageResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/SendMultiOnlineReportMessageResponse"
+      }
+    },
+    "sendOnlineReportResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/SendOnlineReportMessageResponse"
+      }
+    },
+    "smtpResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/SMTPConfigData"
+      }
+    },
+    "systemError": {
+      "description": "系统错误",
+      "schema": {
+        "$ref": "#/definitions/ErrorResponseParams"
+      }
+    },
+    "tokenResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/TokenResponse"
+      }
+    },
+    "updateOrgResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/UpdateOrgResponse"
+      }
+    },
+    "updateProfileResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/UpdateProfileResponse"
+      }
+    },
+    "updateProjectResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/UpdateProjectResponse"
+      }
+    },
+    "updateTagResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/UpdateTagResponse"
+      }
+    },
+    "updateUICustomizationConfigResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/UpdateUICustomizationConfigResponse"
+      }
+    },
+    "updateUserResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/UpdateUserResponse"
+      }
+    },
+    "uploadAvatarResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/UploadAvatarResponse"
+      }
+    },
+    "uploadFilesResponse": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/UploadFilesResponse"
+      }
+    },
+    "uploadFilesResult": {
+      "description": "成功结果",
+      "schema": {
+        "$ref": "#/definitions/UploadFilesResult"
+      }
+    }
+  },
+  "securityDefinitions": {
+    "bearerAuth": {
+      "description": "Authorize with Bearer Token",
+      "type": "basic"
+    }
+  }
+}

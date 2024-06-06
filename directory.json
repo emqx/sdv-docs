@@ -453,7 +453,7 @@
       "collapsed": true,
       "children": [
         {
-          "title": "JWT身份验证",
+          "title": "认证",
           "path": "api/jwt"
         },
         {
@@ -478,7 +478,7 @@
         },
         {
           "title": "API文档",
-          "path": "https://docs.emqx.com/zh/emqx-ecp/latest/"
+          "path": "api/ecp_api"
         }
       ]
     },
