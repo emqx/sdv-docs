@@ -6,7 +6,7 @@
 
 重新安装许可证后，之前的许可证剩余可用的实例数量将被清空。
 
-申请许可证后，可通过 [api](https://docs.emqx.com/zh/neuronex/latest/api/api-docs.html) 的方式，上传许可证。
+申请许可证后，可通过 [api](https://docs.emqx.com/zh/sdv-flow/latest/api/api-docs.html#tag/license) 的方式，上传许可证。
 
 ```shell
 curl --location --request POST 'http://127.0.0.1:8082/api/license' \
@@ -33,7 +33,7 @@ curl --location --request POST 'http://127.0.0.1:8082/api/license' \
 }
 ```
 
-上传成功后，可通过 [api](https://docs.emqx.com/zh/neuronex/latest/api/api-docs.html) 查看详细信息。
+上传成功后，可通过 [api](https://docs.emqx.com/zh/sdv-flow/latest/api/api-docs.html#tag/license) 查看详细信息。
 
 ```shell
 curl --location --request GET 'http://127.0.0.1:8082/api/license' 
