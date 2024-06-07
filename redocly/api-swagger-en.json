@@ -1088,7 +1088,7 @@
           {
             "type": "string",
             "x-go-name": "RequestID",
-            "description": "Body",
+            "description": "requestId",
             "name": "requestId",
             "in": "query",
             "required": true
@@ -1137,7 +1137,7 @@
         }
       }
     },
-    "/edgeservice/proxy/message_bus/{serviceId}/{path}": {
+    "/edgeservice/proxy/message_bus/{vin}/{path}": {
       "get": {
         "description": "nanomq 边缘服务代理通道",
         "tags": [
@@ -1147,16 +1147,16 @@
         "parameters": [
           {
             "type": "string",
-            "x-go-name": "ServiceID",
-            "description": "Service ID",
-            "name": "serviceId",
+            "x-go-name": "Vin",
+            "description": "VIN",
+            "name": "vin",
             "in": "path",
             "required": true
           },
           {
             "type": "string",
             "x-go-name": "Path",
-            "description": "Path",
+            "description": "nanomq api Path after \"/api/v4\" ,like reload",
             "name": "path",
             "in": "path",
             "required": true
@@ -1180,16 +1180,16 @@
         "parameters": [
           {
             "type": "string",
-            "x-go-name": "ServiceID",
-            "description": "Service ID",
-            "name": "serviceId",
+            "x-go-name": "Vin",
+            "description": "VIN",
+            "name": "vin",
             "in": "path",
             "required": true
           },
           {
             "type": "string",
             "x-go-name": "Path",
-            "description": "Path",
+            "description": "nanomq api Path after \"/api/v4\" ,like reload",
             "name": "path",
             "in": "path",
             "required": true
@@ -1219,16 +1219,16 @@
         "parameters": [
           {
             "type": "string",
-            "x-go-name": "ServiceID",
-            "description": "Service ID",
-            "name": "serviceId",
+            "x-go-name": "Vin",
+            "description": "VIN",
+            "name": "vin",
             "in": "path",
             "required": true
           },
           {
             "type": "string",
             "x-go-name": "Path",
-            "description": "Path",
+            "description": "nanomq api Path after \"/api/v4\" ,like reload",
             "name": "path",
             "in": "path",
             "required": true
@@ -1258,16 +1258,16 @@
         "parameters": [
           {
             "type": "string",
-            "x-go-name": "ServiceID",
-            "description": "Service ID",
-            "name": "serviceId",
+            "x-go-name": "Vin",
+            "description": "VIN",
+            "name": "vin",
             "in": "path",
             "required": true
           },
           {
             "type": "string",
             "x-go-name": "Path",
-            "description": "Path",
+            "description": "nanomq api Path after \"/api/v4\" ,like reload",
             "name": "path",
             "in": "path",
             "required": true
@@ -1289,7 +1289,7 @@
         }
       }
     },
-    "/edgeservice/proxy/{serviceId}/{path}": {
+    "/edgeservice/proxy/{vin}/{path}": {
       "get": {
         "description": "ekuiper 边缘服务代理通道",
         "tags": [
@@ -1299,16 +1299,16 @@
         "parameters": [
           {
             "type": "string",
-            "x-go-name": "ServiceID",
-            "description": "Service ID",
-            "name": "serviceId",
+            "x-go-name": "Vin",
+            "description": "VIN",
+            "name": "vin",
             "in": "path",
             "required": true
           },
           {
             "type": "string",
             "x-go-name": "Path",
-            "description": "Path",
+            "description": "ekuiper api Path ,like rules",
             "name": "path",
             "in": "path",
             "required": true
@@ -1332,16 +1332,16 @@
         "parameters": [
           {
             "type": "string",
-            "x-go-name": "ServiceID",
-            "description": "Service ID",
-            "name": "serviceId",
+            "x-go-name": "Vin",
+            "description": "VIN",
+            "name": "vin",
             "in": "path",
             "required": true
           },
           {
             "type": "string",
             "x-go-name": "Path",
-            "description": "Path",
+            "description": "ekuiper api Path ,like rules",
             "name": "path",
             "in": "path",
             "required": true
@@ -1371,16 +1371,16 @@
         "parameters": [
           {
             "type": "string",
-            "x-go-name": "ServiceID",
-            "description": "Service ID",
-            "name": "serviceId",
+            "x-go-name": "Vin",
+            "description": "VIN",
+            "name": "vin",
             "in": "path",
             "required": true
           },
           {
             "type": "string",
             "x-go-name": "Path",
-            "description": "Path",
+            "description": "ekuiper api Path ,like rules",
             "name": "path",
             "in": "path",
             "required": true
@@ -1410,16 +1410,16 @@
         "parameters": [
           {
             "type": "string",
-            "x-go-name": "ServiceID",
-            "description": "Service ID",
-            "name": "serviceId",
+            "x-go-name": "Vin",
+            "description": "VIN",
+            "name": "vin",
             "in": "path",
             "required": true
           },
           {
             "type": "string",
             "x-go-name": "Path",
-            "description": "Path",
+            "description": "ekuiper api Path ,like rules",
             "name": "path",
             "in": "path",
             "required": true
@@ -3372,7 +3372,8 @@
       "required": [
         "ids",
         "method",
-        "path"
+        "path",
+        "category"
       ],
       "properties": {
         "body": {
@@ -3381,6 +3382,7 @@
           "x-go-name": "Body"
         },
         "category": {
+          "description": "服务类型 1: ekuiper 3: nanomq",
           "type": "integer",
           "format": "int8",
           "x-go-name": "Category"
@@ -3397,7 +3399,7 @@
           "x-go-name": "Header"
         },
         "ids": {
-          "description": "边缘服务ID列表",
+          "description": "VIN ID列表",
           "type": "array",
           "items": {
             "type": "string"
@@ -3761,7 +3763,7 @@
       ],
       "properties": {
         "vinIds": {
-          "description": "边缘服务ID列表",
+          "description": "VIN ID 列表",
           "type": "array",
           "items": {
             "type": "string"
@@ -5050,7 +5052,7 @@
       ],
       "properties": {
         "vinIds": {
-          "description": "边缘服务ID列表",
+          "description": "VIN ID 列表",
           "type": "array",
           "items": {
             "type": "string"
@@ -5548,7 +5550,7 @@
       ],
       "properties": {
         "delete": {
-          "description": "删除文件  // unit s, \u003c0: don't delete file after transfer file successed =0: delete file immediately when transfer file successed \u003e0: delete file after n(max: 7 days)",
+          "description": "删除文件  unit s,\n\u003c0: don't delete file when transfer file succeed; =0: delete file immediately when transfer file succeed; \u003e0: delete file after n (max: 7 days)",
           "type": "array",
           "items": {
             "type": "integer",
