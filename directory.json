@@ -166,159 +166,100 @@
     },
     {
       "title": "流处理引擎",
-      "path": "streaming-processing/overview",
+      "path": "stream-processing/overview",
       "collapsed": true,
       "children": [
         {
           "title": "数据源 (Source)",
-          "path": "streaming-processing/source",
+          "path": "stream-processing/sources/overview",
           "collapsed": true,
           "children": [
             {
               "title": "流管理",
-              "path": "streaming-processing/stream"
+              "path": "stream-processing/sources/streams"
             },
             {
-              "title": "数据表",
-              "path": "streaming-processing/tables",
+              "title": "CAN",
+              "path": "stream-processing/sources/can/overview",
               "children": [
                 {
-                  "title": "扫描表使用场景",
-                  "path": "streaming-processing/scan"
+                  "title": "CAN 数据源",
+                  "path": "stream-processing/sources/can/can_source"
                 },
                 {
-                  "title": "查询表使用场景",
-                  "path": "streaming-processing/lookup"
+                  "title": "CAN 格式",
+                  "path": "stream-processing/sources/can/can_format"
+                },
+                {
+                  "title": "CANJSON 格式",
+                  "path": "stream-processing/sources/can/canjson_format"
+                },
+                {
+                  "title": "DBC",
+                  "path": "stream-processing/sources/can/dbc"
                 }
               ]
             },
             {
-              "title": "NNG",
-              "path": "streaming-processing/pair0"
-            },
-            {
               "title": "MQTT",
-              "path": "streaming-processing/mqtt"
-            },
-            {
-              "title": "HTTP Pull",
-              "path": "streaming-processing/http_pull"
-            },
-            {
-              "title": "HTTP Push",
-              "path": "streaming-processing/http_push"
+              "path": "stream-processing/sources/mqtt"
             },
             {
               "title": "内存",
-              "path": "streaming-processing/memory"
-            },
-            {
-              "title": "SQL",
-              "path": "streaming-processing/sql"
-            },
-            {
-              "title": "文件",
-              "path": "streaming-processing/file"
-            },
-            {
-              "title": "RTSP",
-              "path": "streaming-processing/RTSP"
-            },
-            {
-              "title": "CAN",
-              "path": "streaming-processing/socketcan"
-            },
-            {
-              "title": "Redis",
-              "path": "streaming-processing/redis"
+              "path": "stream-processing/sources/memory"
             }
           ]
         },
         {
           "title": "规则",
-          "path": "streaming-processing/rules",
+          "path": "stream-processing/rules/overview",
           "collapsed": true,
           "children": [
             {
               "title": "规则管理",
-              "path": "streaming-processing/rule_status"
+              "path": "stream-processing/rules/management"
             },
             {
               "title": "规则调试",
-              "path": "streaming-processing/rule_test"
+              "path": "stream-processing/rules/debug"
             },
             {
               "title": "规则流水线",
-              "path": "streaming-processing/rule_pipeline"
-            },
-            {
-              "title": "规则去重",
-              "path": "streaming-processing/rule_dedup"
-            }
-          ]
-        },
-        {
-          "title": "在线数据标注",
-          "path": "streaming-processing/annotation",
-          "collapsed": true,
-          "children": [
-            {
-              "title": "DBC 解码",
-              "path": "streaming-processing/DBC-decode"
-            },
-            {
-              "title": "信号白名单",
-              "path": "streaming-processing/dynamic_schema"
+              "path": "stream-processing/rules/rule_pipeline"
             }
           ]
         },
         {
           "title": "动作(Sink)",
-          "path": "streaming-processing/sink/sink",
+          "path": "stream-processing/sinks/overview",
           "collapsed": true,
           "children": [
             {
               "title": "数据模版",
-              "path": "streaming-processing/sink/data_template"
+              "path": "stream-processing/sinks/data_template"
             },
             {
               "title": "动作(Sink)类型",
               "children": [
                 {
                   "title": "MQTT",
-                  "path": "streaming-processing/sink/mqtt"
+                  "path": "stream-processing/sinks/mqtt"
                 },
                 {
                   "title": "Nano触发上传",
-                  "path": "streaming-processing/sink/NanoTrigger"
-                },
-                {
-                  "title": "Nano搜索数据",
-                  "path": "streaming-processing/sink/NanoFetch"
-                },
-                {
-                  "title": "REST",
-                  "path": "streaming-processing/sink/rest"
+                  "path": "stream-processing/sinks/nano"
                 },
                 {
                   "title": "内存",
-                  "path": "streaming-processing/sink/memory"
+                  "path": "stream-processing/sinks/memory"
                 },
                 {
                   "title": "Log",
-                  "path": "streaming-processing/sink/log"
-                },
-                {
-                  "title": "SQL",
-                  "path": "streaming-processing/sink/sql"
+                  "path": "stream-processing/sinks/log"
                 },
                 {
                   "title": "文件",
-                  "path": "streaming-processing/sink/file"
-                },
-                {
-                  "title": "Nop",
-                  "path": "streaming-processing/sink/nop"
+                  "path": "stream-processing/sinks/file"
                 }
               ]
             }
@@ -326,26 +267,25 @@
         },
         {
           "title": "算法集成",
-          "path": "streaming-processing/extension",
           "collapsed": true,
           "children": [
             {
               "title": "Python 便携插件示例",
-              "path": "streaming-processing/portable_python"
+              "path": "stream-processing/extension/portable/python_sdk"
             },
             {
               "title": "外部算法函数示例",
-              "path": "streaming-processing/ex_func"
+              "path": "stream-processing/extension/external/external_func"
             }
           ]
         },
         {
           "title": "配置管理",
-          "path": "streaming-processing/config"
+          "path": "stream-processing/config/configuration"
         },
         {
           "title": "SQL 参考",
-          "path": "streaming-processing/sqls/overview",
+          "path": "stream-processing/sqls/overview",
           "collapsed": true,
           "children": [
             {
@@ -354,7 +294,7 @@
               "children": [
                 {
                   "title": "查询语句",
-                  "path": "streaming-processing/sqls/query_language_elements"
+                  "path": "stream-processing/sqls/query_language_elements"
                 }
               ]
             },
@@ -364,84 +304,84 @@
               "children": [
                 {
                   "title": "词汇元素",
-                  "path": "streaming-processing/sqls/lexical_elements"
+                  "path": "stream-processing/sqls/lexical_elements"
                 },
                 {
                   "title": "数据类型",
-                  "path": "streaming-processing/sqls/data_types"
+                  "path": "stream-processing/sqls/data_types"
                 },
                 {
                   "title": "JSON 表达式",
-                  "path": "streaming-processing/sqls/json_expr"
+                  "path": "stream-processing/sqls/json_expr"
                 }
               ]
             },
             {
               "title": "函数",
-              "path": "streaming-processing/sqls/functions/overview",
+              "path": "stream-processing/sqls/functions/overview",
               "collapsed": true,
               "children": [
                 {
                   "title": "聚合函数",
-                  "path": "streaming-processing/sqls/functions/aggregate_functions"
+                  "path": "stream-processing/sqls/functions/aggregate_functions"
                 },
                 {
                   "title": "数学函数",
-                  "path": "streaming-processing/sqls/functions/mathematical_functions"
+                  "path": "stream-processing/sqls/functions/mathematical_functions"
                 },
                 {
                   "title": "字符串函数",
-                  "path": "streaming-processing/sqls/functions/string_functions"
+                  "path": "stream-processing/sqls/functions/string_functions"
                 },
                 {
                   "title": "数组函数",
-                  "path": "streaming-processing/sqls/functions/array_functions"
+                  "path": "stream-processing/sqls/functions/array_functions"
                 },
                 {
                   "title": "对象函数",
-                  "path": "streaming-processing/sqls/functions/object_functions"
+                  "path": "stream-processing/sqls/functions/object_functions"
                 },
                 {
                   "title": "哈希函数",
-                  "path": "streaming-processing/sqls/functions/hashing_functions"
+                  "path": "stream-processing/sqls/functions/hashing_functions"
                 },
                 {
                   "title": "转换函数",
-                  "path": "streaming-processing/sqls/functions/transform_functions"
+                  "path": "stream-processing/sqls/functions/transform_functions"
                 },
                 {
                   "title": "JSON 函数",
-                  "path": "streaming-processing/sqls/functions/json_functions"
+                  "path": "stream-processing/sqls/functions/json_functions"
                 },
                 {
                   "title": "时间日期函数",
-                  "path": "streaming-processing/sqls/functions/datetime_functions"
+                  "path": "stream-processing/sqls/functions/datetime_functions"
                 },
                 {
                   "title": "其他函数",
-                  "path": "streaming-processing/sqls/functions/other_functions"
+                  "path": "stream-processing/sqls/functions/other_functions"
                 },
                 {
                   "title": "分析函数",
-                  "path": "streaming-processing/sqls/functions/analytic_functions"
+                  "path": "stream-processing/sqls/functions/analytic_functions"
                 },
                 {
                   "title": "多行函数",
-                  "path": "streaming-processing/sqls/functions/multi_row_functions"
+                  "path": "stream-processing/sqls/functions/multi_row_functions"
                 },
                 {
                   "title": "多列函数",
-                  "path": "streaming-processing/sqls/functions/multi_column_functions"
+                  "path": "stream-processing/sqls/functions/multi_column_functions"
                 },
                 {
                   "title": "窗口函数",
-                  "path": "streaming-processing/sqls/functions/window_funcs"
+                  "path": "stream-processing/sqls/functions/window_funcs"
                 }
               ]
             },
             {
               "title": "窗口",
-              "path": "streaming-processing/sqls/windows"
+              "path": "stream-processing/sqls/windows"
             }
           ]
         }
@@ -678,159 +618,159 @@
     },
     {
       "title": "流处理引擎",
-      "path": "streaming-processing/overview",
+      "path": "stream-processing/overview",
       "collapsed": true,
       "children": [
         {
           "title": "数据源 (Source)",
-          "path": "streaming-processing/source",
+          "path": "stream-processing/source",
           "collapsed": true,
           "children": [
             {
               "title": "流管理",
-              "path": "streaming-processing/stream"
+              "path": "stream-processing/stream"
             },
             {
               "title": "数据表",
-              "path": "streaming-processing/tables",
+              "path": "stream-processing/tables",
               "children": [
                 {
                   "title": "扫描表使用场景",
-                  "path": "streaming-processing/scan"
+                  "path": "stream-processing/scan"
                 },
                 {
                   "title": "查询表使用场景",
-                  "path": "streaming-processing/lookup"
+                  "path": "stream-processing/lookup"
                 }
               ]
             },
             {
               "title": "NNG",
-              "path": "streaming-processing/pair0"
+              "path": "stream-processing/pair0"
             },
             {
               "title": "MQTT",
-              "path": "streaming-processing/mqtt"
+              "path": "stream-processing/mqtt"
             },
             {
               "title": "HTTP Pull",
-              "path": "streaming-processing/http_pull"
+              "path": "stream-processing/http_pull"
             },
             {
               "title": "HTTP Push",
-              "path": "streaming-processing/http_push"
+              "path": "stream-processing/http_push"
             },
             {
               "title": "内存",
-              "path": "streaming-processing/memory"
+              "path": "stream-processing/memory"
             },
             {
               "title": "SQL",
-              "path": "streaming-processing/sql"
+              "path": "stream-processing/sql"
             },
             {
               "title": "文件",
-              "path": "streaming-processing/file"
+              "path": "stream-processing/file"
             },
             {
               "title": "RTSP",
-              "path": "streaming-processing/RTSP"
+              "path": "stream-processing/RTSP"
             },
             {
               "title": "CAN",
-              "path": "streaming-processing/socketcan"
+              "path": "stream-processing/socketcan"
             },
             {
               "title": "Redis",
-              "path": "streaming-processing/redis"
+              "path": "stream-processing/redis"
             }
           ]
         },
         {
           "title": "规则",
-          "path": "streaming-processing/rules",
+          "path": "stream-processing/rules",
           "collapsed": true,
           "children": [
             {
               "title": "规则管理",
-              "path": "streaming-processing/rule_status"
+              "path": "stream-processing/rule_status"
             },
             {
               "title": "规则调试",
-              "path": "streaming-processing/rule_test"
+              "path": "stream-processing/rule_test"
             },
             {
               "title": "规则流水线",
-              "path": "streaming-processing/rule_pipeline"
+              "path": "stream-processing/rule_pipeline"
             },
             {
               "title": "规则去重",
-              "path": "streaming-processing/rule_dedup"
+              "path": "stream-processing/rule_dedup"
             }
           ]
         },
         {
           "title": "在线数据标注",
-          "path": "streaming-processing/annotation",
+          "path": "stream-processing/annotation",
           "collapsed": true,
           "children": [
             {
               "title": "DBC 解码",
-              "path": "streaming-processing/DBC-decode"
+              "path": "stream-processing/DBC-decode"
             },
             {
               "title": "信号白名单",
-              "path": "streaming-processing/dynamic_schema"
+              "path": "stream-processing/dynamic_schema"
             }
           ]
         },
         {
           "title": "动作(Sink)",
-          "path": "streaming-processing/sink/sink",
+          "path": "stream-processing/sink/sink",
           "collapsed": true,
           "children": [
             {
               "title": "数据模版",
-              "path": "streaming-processing/sink/data_template"
+              "path": "stream-processing/sink/data_template"
             },
             {
               "title": "动作(Sink)类型",
               "children": [
                 {
                   "title": "MQTT",
-                  "path": "streaming-processing/sink/mqtt"
+                  "path": "stream-processing/sink/mqtt"
                 },
                 {
                   "title": "Nano触发上传",
-                  "path": "streaming-processing/sink/NanoTrigger"
+                  "path": "stream-processing/sink/NanoTrigger"
                 },
                 {
                   "title": "Nano搜索数据",
-                  "path": "streaming-processing/sink/NanoFetch"
+                  "path": "stream-processing/sink/NanoFetch"
                 },
                 {
                   "title": "REST",
-                  "path": "streaming-processing/sink/rest"
+                  "path": "stream-processing/sink/rest"
                 },
                 {
                   "title": "内存",
-                  "path": "streaming-processing/sink/memory"
+                  "path": "stream-processing/sink/memory"
                 },
                 {
                   "title": "Log",
-                  "path": "streaming-processing/sink/log"
+                  "path": "stream-processing/sink/log"
                 },
                 {
                   "title": "SQL",
-                  "path": "streaming-processing/sink/sql"
+                  "path": "stream-processing/sink/sql"
                 },
                 {
                   "title": "文件",
-                  "path": "streaming-processing/sink/file"
+                  "path": "stream-processing/sink/file"
                 },
                 {
                   "title": "Nop",
-                  "path": "streaming-processing/sink/nop"
+                  "path": "stream-processing/sink/nop"
                 }
               ]
             }
@@ -838,26 +778,26 @@
         },
         {
           "title": "算法集成",
-          "path": "streaming-processing/extension",
+          "path": "stream-processing/extension",
           "collapsed": true,
           "children": [
             {
               "title": "Python 便携插件示例",
-              "path": "streaming-processing/portable_python"
+              "path": "stream-processing/portable_python"
             },
             {
               "title": "外部算法函数示例",
-              "path": "streaming-processing/ex_func"
+              "path": "stream-processing/ex_func"
             }
           ]
         },
         {
           "title": "配置管理",
-          "path": "streaming-processing/config"
+          "path": "stream-processing/config"
         },
         {
           "title": "SQL 参考",
-          "path": "streaming-processing/sqls/overview",
+          "path": "stream-processing/sqls/overview",
           "collapsed": true,
           "children": [
             {
@@ -866,7 +806,7 @@
               "children": [
                 {
                   "title": "查询语句",
-                  "path": "streaming-processing/sqls/query_language_elements"
+                  "path": "stream-processing/sqls/query_language_elements"
                 }
               ]
             },
@@ -876,84 +816,84 @@
               "children": [
                 {
                   "title": "词汇元素",
-                  "path": "streaming-processing/sqls/lexical_elements"
+                  "path": "stream-processing/sqls/lexical_elements"
                 },
                 {
                   "title": "数据类型",
-                  "path": "streaming-processing/sqls/data_types"
+                  "path": "stream-processing/sqls/data_types"
                 },
                 {
                   "title": "JSON 表达式",
-                  "path": "streaming-processing/sqls/json_expr"
+                  "path": "stream-processing/sqls/json_expr"
                 }
               ]
             },
             {
               "title": "函数",
-              "path": "streaming-processing/sqls/functions/overview",
+              "path": "stream-processing/sqls/functions/overview",
               "collapsed": true,
               "children": [
                 {
                   "title": "聚合函数",
-                  "path": "streaming-processing/sqls/functions/aggregate_functions"
+                  "path": "stream-processing/sqls/functions/aggregate_functions"
                 },
                 {
                   "title": "数学函数",
-                  "path": "streaming-processing/sqls/functions/mathematical_functions"
+                  "path": "stream-processing/sqls/functions/mathematical_functions"
                 },
                 {
                   "title": "字符串函数",
-                  "path": "streaming-processing/sqls/functions/string_functions"
+                  "path": "stream-processing/sqls/functions/string_functions"
                 },
                 {
                   "title": "数组函数",
-                  "path": "streaming-processing/sqls/functions/array_functions"
+                  "path": "stream-processing/sqls/functions/array_functions"
                 },
                 {
                   "title": "对象函数",
-                  "path": "streaming-processing/sqls/functions/object_functions"
+                  "path": "stream-processing/sqls/functions/object_functions"
                 },
                 {
                   "title": "哈希函数",
-                  "path": "streaming-processing/sqls/functions/hashing_functions"
+                  "path": "stream-processing/sqls/functions/hashing_functions"
                 },
                 {
                   "title": "转换函数",
-                  "path": "streaming-processing/sqls/functions/transform_functions"
+                  "path": "stream-processing/sqls/functions/transform_functions"
                 },
                 {
                   "title": "JSON 函数",
-                  "path": "streaming-processing/sqls/functions/json_functions"
+                  "path": "stream-processing/sqls/functions/json_functions"
                 },
                 {
                   "title": "时间日期函数",
-                  "path": "streaming-processing/sqls/functions/datetime_functions"
+                  "path": "stream-processing/sqls/functions/datetime_functions"
                 },
                 {
                   "title": "其他函数",
-                  "path": "streaming-processing/sqls/functions/other_functions"
+                  "path": "stream-processing/sqls/functions/other_functions"
                 },
                 {
                   "title": "分析函数",
-                  "path": "streaming-processing/sqls/functions/analytic_functions"
+                  "path": "stream-processing/sqls/functions/analytic_functions"
                 },
                 {
                   "title": "多行函数",
-                  "path": "streaming-processing/sqls/functions/multi_row_functions"
+                  "path": "stream-processing/sqls/functions/multi_row_functions"
                 },
                 {
                   "title": "多列函数",
-                  "path": "streaming-processing/sqls/functions/multi_column_functions"
+                  "path": "stream-processing/sqls/functions/multi_column_functions"
                 },
                 {
                   "title": "窗口函数",
-                  "path": "streaming-processing/sqls/functions/window_funcs"
+                  "path": "stream-processing/sqls/functions/window_funcs"
                 }
               ]
             },
             {
               "title": "窗口",
-              "path": "streaming-processing/sqls/windows"
+              "path": "stream-processing/sqls/windows"
             }
           ]
         }
