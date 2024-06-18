@@ -42,7 +42,7 @@ BO_ 100 Mess0: 8 Vector__XXX
 create stream canDemo () WITH (TYPE="can", CONF_KEY="default", FORMAT="can", SHARED="true", SCHEMAID="dbc")
 ```
 
-在这个例子中，格式是`can`，schemaId是`dbc`，这意味着如果 eKuiper 以相对路径模式启动，DBC 文件位于{{ekuiper root}}/dbc 文件夹中。其他有效的设置示例包括：
+在这个例子中，格式是`can`，schemaId是`dbc`，这意味着如果 eKuiper 以相对路径模式启动，DBC 文件位于`{ekuiper root}`/dbc 文件夹中。其他有效的设置示例包括：
 
 - `SCHEMAID="/opt/dbc"`: 指定 DBC 文件夹为绝对路径 `/opt/dbc`
 - `SCHEMAID="/opt/dbc/sample.dbc"`: 指定单个 DBC 文件路径。可配置一个文件或文件夹作为路径。
