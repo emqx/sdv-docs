@@ -280,10 +280,6 @@
           ]
         },
         {
-          "title": "配置管理",
-          "path": "stream-processing/config/configuration"
-        },
-        {
           "title": "SQL 参考",
           "path": "stream-processing/sqls/overview",
           "collapsed": true,
