@@ -74,24 +74,22 @@ bridges.mqtt.emqx1 {
 ./bin/sdv-flow run # 后台启动可以执行 ./bin/sdv-flow start
 
 ```
-可在 log 目录发现有日志生成，查看日志，发现 sdv-flow，nanomq，kuiper 都已成功运行。
+可在 log 目录下的 sdv-flow.log 文件发现有日志生成，查看日志。可以看到 edgeagent registered successfully 的日志说明，服务启动正常并且已注册到 sdv-platform。
 ```bash
 $ ./bin/sdv-flow run
-time="2024-05-29T17:41:36+08:00" level=info msg="load log config:" file="run/sdv-flow.go:72" func=sdv-flow/run.Run
-time="2024-05-29T17:41:36+08:00" level=info msg="load log config: {Mode:console Level:info File:log/sdv-flow.log MaxSize:20 MaxBackups:5 ListenAddr: Syslog:{Enable:false Priority: Netword: RemoteAddr: Tag:}}" file="run/sdv-flow.go:76" func=sdv-flow/run.Run
-time="2024-05-29T17:41:36+08:00" level=info msg="get pid of sdv-flow: 3306071" file="run/sdv-flow.go:95" func=sdv-flow/run.Run
-time="2024-05-29T17:41:36+08:00" level=info msg="Init plugin 'getvin'.\n" file="getvin/getvin.go:79" func="plugins/getvin.(*PluginGetvin).Init"
-time="2024-05-29T17:41:36+08:00" level=info msg="Running plugin 'getvin'.\n" file="getvin/getvin.go:88" func="plugins/getvin.(*PluginGetvin).Run"
-time="2024-05-29T17:41:36+08:00" level=info msg="Get vin:%!(EXTRA string=ubuntu)" file="getvin/getvin.go:111" func="plugins/getvin.(*PluginGetvin).Run"
-time="2024-05-29T17:41:36+08:00" level=info msg="Listening on tcp://127.0.0.1:40899\n" file="getvin/getvin.go:50" func=plugins/getvin.vinServer
-time="2024-05-29T17:41:36+08:00" level=info msg="trigger child process with manage: true" file="run/sdv-flow.go:110" func=sdv-flow/run.Run
-time="2024-05-29T17:41:36+08:00" level=info msg="trigger eKuiper with command: GOTRACEBACK=crash KUIPER__BASIC__SYSLOG__ENABLE=true KUIPER__BASIC__SYSLOG__LEVEL=debug KUIPER__BASIC__SYSLOG__NETWORK=udp4 KUIPER__BASIC__SYSLOG__address=localhost:10514  KUIPER__BASIC__RESTIP=127.0.0.1 KUIPER__BASIC__PROMETHEUS=true KUIPER__BASIC__PROMETHEUSPORT=9081 /home/ubuntu/workspace/test/sdv-flow-0.9.0-beta.3-linux-arm64/software/ekuiper/bin/kuiperd -loadFileType absolute -etc /home/ubuntu/workspace/test/sdv-flow-0.9.0-beta.3-linux-arm64/software/ekuiper/etc -data /home/ubuntu/workspace/test/sdv-flow-0.9.0-beta.3-linux-arm64/data/ekuiper/data -log /home/ubuntu/workspace/test/sdv-flow-0.9.0-beta.3-linux-arm64/software/ekuiper/log -plugins /home/ubuntu/workspace/test/sdv-flow-0.9.0-beta.3-linux-arm64/data/ekuiper/plugins\n" file="process_control/process.go:73" func=internal/process_control.get_ekuiper_Process
-time="2024-05-29T17:41:36+08:00" level=info msg="trigger nanomq with command: rm -f /tmp/nanomq/nanomq.pid && cd /home/ubuntu/workspace/test/sdv-flow-0.9.0-beta.3-linux-arm64/software/nanomq/ &&NANOMQ_VIN=ubuntu ./nanomq start --conf ./etc/nanomq.conf\n\n" file="process_control/process.go:85" func=internal/process_control.get_nanomq_Process
-time="2024-05-29T17:41:38+08:00" level=info msg="[Agent] is starting, vin: ubuntu" file="agent/init.go:18" func=sdv-flow/agent.Init
-time="2024-05-29T17:41:38+08:00" level=error msg="path not exist" file="agent/clean_parquet.go:17" func=sdv-flow/agent.CleanParquetFile
-time="2024-05-29T17:41:38+08:00" level=info msg="[MQTT]connected to tcp://127.0.0.1:1883" file="agent/mqtt.go:70" func=sdv-flow/agent.onMQTTConnected
-time="2024-05-29T17:41:38+08:00" level=info msg="[Agent]heartbeat is enabled ,interval 15" file="agent/init.go:66" func=sdv-flow/agent.Init
-time="2024-05-29T17:41:38+08:00" level=info msg="MQTT Tunnel Proxy Agent connected to tcp://127.0.0.1:1883" file="mqtt/proxy.go:88" func=ecp-tunnel/mqtt.SubTunnelTopic
-time="2024-05-29T17:41:38+08:00" level=info msg="MQTT Tunnel Proxy Subscribed topic agent/ubuntu/proxy/request/+" file="mqtt/proxy.go:116" func=ecp-tunnel/mqtt.SubTunnelTopic.func1
+time="2024-06-27T16:16:52+08:00" level=info msg="[Agent] is starting, vin: ubuntu" file="agent/init.go:18" func=sdv-flow/agent.Init
+time="2024-06-27T16:16:52+08:00" level=error msg="path not exist" file="agent/clean_parquet.go:17" func=sdv-flow/agent.CleanParquetFile
+time="2024-06-27T16:16:52+08:00" level=info msg="[MQTT]connected to tcp://127.0.0.1:1883" file="agent/mqtt.go:70" func=sdv-flow/agent.onMQTTConnected
+time="2024-06-27T16:16:52+08:00" level=info msg="[Agent]Agent start registration to default org and project. " file="agent/init.go:47" func=sdv-flow/agent.Init
+time="2024-06-27T16:16:52+08:00" level=info msg="[Agent]edgeagent registered successfully ,orgId : , projectId :" file="agent/registration.go:127" func=sdv-flow/agent.register.func1
+time="2024-06-27T16:16:52+08:00" level=info msg="[Agent]heartbeat is enabled ,interval 15" file="agent/init.go:73" func=sdv-flow/agent.Init
+time="2024-06-27T16:16:52+08:00" level=info msg="MQTT Tunnel Proxy Agent connected to tcp://127.0.0.1:1883" file="mqtt/proxy.go:88" func=ecp-tunnel/mqtt.SubTunnelTopic
+time="2024-06-27T16:16:52+08:00" level=info msg="MQTT Tunnel Proxy Subscribed topic agent/ubuntu/proxy/request/+" file="mqtt/proxy.go:116" func=ecp-tunnel/mqtt.SubTunnelTopic.func1
 ```
+
+## 验证安装
+sdv-flow 和 sdv-platform 之间通过 MQTT 协议进行通信，其中包括，
+- 车端通过 ecp 开头的 MQTT 主题上报状态
+- 云端通过 agent 开头的 MQTT 主题下发规则或指令
+因此 sdv-flow 启动并注册成功后，会不断向云端定时发送心跳信息，包括各个服务的运行状态，资源占用情况和指标信息，云端可以通过订阅主题 ecp/# 获得车端上报的信息（以下截图为 MQTT 客户端软件  MQTTX 订阅 ecp/# 的结果）。
 同时可以订阅 `ecp/#` 获取边缘端状态，如图所示：![](_assets/sdv-flow-heartbeat.png)
