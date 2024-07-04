@@ -102,6 +102,7 @@ modules:
 
 ```yaml
 server:
+  port: 14260
   parquet:
     path: /tmp/parquet
     days: 30
@@ -113,10 +114,10 @@ server:
     level: common
 ```
 
+- `port`：Api 默认端口
 - `parquet`：每次 sdv-flow 启动时将按配置项清除 parquet 文件。
   - `path`：待清除的 parquet 文件夹的路径。
   - `days`：parquet 文件保留的天数。
-
 - `heartbeat`：sdv-flow 将按配置向云端上报心跳信息
   - `enable`：开启还是关闭上报。
   - `interval`：上报间隔。

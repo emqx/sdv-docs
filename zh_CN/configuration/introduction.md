@@ -29,6 +29,12 @@ sdv-flow 的命令行位于 /bin/sdv-flow，它提供了以下的常用选项：
 ```
 该命令将 sdv-flow 作为进程启动，并在终端中显示其输出。sdv-flow 不会管理 NanoMQ 和 eKuiper 的生命周期。
 
+sdv-flow支持在启动时指定注册的组织和项目，如果不指定则会注册到默认的组织项目
+
+```
+./bin/sdv-flow run  -o=248a6080 -p=49e7b280 
+```
+
 ### `start` 命令
 `start` 命令用于在守护进程模式下启动 sdv-flow，该命令将 sdv-flow 作为守护进程启动并在后台运行。
 
@@ -38,6 +44,12 @@ sdv-flow 的命令行位于 /bin/sdv-flow，它提供了以下的常用选项：
 ./bin/sdv-flow start -c etc/sdv-flow.yaml -m false
 ```
 该命令将 sdv-flow 作为守护进程启动，并在后台运行。sdv-flow 不会管理 NanoMQ 和 eKuiper 的生命周期，也不会开启权限验证。
+
+在启动时指定注册的组织和项目
+
+```
+./bin/sdv-flow start -o=248a6080 -p=49e7b280 
+```
 
 ### `stop` 命令
 `stop` 命令用于停止运行 sdv-flow。该命令将杀死 sdv-flow 进程。
