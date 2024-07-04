@@ -7,9 +7,11 @@ sdv-platform 的配置是基于 yaml 文件，允许通过更新文件进行配�
 ```yaml
 server:
   port: 8082
+  skipAuth: false
 ```
 
 - `port`：sdv-platform 服务器的端口号，默认值为 8082。
+- `skipAuth`：是否跳过权限认证
 
 ## 数据库
 
@@ -84,13 +86,38 @@ mqtt:
 - `loginAccount`: emqx 登录账号
 - `loginPassword`: emqx 登录密码
 
-## 指标
+## Redis
 
 ```yaml
-metric:
-  enable: true
-  pushGatewayUrl: http://127.0.0.1:31901
+redis:
+  #platform connect redis address
+  internalAddr: localhost:6379
+  #emqx connect redis address
+  externalAddr: host.docker.internal:6379
+  username:
+  password: public
+  database: 0
 ```
 
-- `enable`: 是否开启指标监控，收集上报到云端的指标
+- `internalAddr`: platform 连接redis 的地址
+- `externalAddr`： emqx 连接redis 的地址
+- `username`： 用户名
+- `password`： 密码
+- `database`：数据库
+
+## 边缘服务
+
+```yaml
+edgeService:
+  heartbeatInterval: 10
+  offlineThreshold: 2
+  metricEnable: false
+  pushGatewayUrl: http://127.0.0.1:31901
+  registerReadSize: 300
+```
+
+- `heartbeatInterval`：心跳间隔时间
+- `offlineThreshold`：离线阈值
+- `metricEnable`: 是否开启指标监控，收集上报到云端的指标
 - `pushGatewayUrl`: 指标推送地址（地址 emqx 需可访问通过）
+- `registerReadSize`： 批量注册的最大数量
