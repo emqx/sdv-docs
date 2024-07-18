@@ -1,4 +1,4 @@
-# HTTP API
+# SDV Platform API
 
 sdv-platform  提供了用于管理的 REST API，这些 API 遵循 OpenAPI (Swagger) 2.0 规范。
 
@@ -12,7 +12,7 @@ sdv-platform  服务启动后，您可以访问 http://localhost:8082/api-docs/i
 
 [云边通道最佳实践](./best-practice.md)：核心功能云边通道的最佳实践。
 
-[API文档：](https://docs.emqx.com/zh/sdv-flow/latest/api/api-docs.html)包括系统，边缘服务，云边通道的 API 。
+[API文档：](https://docs.emqx.com/zh/sdv-platform/latest/api/api-docs.html)包括系统，边缘服务，云边通道的 API 。
 
 
 

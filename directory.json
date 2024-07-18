@@ -372,10 +372,14 @@
       ]
     },
     {
-      "title": "SDV Platform API",
+      "title": "API",
       "path": "api/api",
       "collapsed": true,
       "children": [
+        {
+          "title": "SDV Platform API",
+          "path": "api/sdv-platform-api"
+        },
         {
           "title": "认证",
           "path": "api/jwt"
@@ -403,6 +407,10 @@
         {
           "title": "API文档",
           "path": "https://docs.emqx.com/zh/sdv-flow/latest/api/api-docs.html"
+        },
+        {
+          "title": "SDV Flow API",
+          "path": "api/sdv-flow-api"
         }
       ]
     },
