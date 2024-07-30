@@ -10,6 +10,9 @@
       "name": "SDV-Flow-API"
     },
     {
+      "name": "System"
+    },
+    {
       "name": "Message bus"
     },
     {
@@ -62,6 +65,99 @@
     }
   ],
   "paths": {
+    "/api/sdv-flow/restart/{module}": {
+      "get": {
+        "summary": "Restart",
+        "x-apifox-folder": "sdv-flow",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "System"
+        ],
+        "parameters": [
+          {
+            "name": "module",
+            "in": "path",
+            "description": "待重启的模块，可以是 nanomq ，ekuiper 或其他模块名称",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "x-apifox-orders": [
+                    "message"
+                  ],
+                  "x-apifox-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "message": "nanomq succeed restart"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务器错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "x-apifox-orders": [
+                    "message",
+                    "error"
+                  ],
+                  "x-apifox-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "异常示例",
+                    "value": {
+                      "message": "other restart failed",
+                      "error": "error killing process"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3198643/apis/api-199285510-run"
+      }
+    },
     "/api/nanomq/": {
       "get": {
         "summary": "Query API Endpoints",
