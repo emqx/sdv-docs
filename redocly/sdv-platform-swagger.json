@@ -1137,6 +1137,52 @@
         }
       }
     },
+    "/edgeagents/{vin}/orgs/{orgId}/projects/{projectId}": {
+      "put": {
+        "description": "修改边缘 agent 所在项目组织",
+        "tags": [
+          "edgeagent"
+        ],
+        "operationId": "updateEdgeAgentOrgProject",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "VinId",
+            "description": "VIN",
+            "name": "vin",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "OrgID",
+            "description": "组织ID",
+            "name": "orgId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProjectID",
+            "description": "项目ID",
+            "name": "projectId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "$ref": "#/responses/requestError"
+          },
+          "500": {
+            "$ref": "#/responses/systemError"
+          }
+        }
+      }
+    },
     "/edgeservice/proxy/message_bus/{vin}/{path}": {
       "get": {
         "description": "nanomq 边缘服务代理通道",
@@ -2214,7 +2260,7 @@
         }
       }
     },
-    "/orgs/{orgId}/projects/{projectId}/edgeagents/{edgeAgentId}": {
+    "/orgs/{orgId}/projects/{projectId}/edgeagents/{vin}": {
       "delete": {
         "description": "删除边缘agent",
         "tags": [
@@ -2240,9 +2286,9 @@
           },
           {
             "type": "string",
-            "x-go-name": "EdgeAgentID",
-            "description": "EdgeAgent ID (VIN)",
-            "name": "edgeAgentId",
+            "x-go-name": "VinId",
+            "description": "VIN",
+            "name": "vin",
             "in": "path",
             "required": true
           }
@@ -3382,7 +3428,7 @@
           "x-go-name": "Body"
         },
         "category": {
-          "description": "服务类型 1: ekuiper 3: nanomq",
+          "description": "服务类型 1: ekuiper 2: system 3: nanomq",
           "type": "integer",
           "format": "int8",
           "x-go-name": "Category"
