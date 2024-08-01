@@ -10,6 +10,9 @@
       "name": "SDV-Flow-API"
     },
     {
+      "name": "System"
+    },
+    {
       "name": "Message bus"
     },
     {
@@ -59,9 +62,105 @@
     },
     {
       "name": "udf"
+    },
+    {
+      "name": "can"
     }
   ],
   "paths": {
+    "/api/sdv-flow/restart/{module}": {
+      "get": {
+        "summary": "Restart",
+        "x-apifox-folder": "sdv-flow",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "System"
+        ],
+        "parameters": [
+          {
+            "name": "module",
+            "in": "path",
+            "description": "待重启的模块，可以是 nanomq ，ekuiper 或其他模块名称",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message"
+                  ],
+                  "x-apifox-orders": [
+                    "message"
+                  ],
+                  "x-apifox-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "message": "nanomq succeed restart"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务器错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "x-apifox-orders": [
+                    "message",
+                    "error"
+                  ],
+                  "x-apifox-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "异常示例",
+                    "value": {
+                      "message": "other restart failed",
+                      "error": "error killing process"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3198643/apis/api-199285510-run"
+      }
+    },
     "/api/nanomq/": {
       "get": {
         "summary": "Query API Endpoints",
@@ -4461,6 +4560,78 @@
           }
         },
         "x-run-in-apifox": "https://apifox.com/web/project/3198643/apis/api-194973404-run"
+      }
+    },
+    "/api/nanomq/can_data_span": {
+      "get": {
+        "summary": "Query can data span",
+        "x-apifox-folder": "nanomq",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "查询 can 数据落盘时间范围",
+        "tags": [
+          "can"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "begin": {
+                          "type": "number"
+                        },
+                        "end": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "begin",
+                        "end"
+                      ],
+                      "x-apifox-orders": [
+                        "begin",
+                        "end"
+                      ],
+                      "x-apifox-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data"
+                  ],
+                  "x-apifox-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "begin": 1722411442963,
+                        "end": 1722412705492
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3198643/apis/api-199714909-run"
       }
     },
     "/api/ekuiper/metadata/sources/yaml/{name}": {
