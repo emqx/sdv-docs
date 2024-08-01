@@ -62,6 +62,9 @@
     },
     {
       "name": "udf"
+    },
+    {
+      "name": "can"
     }
   ],
   "paths": {
@@ -4557,6 +4560,78 @@
           }
         },
         "x-run-in-apifox": "https://apifox.com/web/project/3198643/apis/api-194973404-run"
+      }
+    },
+    "/api/nanomq/can_data_span": {
+      "get": {
+        "summary": "Query can data span",
+        "x-apifox-folder": "nanomq",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "查询 can 数据落盘时间范围",
+        "tags": [
+          "can"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "begin": {
+                          "type": "number"
+                        },
+                        "end": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "begin",
+                        "end"
+                      ],
+                      "x-apifox-orders": [
+                        "begin",
+                        "end"
+                      ],
+                      "x-apifox-ignore-properties": []
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "data"
+                  ],
+                  "x-apifox-orders": [
+                    "code",
+                    "data"
+                  ],
+                  "x-apifox-ignore-properties": []
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "begin": 1722411442963,
+                        "end": 1722412705492
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://apifox.com/web/project/3198643/apis/api-199714909-run"
       }
     },
     "/api/ekuiper/metadata/sources/yaml/{name}": {
