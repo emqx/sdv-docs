@@ -452,7 +452,18 @@
     },
     {
       "title": "发版历史",
-      "path": "release_history/release_history"
+      "path": "release_history/release_history",
+      "collapsed": true,
+      "children":[
+        {
+          "title": "SDV Flow",
+          "path": "release_history/sdv-flow"
+        },
+        {
+          "title": "SDV Platform",
+          "path": "release_history/sdv-platform"
+        }
+      ]
     }
   ],
   "en": [
@@ -485,23 +496,15 @@
       "collapsed": true,
       "children": [
         {
-          "title": "基于Docker部署 SDV Flow & Platform",
-          "path": "installation/install_sdv_platform_on_linux"
+          "title": "基于 Docker 部署",
+          "path": "installation/docker"
         },
         {
           "title": "使用 .tar.gz 包安装",
           "path": "installation/install_sdv_flow"
         },
         {
-          "title": "使用 deb 包安装",
-          "path": "installation/ubuntu"
-        },
-        {
-          "title": "通过 Docker 部署",
-          "path": "installation/docker"
-        },
-        {
-          "title": "申请和安装许可证",
+          "title": "安装许可证",
           "path": "installation/license_setting"
         }
       ]
@@ -516,16 +519,12 @@
           "path": "configuration/nanomq"
         },
         {
-          "title": "协议转换配置",
-          "path": "configuration/nanolink"
-        },
-        {
           "title": "流处理引擎配置",
           "path": "configuration/ekuiper"
         },
         {
           "title": "云管理平台配置",
-          "path": "configuration/ecp"
+          "path": "configuration/platform"
         },
         {
           "title": "边缘协同代理配置",
@@ -627,154 +626,95 @@
       "children": [
         {
           "title": "数据源 (Source)",
-          "path": "stream-processing/source",
+          "path": "stream-processing/sources/overview",
           "collapsed": true,
           "children": [
             {
               "title": "流管理",
-              "path": "stream-processing/stream"
+              "path": "stream-processing/sources/streams"
             },
             {
-              "title": "数据表",
-              "path": "stream-processing/tables",
+              "title": "CAN",
+              "path": "stream-processing/sources/can/overview",
               "children": [
                 {
-                  "title": "扫描表使用场景",
-                  "path": "stream-processing/scan"
+                  "title": "CAN 数据源",
+                  "path": "stream-processing/sources/can/can_source"
                 },
                 {
-                  "title": "查询表使用场景",
-                  "path": "stream-processing/lookup"
+                  "title": "CAN 格式",
+                  "path": "stream-processing/sources/can/can_format"
+                },
+                {
+                  "title": "CANJSON 格式",
+                  "path": "stream-processing/sources/can/canjson_format"
+                },
+                {
+                  "title": "DBC",
+                  "path": "stream-processing/sources/can/dbc"
                 }
               ]
             },
             {
-              "title": "NNG",
-              "path": "stream-processing/pair0"
-            },
-            {
               "title": "MQTT",
-              "path": "stream-processing/mqtt"
-            },
-            {
-              "title": "HTTP Pull",
-              "path": "stream-processing/http_pull"
-            },
-            {
-              "title": "HTTP Push",
-              "path": "stream-processing/http_push"
+              "path": "stream-processing/sources/mqtt"
             },
             {
               "title": "内存",
-              "path": "stream-processing/memory"
-            },
-            {
-              "title": "SQL",
-              "path": "stream-processing/sql"
-            },
-            {
-              "title": "文件",
-              "path": "stream-processing/file"
-            },
-            {
-              "title": "RTSP",
-              "path": "stream-processing/RTSP"
-            },
-            {
-              "title": "CAN",
-              "path": "stream-processing/socketcan"
-            },
-            {
-              "title": "Redis",
-              "path": "stream-processing/redis"
+              "path": "stream-processing/sources/memory"
             }
           ]
         },
         {
           "title": "规则",
-          "path": "stream-processing/rules",
+          "path": "stream-processing/rules/overview",
           "collapsed": true,
           "children": [
             {
               "title": "规则管理",
-              "path": "stream-processing/rule_status"
+              "path": "stream-processing/rules/management"
             },
             {
               "title": "规则调试",
-              "path": "stream-processing/rule_test"
+              "path": "stream-processing/rules/debug"
             },
             {
               "title": "规则流水线",
-              "path": "stream-processing/rule_pipeline"
-            },
-            {
-              "title": "规则去重",
-              "path": "stream-processing/rule_dedup"
-            }
-          ]
-        },
-        {
-          "title": "在线数据标注",
-          "path": "stream-processing/annotation",
-          "collapsed": true,
-          "children": [
-            {
-              "title": "DBC 解码",
-              "path": "stream-processing/DBC-decode"
-            },
-            {
-              "title": "信号白名单",
-              "path": "stream-processing/dynamic_schema"
+              "path": "stream-processing/rules/rule_pipeline"
             }
           ]
         },
         {
           "title": "动作(Sink)",
-          "path": "stream-processing/sink/sink",
+          "path": "stream-processing/sinks/overview",
           "collapsed": true,
           "children": [
             {
               "title": "数据模版",
-              "path": "stream-processing/sink/data_template"
+              "path": "stream-processing/sinks/data_template"
             },
             {
               "title": "动作(Sink)类型",
               "children": [
                 {
                   "title": "MQTT",
-                  "path": "stream-processing/sink/mqtt"
+                  "path": "stream-processing/sinks/mqtt"
                 },
                 {
                   "title": "Nano触发上传",
-                  "path": "stream-processing/sink/NanoTrigger"
-                },
-                {
-                  "title": "Nano搜索数据",
-                  "path": "stream-processing/sink/NanoFetch"
-                },
-                {
-                  "title": "REST",
-                  "path": "stream-processing/sink/rest"
+                  "path": "stream-processing/sinks/nano"
                 },
                 {
                   "title": "内存",
-                  "path": "stream-processing/sink/memory"
+                  "path": "stream-processing/sinks/memory"
                 },
                 {
                   "title": "Log",
-                  "path": "stream-processing/sink/log"
-                },
-                {
-                  "title": "SQL",
-                  "path": "stream-processing/sink/sql"
+                  "path": "stream-processing/sinks/log"
                 },
                 {
                   "title": "文件",
-                  "path": "stream-processing/sink/file"
-                },
-                {
-                  "title": "Nop",
-                  "path": "stream-processing/sink/nop"
+                  "path": "stream-processing/sinks/file"
                 }
               ]
             }
@@ -782,22 +722,17 @@
         },
         {
           "title": "算法集成",
-          "path": "stream-processing/extension",
           "collapsed": true,
           "children": [
             {
               "title": "Python 便携插件示例",
-              "path": "stream-processing/portable_python"
+              "path": "stream-processing/extension/portable/python_sdk"
             },
             {
               "title": "外部算法函数示例",
-              "path": "stream-processing/ex_func"
+              "path": "stream-processing/extension/external/external_func"
             }
           ]
-        },
-        {
-          "title": "配置管理",
-          "path": "stream-processing/config"
         },
         {
           "title": "SQL 参考",
@@ -904,41 +839,57 @@
       ]
     },
     {
-      "title": "SDV Platform API",
+      "title": "API",
       "path": "api/api",
       "collapsed": true,
       "children": [
         {
-          "title": "认证",
-          "path": "api/auth"
+          "title": "SDV Platform API",
+          "path": "api/sdv-platform/sdv-platform-api",
+          "children": [
+            {
+              "title": "认证",
+              "path": "api/sdv-platform/jwt"
+            },
+            {
+              "title": "功能错误代码描述",
+              "path": "api/sdv-platform/error-code"
+            },
+            {
+              "title": "灵活更新规则",
+              "path": "api/sdv-platform/remote-update"
+            },
+            {
+              "title": "云边通道最佳实践",
+              "path": "api/sdv-platform/best-practice"
+            },
+            {
+              "title": "告警",
+              "path": "api/sdv-platform/alarm"
+            },
+            {
+              "title": "资源监控",
+              "path": "api/sdv-platform/monitoring"
+            },
+
+            {
+              "title": "API文档",
+              "path": "https://docs.emqx.com/zh/sdv-platform/latest/api/api-docs.html"
+            }
+          ]
         },
         {
-          "title": "功能错误代码描述",
-          "path": "api/error-code"
-        },
-        {
-          "title": "云边通道最佳实践",
-          "path": "api/best-practice"
-        },
-        {
-          "title": "API文档",
-          "path": "https://docs.emqx.com/zh/emqx-ecp/latest/"
-        },
-        {
-          "title": "告警",
-          "path": "api/alarm"
-        },
-        {
-          "title": "资源监控",
-          "path": "admin/monitoring"
-        },
-        {
-          "title": "灵活更新规则",
-          "path": "api/remote-update"
-        },
-        {
-          "title": "汽车数字孪生",
-          "path": "api/digital-vehicle-twin"
+          "title": "SDV Flow API",
+          "path": "api/sdv-flow/sdv-flow-api",
+          "children":[
+            {
+              "title": "API文档",
+              "path": "https://docs.emqx.com/zh/sdv-flow/latest/api/api-docs.html"
+            }, {
+              "title": "汽车数字孪生",
+              "path": "api/sdv-flow/digital-vehicle-twin"
+            }
+          ]
         }
       ]
     },
@@ -968,7 +919,18 @@
     },
     {
       "title": "发版历史",
-      "path": "release_history/release_history"
+      "path": "release_history/release_history",
+      "collapsed": true,
+      "children":[
+        {
+          "title": "SDV Flow",
+          "path": "release_history/sdv-flow"
+        },
+        {
+          "title": "SDV Platform",
+          "path": "release_history/sdv-platform"
+        }
+      ]
     }
   ]
 }
