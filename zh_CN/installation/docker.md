@@ -124,10 +124,9 @@ docker pull emqx/sdv-flow:latest
 ### 启动
 
 ```bash
-docker run -d --name  sdv-flow -p 1883:1883 -p 8081:8081 -p 9081:9081 emqx/sdv-flow:latest
+docker run -d --name  sdv-flow -p 1883:1883 -p 14260:14260 emqx/sdv-flow:latest
 ```
-- tcp 8081：端口映射，用于对组件 NanoMQ 访问 http api 端口。
-- tcp 9081：端口映射，用于对组件 eKuiper 访问 web 和 http api 端口。
+- tcp 14260：端口映射，用于对 sdv-flow 访问 web 和 http api 端口。
 - tcp 1883：端口映射，用于访问 Mqtt 服务。
 - --restart=always：可选参数，docker 进程重启时，自动重启 sdv-flow 容器。
 - -v /host/path:/container/path：可选参数，用于将主机上的 /host/path 目录挂载到容器内的 /container/path 目录。（例如，/host/dir:/opt/sdv-flow/etc/，将本地目录 /host/dir 挂载到容器内的 /opt/sdv-flow/etc/）。
@@ -135,7 +134,7 @@ docker run -d --name  sdv-flow -p 1883:1883 -p 8081:8081 -p 9081:9081 emqx/sdv-f
 
 接下来通过 http api 修改 sdv-flow 连接云端的地址，将 bridges.mqtt.emqx1 的 server 地址修改为执行 ./emqx_sdv_platform_ctl configure 所配置的云端 emqx 的地址。如下：
 ```bash
-$ curl -i --basic -u admin:public -X PUT 'http://localhost:8081/api/v4/bridges/emqx1' -d '{
+$ curl -i --basic -u admin:public -X PUT 'http://localhost:14260/api/nanomq/bridges/emqx1' -d '{
 "emqx1": {
     "name": "emqx1",
     "enable": true,
