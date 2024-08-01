@@ -170,12 +170,12 @@ tar zxvf sdv-flow-*-arm64-linux.tar.gz
 接下来通过 HTTP API 修改 sdv-flow 连接云端的地址，将 `bridges.mqtt.emqx1` 的 server 地址修改为上一步中所安装的 emqx 地址 `{emqx_addr`}。如下：
 
 ```shell
-$ curl -i --basic -u admin:public -X PUT 'http://localhost:8081/api/v4/bridges/emqx1' -d '{
+$ curl -i --basic -u admin:public -X PUT 'http://localhost:14260/api/nanomq/bridges/emqx1' -d '{
 "emqx1": {
     "name": "emqx1",
     "enable": true,
     "parallel": 2,
-    "server": "mqtt-tcp://{emqx_addr}:1883",
+    "server": "mqtt-tcp://broker.emqx.io:1883",
     "proto_ver": 4,
     "clean_start": false,
     "username": "admin",
@@ -185,10 +185,6 @@ $ curl -i --basic -u admin:public -X PUT 'http://localhost:8081/api/v4/bridges/e
       {
         "remote_topic": "",
         "local_topic": "ecp/#"
-      },
-       {
-        "remote_topic": "",
-        "local_topic": "result/#"
       }
     ],
     "subscription": [
