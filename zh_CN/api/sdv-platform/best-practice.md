@@ -4,7 +4,7 @@ sdv-platform 可用于车辆注册、管理、发布规则、批量操作和监�
 
 ## 1.部署
 
-首先请参考 [快速入门](../quick-start/quick-start.md)，部署云端，以及一个车端 sdv-flow，其中车端sdv-flow 启动会自动生成 vin 码，来作为车端唯一且不变的标识。该demo中的 sdv-flow 的vin 码为 DV_PV_TASK_ENABLE。
+首先请参考 [快速入门](../../quick-start/quick-start.md)，部署云端，以及一个车端 sdv-flow，其中车端sdv-flow 启动会自动生成 vin 码，来作为车端唯一且不变的标识。该demo中的 sdv-flow 的vin 码为 DV_PV_TASK_ENABLE。
 
 sdv-flow 启动成功后会自动向云端发起注册，在云端license 充足的情况下，会注册成功。接下来便可以在云端对车端 sdv-flow 进行控制。
 

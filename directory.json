@@ -378,39 +378,51 @@
       "children": [
         {
           "title": "SDV Platform API",
-          "path": "api/sdv-platform-api"
-        },
-        {
-          "title": "认证",
-          "path": "api/jwt"
-        },
-        {
-          "title": "告警",
-          "path": "api/alarm"
-        },
-        {
-          "title": "资源监控",
-          "path": "admin/monitoring"
-        },
-        {
-          "title": "功能错误代码描述",
-          "path": "api/error-code"
-        },
-        {
-          "title": "灵活更新规则",
-          "path": "api/remote-update"
-        },
-        {
-          "title": "汽车数字孪生",
-          "path": "api/digital-vehicle-twin"
-        },
-        {
-          "title": "API文档",
-          "path": "https://docs.emqx.com/zh/sdv-flow/latest/api/api-docs.html"
+          "path": "api/sdv-platform/sdv-platform-api",
+          "children": [
+            {
+              "title": "认证",
+              "path": "api/sdv-platform/jwt"
+            },
+            {
+              "title": "功能错误代码描述",
+              "path": "api/sdv-platform/error-code"
+            },
+            {
+              "title": "灵活更新规则",
+              "path": "api/sdv-platform/remote-update"
+            },
+            {
+              "title": "云边通道最佳实践",
+              "path": "api/sdv-platform/best-practice"
+            },
+            {
+              "title": "告警",
+              "path": "api/sdv-platform/alarm"
+            },
+            {
+              "title": "资源监控",
+              "path": "api/sdv-platform/monitoring"
+            },
+
+            {
+              "title": "API文档",
+              "path": "https://docs.emqx.com/zh/sdv-platform/latest/api/api-docs.html"
+            }
+          ]
         },
         {
           "title": "SDV Flow API",
-          "path": "api/sdv-flow-api"
+          "path": "api/sdv-flow/sdv-flow-api",
+          "children":[
+            {
+              "title": "API文档",
+              "path": "https://docs.emqx.com/zh/sdv-flow/latest/api/api-docs.html"
+            }, {
+              "title": "汽车数字孪生",
+              "path": "api/sdv-flow/digital-vehicle-twin"
+            }
+          ]
         }
       ]
     },
