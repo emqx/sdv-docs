@@ -1,201 +1,191 @@
 # 最佳实践
-这篇文章详细介绍了一个简单的demo，并提供了参数调整的思路，以优化整个链路的性能和可用性。
+这篇文章详细介绍数据总线重要功能的使用案例和方法。并给出了背景知识供用户学习和更合理的应用。
 
-## 1. Ekuiper 创建流
-### 1.1 创建 CANUDP 流
-```bash
-curl http://127.0.0.1:9081/streams -d '{"sql": "CREATE STREAM canudp () WITH (TYPE=\"mqtt\", CONF_KEY=\"default\", FORMAT=\"canjson\", SHARED=\"TRUE\", SCHEMAID=\"/tmp/dbc\", DATASOURCE=\"canudp\")"}'
+## SSL/TLS
+
+由于车辆数据安全和合规要求，双向加密链接往往是必须的选项，那么数据总线模块作为车云数据同步的通道，必然提供此能力。
+SSL:（Secure Socket Layer，安全套接字层），位于可靠的面向连接的网络层协议和应用层协议之间的一种协议层。SSL通过互相认证、使用数字签名确保完整性、使用加密确保私密性，以实现客户端和服务器之间的安全通讯。该协议由两层组成：SSL记录协议和SSL握手协议。
+
+TLS：(Transport Layer Security，传输层安全协议)，用于两个应用程序之间提供保密性和数据完整性。该协议由两层组成：TLS记录协议和TLS握手协议。
+
+### SSL/TLS优点
+
+1. **加密**：TLS和SSL可以加密客户端和服务器之间传输的数据，确保数据传输过程中的隐私和安全。这意味着只有发送和接收方能够解读传输的信息，防止中间人攻击。
+2. **身份验证**：通过使用证书，TLS和SSL提供了一种机制来验证对方的身份，确保你正在与预期的服务器或客户端通信。这有助于防止欺骗和信息泄露。
+3. **数据完整性**：TLS和SSL能够检测数据在传输过程中是否被篡改。如果数据被非法修改，接收方能够通过验证失败来检测到，从而确保数据的完整性。
+4. **适应性和兼容性**：TLS协议支持多种加密算法，允许参与通信的双方协商出一个共同支持的最强加密方法。此外，它们广泛被支持，在多种设备和操作系统上都可以使用。
+5. **信任机制**：通过信任已知和权威的证书颁发机构（CA），TLS和SSL能够建立起一个安全的信任链，进一步增强了网络通信的安全性。
+
+虽然SSL现在已经不再被推荐使用，因为它的多个版本已经被证明存在安全漏洞，TLS继续发展并取代了SSL，成为保护网络通信的标准方法。
+
+### SSL/TLS单向认证
+
+SSL/TLS单向认证是最常见的认证方式，主要用于客户端验证服务器的身份，确保客户端与真正的服务器而非伪造的服务器建立连接。这种方法在互联网通信中非常普遍，尤其是在浏览器访问安全网站（如使用HTTPS协议的网站）时。
+
+#### **优点和局限性**
+
+- **优点**：单向认证简化了认证过程，减少了配置的复杂性，非常适合大多数客户端-服务器模型的应用场景，如Web浏览器访问网站。
+- **局限性**：单向认证只验证服务器的身份，不验证客户端的身份。这意味着任何客户端都可以与服务器建立连接，可能会引入一些安全风险，例如无法防止未授权的客户端访问。
+
+对于需要更高安全性的场景，例如金融服务或敏感信息的交换，可能需要使用双向SSL/TLS认证，这种方式同时验证客户端和服务器的身份，确保双向的信任和安全。
+
+### **SSL/TLS 双向认证**
+
+双向认证是指在进行通信认证时要求服务端和客户端都需要证书，双方都要进行身份认证，以确保通信中涉及的双方都是受信任的。 双方彼此共享其公共证书，然后基于该证书执行验证、确认。一些对安全性要求较高的应用场景，就需要开启双向 SSL/TLS 认证。
+
+#### **主要特点**
+
+1. **双方身份验证**：不仅服务器需要向客户端提供证书证明其身份，客户端也需要提供证书给服务器，以证明其身份。
+2. **增强的安全性**：通过确保通信双方的身份，双向认证提供了比单向认证更高级别的安全保障。
+3. **适用于敏感交易**：适合那些需要高度安全保障的场景，例如银行和金融机构、医疗信息系统等。
+
+#### **优点**
+
+- 提供了比单向认证更高的安全级别，因为双方都必须证明自己的身份。
+- 适合于对安全性要求极高的应用场景，如在线银行、电子商务平台和私有网络。
+
+#### **局限性**
+
+- 配置更为复杂，需要客户端和服务器都具备有效的证书。
+- 可能会增加成本，因为客户端证书通常需要从权威的CA处购买和维护。
+- 对用户来说，使用过程可能会更加繁琐，特别是在客户端证书需要定期更新或替换的情况下。
+
+### 单向认证和双向认证的区别
+
+#### **认证过程**
+
+- **单向认证**：只有服务器需要向客户端证明其身份。客户端通过验证服务器提供的证书（由可信的证书颁发机构签发）来实现这一点。这是最常见的使用场景，例如，当你通过浏览器访问一个HTTPS网站时。
+- **双向认证**：服务器和客户端都必须互相验证对方的身份。这意味着除了服务器需要提供证书给客户端验证外，客户端也必须提供证书给服务器进行验证。这种方式通常用在需要高安全级别的场景中，如内部网络、金融交易等。
+
+### 使用openssl生成服务端和客户端证书
+
+#### 1. 生成自签名CA证书
+- 生成私钥
+``` shell
+# 运行以下命令生成RSA私钥：
+openssl genrsa -out ca.key 2048
 ```
 
-### 1.2 创建规则0：Collectall
-```bash
-curl http://127.0.0.1:9081/rules -d '{"id":"collectall","sql":"SELECT * FROM canudp","actions":[{"mqtt":{"sendSingle":true,"server":"tcp://127.0.0.1:1883","topic":"results/all"}}]}'
+- 生成自签名的CA证书
+``` shell
+# 使用以下命令生成自签名的CA证书：
+openssl req -x509 -new -nodes -key ca.key -sha256 -days 3650 -out ca.pem
+```
+在生成证书的过程中，openssl会提示你输入证书的主题信息，如国家（Country）、省份（State）、城市（Locality）、组织（Organization）、组织单位（Organizational Unit）、常用名称（Common Name，即CA的名字）和电子邮件地址。根据提示输入相应信息即可。
+
+
+#### 2. 生成服务端证书
+- 生成服务器的私钥
+``` shell
+# 首先，为服务器生成一个RSA私钥
+openssl genrsa -out server.key 2048
 ```
 
-### 1.3 创建规则1：CAN 数据流式采集（每10秒聚合一次）
+- 创建服务器的证书签名请求
+``` shell
+# 使用服务器的私钥创建一个CSR
+openssl req -new -key ./server.key -out server.csr
+```
+
+- 使用自签名的CA证书签发服务器证书
+``` shell
+# 现在，使用第一步中生成的CA证书和私钥来签发服务器证书。
+openssl x509 -req -in ./server.csr -CA ca.pem -CAkey ca.key -CAcreateserial -out server.pem -days 3650 -sha256
+```
+
+#### 3. 生成客户端证书
+生成客户端证书的过程与生成服务器证书类似：
+
+- 生成客户端的私钥
+``` shell
+# 首先，为客户端生成一个RSA私钥：
+openssl genrsa -out client-key.pem 2048
+```
+
+- 创建客户端的证书签名请求
+``` shell
+openssl req -new -key client-key.pem -out client.csr
+```
+
+- 使用自签名的CA证书签发客户端证书
+``` shell
+openssl x509 -req -days 3650 -in client.csr -CA ca.pem -CAkey ca.key -CAcreateserial -out client.pem
+```
+
+### 数据总线模块通过SSL/TLS双向认证桥接
+
+数据总线模块提供了双向认证的配置选项桥接到远端服务器。所需步骤也很简单，仅需要在配置文件中的桥接字段中新增证书即可，以下是示例：
+
 ```bash
-curl -X POST http://127.0.0.1:9081/rules -d '{
-  "id": "collect1",
-  "sql": "SELECT last_value(ENGINE.RPM,true) as RPM_10s, last_value(ENGINE.Temperature,true) as Temperature_10s, last_value(ENGINE.Torque,true) as Torque_10s FROM canudp Group BY TumblingWindow(ss,10)",
-  "actions": [{
-    "mqtt": {
-      "sendSingle": false,
-      "server": "tcp://127.0.0.1:1883",
-      "topic": "results/collect1"
+# 数据总线模块.conf
+...
+bridges.mqtt.emqx1 {
+...
+# # Ssl config ##
+     ssl {
+        # # Ssl key password
+        # # String containing the user's password. Only used if the private keyfile
+        # # is password-protected.
+        # #
+        # # Value: String
+        key_password = "yourpass"
+        # # Ssl keyfile
+        # # Path of the file containing the client's private key.
+        # #
+        # # Value: File
+        keyfile = "/etc/certs/key.pem"
+        # # Ssl cert file
+        # # Path of the file containing the client certificate.
+        # #
+        # # Value: File
+        certfile = "/etc/certs/cert.pem"
+        # # Ssl ca cert file
+        # # Path of the file containing the server's root CA certificate.
+        # #
+        # # Value: File
+        cacertfile = "/etc/certs/cacert.pem"
     }
-  }]
-}'
+...
 ```
 
-### 1.4 创建规则2：CAN 数据触发式窗口批式采集
-```bash
-curl http://127.0.0.1:9081/rules -d '{
-  "id": "collect_batch",
-  "sql": "SELECT DRIVE.Speed as Speed, DRIVE.Acceleration as Acceleration, DRIVE.Angle as Angle, PEDAL.BrakePosition as BrakePosition FROM canudp Group BY SlidingWindow(ss, 1, 1) OVER (WHEN latest(PEDAL.BrakePosition)>= 10)",
-  "actions": [
-    {
-      "file": {
-        "compression": "zstd",
-        "delete": 7200,
-        "fileType": "lines",
-        "format": "json",
-        "interval": 100,
-        "omitIfEmpty": true,
-        "path": "/batchfile/can-json-poc.zst",
-        "rollingCount": 2,
-        "rollingInterval": 0,
-        "rollingNamePattern": "suffix",
-        "segmentSize": 1025,
-        "sendSingle": false
-      }
-    }
-  ]
-}'
-```
+## 保留消息持久化教程
+一些重要数据是需要在车辆下电后仍然保持的，如充电过程中的电池告警。而消息总线提供了对实时数据进行 retain 持久化保持的功能
 
-### 1.5 创建规则3：CAN 数据触发式全量落盘数据采集
-#### 1.5.1 创建内存流
-```bash
-curl http://127.0.0.1:9081/streams -d "{\"sql\": \"CREATE STREAM triggerStream() WITH (TYPE=\\\"memory\\\", FORMAT=\\\"json\\\", DATASOURCE=\\\"trigger\\\")\"}"
-```
+### 配置# 保留消息持久化教程
 
-#### 1.5.2 创建通用落盘规则
-```bash
-curl http://127.0.0.1:9081/rules -d '{
-  "id": "ruleTrigger",
-  "sql": "SELECT \"EX2NANO\" as id, \"search\" as cmd, dedup_trigger(begin, finish, ts, 999999) as ranges, ruleid FROM triggerStream WHERE isNull(ruleid) = false",
-  "actions": [
-    {
-      "nano": {
-        "url": "ipc:///tmp/nanomq_hook.ipc",
-        "sendSingle": true
-      }
-    },
-    {
-      "mqtt": {
-        "server": "tcp://127.0.0.1:1883",
-        "topic": "result/trigger",
-        "sendSingle": true
-      }
-    }
-  ]
-}'
-```
+## 配置数据总线模块的SQLite选项
 
-#### 1.5.3 创建触发落盘规则
-```bash
-curl http://127.0.0.1:9081/rules -d '{
-  "id": "collect_parquet",
-  "sql": "SELECT event_time() - 60000 as begin, event_time() as finish, event_time() as ts, rule_id() as ruleid FROM canudp WHERE ts - last_hit_time() > 10000",
-  "actions": [
-    {
-      "memory": {
-        "topic": "trigger",
-        "sendSingle": true
-      }
-    },
-    {
-      "mqtt": {
-        "server": "tcp://127.0.0.1:1883",
-        "topic": "result/trigger",
-        "sendSingle": true
-      }
-    }
-  ]
-}'
-```
+数据总线模块是用SQLite实现消息的持久化。将下面一部分配置加入配置文件中。
 
-## 2. 模拟数据流入
-### 2.1 流入数据模拟例子
-```json
-{"frames":[{"id":0,"data":"AA1709B8F2DFA3F0","bus":4,"d":0,"t":0},{"id":1,"data":"BB281AC903E0B401","bus":4,"d":0,"t":0},{"id":2,"data":"CC392BDA14F1C512","bus":4,"d":0,"t":0},{"id":3,"data":"DD4A3CEB2502D623","bus":4,"d":0,"t":0},{"id":4,"data":"EE5B4DFC3613E734","bus":4,"d":0,"t":0},{"id":5,"data":"FF6C5E0D4724F845","bus":4,"d":0,"t":0},{"id":6,"data":"007D6F1E58350956","bus":4,"d":0,"t":0},{"id":7,"data":"118E702F69461A67","bus":4,"d":0,"t":0},{"id":8,"data":"229F81307A572B78","bus":4,"d":0,"t":0},{"id":9,"data":"33A092418B683C89","bus":4,"d":0,"t":0},{"id":10,"data":"44B1A3529C794D9A","bus":4,"d":0,"t":0},{"id":11,"data":"55C2B463AD8A5EAB","bus":4,"d":0,"t":0},{"id":12,"data":"66D3C574BE9B6FBC","bus":4,"d":0,"t":0},{"id":13,"data":"77E4D685CFAC70CD","bus":4,"d":0,"t":0},{"id":14,"data":"88F5E796D0BD81DE","bus":4,"d":0,"t":0},{"id":15,"data":"9906F8A7E1CE92EF","bus":4,"d":0,"t":0},{"id":16,"data":"AA1709B8F2DFA3F0","bus":4,"d":0,"t":0},{"id":17,"data":"BB281AC903E0B401","bus":4,"d":0,"t":0},{"id":18,"data":"CC392BDA14F1C512","bus":4,"d":0,"t":0},{"id":19,"data":"DD4A3CEB2502D623","bus":4,"d":0,"t":0},{"id":20,"data":"EE5B4DFC3613E734","bus":4,"d":0,"t":0},{"id":21,"data":"FF6C5E0D4724F845","bus":4,"d":0,"t":0},{"id":22,"data":"007D6F1E58350956","bus":4,"d":0,"t":0}]}
-```
-
-### 2.2 模拟数据生成脚本
-```c
-// input_zegote.c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define MAX_FRAME_SIZE 10000
-
-void generate_hex_string(char *str, int j) {
-    const char *hex_chars = "0123456789ABCDEF";
-    int i;
-
-    srand(time(NULL));
-
-    for (i = 0; i < 16; ++i) {
-        str[i] = hex_chars[(rand() + j) % 16];
-    }   
-
-    str[16] = '\0';
-}
-
-int main(void)
-{
-    FILE *fp;
-    fp = fopen("/tmp/input.txt", "w");
-    if (fp == NULL) {
-        printf("Error opening file\n");
-        exit(1);
-    }   
-    fprintf(fp, "{\"frames\":[");
-    for (int i = 0; i < MAX_FRAME_SIZE; i++) {
-        char frame[100];
-        memset(frame, 0, sizeof(frame));
-        strcat(frame, "{\"id\":");
-        char id[10];
-        sprintf(id, "%d", i); 
-        strcat(frame, id);
-        strcat(frame, ",\"data\":\"");
-        char hex_string[17];
-        generate_hex_string(hex_string, i); 
-        strcat(frame, hex_string);
-        strcat(frame, "\",\"bus\":4,\"d\":0,\"t\":0}");
-        if (i != MAX_FRAME_SIZE - 1)
-            strcat(frame, ",");
-        fprintf(fp, frame);
-    }   
-    fprintf(fp, "]}");
-    return 0;
-}
-```
-
-## 3. 配置文件最佳实践
-
-### 3.1 发送频率
-建议消息间隔不要超过10毫秒。如果 ringbus 的 cap 设置为 2000，消息发送频率为 10 毫秒，那么每 20 秒执行一次落盘动作。消息聚合是一个优化选项，可以将 10 毫秒内的消息聚合为一条消息发送，以降低负载和提高性能。
-
-### 3.2 配置相关
-#### 3.2.1 Ringbus
-在 Naomq 配置中，Ringbus 的 cap 设置不宜过大或过小。cap 和消息大小会影响落盘文件的大小。例如，如果一条消息大小为 10KB，cap 设置为 2000，那么一次落盘的数据量为 20MB。
-
-```ini
-exchange_client.mq1 {
-    ...
-    exchange {
-        ...
-        ringbus = {
-            ...
-            cap = 2000
-            ...
-        }
-    }
+```hcl
+sqlite {
+    disk_cache_size = 102400  # 最大缓存消息数
+    mounted_file_path="/tmp/" # 数据库文件存储路径
+    flush_mem_threshold = 3   # 内存缓存消息数阈值
+    resend_interval = 5000    # 故障恢复后的重发时间间隔 (ms)
 }
 ```
+为了简化教程，这里设置了`flush_mem_threshold = 3`，需要根据使用场景来确定不同的值。
 
-#### 3.3.2 Parquet
-在 Nanomq 配置中，Parquet 的 file_size 应尽可能大，最好能包含一次落盘的数据量。例如，如果一次落盘约为 20MB，那么 file_size 的限制可以配置为 50MB。否则，Parquet 会对文件进行切分，增加额外的性能开销。
+## 测试保留消息持久化
 
-```ini
-parquet {
-    ...
-    # 默认值: 10M
-    # 值: 数字
-    # 支持单位: KB | MB | GB
-    file_size = 50MB
-    ...
-}
-```
+这一节将会使用[MQTTX客户端工具](https://mqttx.app/)来测试保留消息的持久化。在测试中我们只建立一个连接，用于发布和订阅。
+
+
+**连接 数据总线模块**
+
+![Alt text](../images/rmsg-perisistence-connection.png)
+
+**发送保留消息**
+
+发布3个不同的保留消息以达到缓存消息的阈值。
+
+![Alt text](../images/rmsg-persistence-pub.png)
+
+**重启 数据总线模块**
+
+通过 sdv-flow 的 API 关闭和重启消息总线模块来模拟车辆上下电。
+
+**订阅保留消息**
+
+订阅刚才发送了保留消息的topic。 可以看到保留消息依然可以正常发送。
