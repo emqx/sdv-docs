@@ -21,7 +21,9 @@
     },
     {
       "title": "快速入门",
-      "path": "quick-start/quick-start"
+      "path": "quick-start/quick-start"      
+      "title": "数据闭环功能最佳实践",
+      "path": "quick-start/best-practice"
     },
     {
       "title": "安装",
@@ -147,7 +149,7 @@
           ]
         },
         {
-          "title": "最佳实践",
+          "title": "车云数据同步最佳实践",
           "path": "communication-databus/best-practice"
         }
       ]
@@ -614,7 +616,7 @@
           ]
         },
         {
-          "title": "最佳实践",
+          "title": "车云数据同步最佳实践",
           "path": "communication-databus/best-practice"
         }
       ]
