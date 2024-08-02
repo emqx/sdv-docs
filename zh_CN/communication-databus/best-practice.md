@@ -169,18 +169,7 @@ sqlite {
 
 ## 测试保留消息持久化
 
-这一节将会使用[MQTTX客户端工具](https://mqttx.app/)来测试保留消息的持久化。在测试中我们只建立一个连接，用于发布和订阅。
-
-
-**连接 数据总线模块**
-
-![Alt text](../images/rmsg-perisistence-connection.png)
-
-**发送保留消息**
-
-发布3个不同的保留消息以达到缓存消息的阈值。
-
-![Alt text](../images/rmsg-persistence-pub.png)
+按此配置启动 sdv-flow 后向其发布 Retain 消息。
 
 **重启 数据总线模块**
 
