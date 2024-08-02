@@ -2,7 +2,7 @@
 
 ## SDV-Flow 是什么
 
-sdv-flow 是 EMQ 基于开源软件和车载标准协议提供的车内协议接入及实时数据处理程序，sdv-flow 读取车内 CAN、SOME-IP、DDS等协议数据，根据预定义 SQL 规则或通过 sdv-platform 实时下发 SQL 规则，将车内协议产生数据进行处理并以指定方式存储或通过网络转发 。
+sdv-flow 是 EMQ 基于开源软件和车载标准协议提供的车内协议接入及实时数据处理程序，sdv-flow 读取车内 CAN、SOME-IP、DDS、RSTP视频流、文件等数据，通过预定义 SQL 规则或 sdv-platform 实时下发 SQL 规则，将车内数据进行处理并以指定方式存储或通过网络转发 。
 
 ## SDV-Platform 是什么
 
