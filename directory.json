@@ -405,11 +405,6 @@
               "path": "api/sdv-platform/alarm"
             },
             {
-              "title": "资源监控",
-              "path": "api/sdv-platform/monitoring"
-            },
-
-            {
               "title": "API文档",
               "path": "https://docs.emqx.com/zh/sdv-platform/latest/api/api-docs.html"
             }
@@ -445,8 +440,8 @@
           "path": "admin/trace"
         },
         {
-          "title": "资源隔离和性能调优",
-          "path": "admin/tunning"
+          "title": "监控",
+          "path": "admin/monitoring"
         },
         {
           "title": "管理日志文件",
