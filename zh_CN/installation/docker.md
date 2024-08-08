@@ -75,7 +75,7 @@ $ ./emqx_sdv_platform_ctl  status
 #### 停止 Platform 服务
 
 ```
-./emqx_sdv_platform_ctl  stop
+$ ./emqx_sdv_platform_ctl  stop
 ```
 
 #### 更多命令介绍
@@ -83,31 +83,20 @@ $ ./emqx_sdv_platform_ctl  status
 通过以下命令查看更多命令介绍。
 
 ```
-./emqx_sdv_platform_ctl  help
+$ ./emqx_sdv_platform_ctl  help
 ```
 
 ![image-20240520170018787](_assets/help.png)
 
-### 创建超级管理员
+### 初始化
 
-使用下列命令创建**超级管理员**账号，请妥善保存您的超级管理员账号和密码。
+使用下列命令创建**超级管理员**账号以及默认的组织和项目，请妥善保存您的超级管理员账号和密码。
 
 ```bash
-$ ./emqx_sdv_platform_ctl create-user
+$ ./emqx_sdv_platform_ctl init
 Please input username:          # 请设置您的用户名，需要为email格式
 Please input password:          # 请设置您的账户密码
 Please input password again:    # 请重复您的账户密码
-```
-
-### 创建组织和项目
-
-使用下列命令创建**组织和项目**，请输入超级管理员账号和密码。
-
-```bash
-$ ./emqx_sdv_platform_ctl create-org-project
-Please input username:          # 请输入超级管理员用户名，需要为email格式
-Please input password:          # 请输入超级管理员密码
-Please input password again:    # 请再次输入超级管理员密码
 ```
 
 ### 访问API
