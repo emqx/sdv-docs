@@ -89,39 +89,23 @@ sdv-flow 可以通过编写基于类 SQL 的数据处理规则，并通过 API �
    ⠿ Container sdv-platform          Started 
   ```
 
-- 执行 `./emqx_sdv_platform_ctl create-user` 创建用户名密码，结果如下
+- 执行 `./emqx_sdv_platform_ctl init` 创建管理员以及默认的组织和项目，结果如下，
 
   ```
-  $ ./emqx_sdv_platform_ctl create-user
-  Please input email: sdv@emqx.io
-  Please input password:
-  Please input password again:
-  Creating admin sdv@emqx.io ...
+  $ ./emqx_sdv_platform_ctl init  
+  Please input email: admin@emqx.io
+  Please input password: 
+  Please input password again: 
+  Creating admin admin@emqx.io ...
   Getting access token ...
-  {"tokenType":"Bearer","accessToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJFTVFYIEVDUCIsInN1YiI6IjY2ZmRiODc1IiwiZXhwIjoxNzE2OTg0NDQwLCJuYmYiOjE3MTY5NzAwNDAsImlhdCI6MTcxNjk3MDA0MCwianRpIjoiMWI5ZjhiMWYtOWJkZi00YmY4LWJhZGQtOWZhNDk3NGRhZDE0IiwidHlwIjoiQmVhcmVyIn0.jYI-FKZymyHD39gwGROWRk36DjpAtxA-c1bcx2J592JN5nnk4hxYNm3t7xeABKFruzhJK2YVDHWZa73vkRTfmMyO0ICrhaWDjsfuDxz0vKKb0TbK1ys03uneJotJqODC5TJA1rwkxcFqe7aOYTaa-ueB052nKIYZNHZiKgjTEc6TQFT-qaLLqMQeTB_mv-z1Dllh1_HWieA4FZ-Zu7aszNjh0bOd9t4V_2UTWDJJChlBcm11YTovKBbePHjLHf741OlSBErr9SvjikyikA6Py-VibM5oHzyVaQP5ekZ5-ll8cVsAQXXTNpv9OJw1GvJpXMyPuoD3Y5qZPPk-VBmT1A","expiresIn":14400,"refreshToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJFTVFYIEVDUCIsInN1YiI6IjY2ZmRiODc1IiwiZXhwIjoxNzE3MDU2NDQwLCJuYmYiOjE3MTY5NzAwNDAsImlhdCI6MTcxNjk3MDA0MCwianRpIjoiYTZlNGRjZmQtOGI5Yi00NDI5LThmNjMtNWM1YzlkNjA2N2MxIiwidHlwIjoiUmVmcmVzaCJ9.DGrHb7aIUVOBAakC_vrJ24FV98fhfr4kjYH5U2SOIW0tfO3vhnn_erh6euDc4TbpSlviVEHGCo66KJawjfARhwRBphBXtlEZpnnT3LuUbSnttYoYylg_rC4vMNowt2my_30KCQdsVhoOsXbyoubxWCNR2zt39DKGR1WD6jBh5OMt81DyYUWtiSaH6szDfQRVv04YJz6C9-sf0Xh9QINyRBQXHcusTN2TCvEnzBBlej2v964_2ZCq36ZFbBf80Jk1Lor-NP1iwdCZnjyG54JWbxxYtZGtK59RrPrs5O-337JliWcE5PBN3lf7hg5BWMGYfcFM1BY97yjOJemU7xw4kA","refreshExpiresIn":86400,"admin":true}
-  {"userId":"66fdb875","name":"admin","email":"sdv@emqx.io","mobile":"","admin":true}
+  {"tokenType":"Bearer","accessToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJFTVFYIEVDUCIsInN1YiI6IjhlNThmN2I4IiwiZXhwIjoxNzIzMTAxMDU1LCJuYmYiOjE3MjMwODY2NTUsImlhdCI6MTcyMzA4NjY1NSwianRpIjoiNGFmYTEzN2UtZjljYy00Y2Q4LWEwMDctODc5M2JhMzA4OTFlIiwidHlwIjoiQmVhcmVyIn0.SljCPXR6IsJ56p1RMhYaFzfC0E7VorRr7e5BmZ5SXerP0C__hfIi6QhbW2Dnju2fKD_IzD31_sYIjQ07mxck4o11SA8d4_YsG-icJ1ktkQ3nkdmXXuuKSKdApD2k24DETfxXA4cpE8-oG039IAZtufLBPfwQkLL1SvHPcNj6Da7VWa-VsG1b9S5abpDnssAXdWOtHRdCWOwYUpkPSkK55wV0OF0rEJOyYaJP9rOkOUkJzIvMb8Lj66etAxiLHfEfL4o2y6HL3rR7O-xqIAvX9gG0udXSeXEfDUwUxKacA7L0EWHGzUVYFVba6ADHdJ_Al7IGPA1eV7PDBFYE0fpEEw","expiresIn":14400,"refreshToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJFTVFYIEVDUCIsInN1YiI6IjhlNThmN2I4IiwiZXhwIjoxNzIzMTczMDU1LCJuYmYiOjE3MjMwODY2NTUsImlhdCI6MTcyMzA4NjY1NSwianRpIjoiM2NhZjc2MzQtZTdlYS00YjgyLTgxNjUtZmU4NDRmMDRjNTkxIiwidHlwIjoiUmVmcmVzaCJ9.f_j86gWOLFLS-zUm6-a3-ovJmIhYxX20Ko1G7WbJMwfKl95OtPSAO7fV6ETYgRaE4oNNLCc1x2F_hQFC5IolC_91dwbAPZW4YYK1wcjkwr0l3fDvXMNOTcQEqMA8THzAbylB2lce8RqD2264YWBzt8kMhLfJTbTzqzskQWN-wm6_ftjHCS-AgLxk5oJK7ZOH2hasPp2CHmD2tKX2EyOWcWnDoBF-wNFOG_N-Kas1-thYeXJqxg6BiPXfUaDfyxLGLDjj1lmCqgesvZYXz_CYjdumg0g--5k9vHstFX-9QfLKEci2UFQdZ0TttKkzhDPp_0XG1i7v6JJ4yyE6O-OA8Q","refreshExpiresIn":86400,"admin":true}
+  {"userId":"8e58f7b8","name":"admin","email":"admin@emqx.io","mobile":"","admin":true}
   Creating org default-org ...
-  {"id":"166322a3","name":"default-org","members":[{"userId":"66fdb875","roleIds":[1,0]}],"createdAt":"2024-05-29T08:07:20.432363793Z"}
-  {"data":[{"id":"166322a3","name":"default-org","projectCount":0}]}
+  {"id":"67fe214f","name":"default-org","members":[{"userId":"8e58f7b8","roleIds":[1,0]}],"createdAt":"2024-08-08T03:10:55.908982278Z"}
+  {"data":[{"id":"67fe214f","name":"default-org","projectCount":0}]}
   Creating project default-project ...
-  {"id":"05bb4710","name":"default-project","members":[{"userId":"66fdb875","roleIds":[1]}],"createdAt":"2024-05-29T08:07:20.505576111Z"}
-  ```
-
-- 执行 `./emqx_sdv_platform_ctl create-org-project` 创建组织用户名密码（需与上面的保持一致）
-
-  ```
-  Please input email: sdv@emqx.io
-  Please input password:
-  Please input password again:
-  Creating admin sdv@emqx.io ...
-  Getting access token ...
-  {"tokenType":"Bearer","accessToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJFTVFYIEVDUCIsInN1YiI6IjZhNzc1MzgyIiwiZXhwIjoxNzE2OTg1NDY3LCJuYmYiOjE3MTY5NzEwNjcsImlhdCI6MTcxNjk3MTA2NywianRpIjoiZmI3MjJiMzEtYjllNC00MGQ1LWIyNzYtZjI4MmNkYTQ4YWI5IiwidHlwIjoiQmVhcmVyIn0.CSzCDp3MQjQdJUBvOMdBuwxscaiItivf9AUy4pk_ZG-Sfl5wUa3NXbZ_ffmp6FrqRrv1LEytxiMEcObX-GlG6dyUV-mm5x7DIj8Iondx2swpbBGZGV_mdjEqFUDztwkiBP8F2J6NjOdJykcffqQEjJxj9OjyOBwUzDf-R_vTTLEmrVfcNt5yPC09mMEgv652mi3FvJt3Eqb43XE8viam7BSREF-zG-bEe7ftBQtBtbTJOlIkzdVvzX6dRXUT74quSJm93BgOGFlm4iJHPZzVgfojMXG7g7IMLC0ip8LivqyvxXMM59ramFYXz-zRceTn-2xPLUcX2clKxYYG8JwOEg","expiresIn":14400,"refreshToken":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJFTVFYIEVDUCIsInN1YiI6IjZhNzc1MzgyIiwiZXhwIjoxNzE3MDU3NDY3LCJuYmYiOjE3MTY5NzEwNjcsImlhdCI6MTcxNjk3MTA2NywianRpIjoiZTcwODE2YTctZWZmZi00NGIwLWE5YTYtOWJlNzViZGIwMzBhIiwidHlwIjoiUmVmcmVzaCJ9.JhUFuEOB0CmO7NcuPo2RuslTSgIm5oWu-9hJa4Fl4paE9OB6yFCaXOLermlZrX5ADbQRlbu1b9HRuAzhk9GhteTkQuc1FAJhnZagf4MdjyDlPMFAPT53AcAhSyMVixuvJJgo4ptoCpfEk1O8ns-arFNvlvENpgYN74hA-GnUsR4F4ta289TfLmnU5fhVg9aBjOn2FWpF2AyCxLf8Ko3M-ckKZXMtGrQUYDpzIbWosk-4W1yVPOjjRcMYHy3Sw16iTe3hZq_wtWXnXrdHzfxXVnAY_VmJxho3VGPVg3_gQfhTs3HO6AIGOvU78cl8BkfMWGBTAdyHPDMmKY-4kV_HeA","refreshExpiresIn":86400,"admin":true}
-  {"userId":"6a775382","name":"admin","email":"sdv@emqx.io","mobile":"","admin":true}
-  Creating org default-org ...
-  {"id":"6db26171","name":"default-org","members":[{"userId":"6a775382","roleIds":[1,0]}],"createdAt":"2024-05-29T08:24:27.615257215Z"}
-  {"data":[{"id":"6db26171","name":"default-org","projectCount":0}]}
-  Creating project default-project ...
-  {"id":"f0b4a050","name":"default-project","members":[{"userId":"6a775382","roleIds":[1]}],"createdAt":"2024-05-29T08:24:27.690085198Z"}
+  {"id":"a3196d0d","name":"default-project","members":[{"userId":"8e58f7b8","roleIds":[1]}],"createdAt":"2024-08-08T03:10:56.074284435Z"}
+  
   ```
 
 - 查看容器是否全部启动，如下所示
