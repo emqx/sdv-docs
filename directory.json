@@ -440,6 +440,10 @@
           "path": "admin/trace"
         },
         {
+          "title": "资源隔离和性能调优",
+          "path": "admin/tunning"
+        },
+        {
           "title": "监控",
           "path": "admin/monitoring"
         },
