@@ -4,7 +4,7 @@
 
 ## 安装条件
 
-EMQX SDV Flow 安装前，请确认您的环境满足以下要求：
+sdv-flow 安装前，请确认您的环境满足以下要求：
 
 | OS             | 版本要求       |
 | :------------- | :-------------|
@@ -14,14 +14,14 @@ EMQX SDV Flow 安装前，请确认您的环境满足以下要求：
 
 ## 获取安装包
 
-欢迎访问 EMQ 官网获取 SDV Flow 的安装包。
+欢迎访问 EMQ 官网获取 sdv-flow 的安装包。
 
 1. 进入[联系我们](https://www.emqx.com/zh/contact?product=emqx-ecp)页面。
 2. 输入必要的联系信息，如姓名、公司、工作邮箱，国家和地区，以及您的联系方式。
 3. 您可在下方的文本框中填写您的应用场景及需求，以便我们为您提供更好的服务。
 4. 填写好以上信息后，点击 **立即提交**，我们的销售将会尽快与您联系。
 
-## 安装 EMQX SDV Flow
+## 安装 SDV Flow
 
 将下载的安装包 `sdv-flow-*-linux.tar.gz` 上传到车机设备上，解压缩后，进入解压缩后的目录，得到文件列表如下。下面的被标注出来的几部分是我们需要关注的目录。
 
@@ -55,7 +55,7 @@ EMQX SDV Flow 安装前，请确认您的环境满足以下要求：
         └── readme.txt
 ```
 
-首先需要修改 nanomq 配置文件 `software/nanomq/etc/nanomq.conf`， 将 `bridges.mqtt.emqx1` 的 server 地址修改为执行 Sdv platform 所配置的云端 emqx 的地址。
+首先需要修改数据接入配置文件 `software/nanomq/etc/nanomq.conf`， 将 `bridges.mqtt.emqx1` 的 server 地址修改为执行 sdv-platform 所配置的云端 emqx 的地址。
 ```conf
 bridges.mqtt.emqx1 {
         server = "mqtt-tcp://broker.emqx.io:1883"
