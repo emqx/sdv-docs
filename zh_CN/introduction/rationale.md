@@ -76,4 +76,4 @@ EMQ 是全球唯一一家开源数据基础设施提供商能够为汽车行业�
 ### 软件定义汽车的开源先锋
 
 与专有软件相比，开源技术因其高性能快速迭代、充满活力的社区生态，以及开源共测等诸多优势而被广泛认为是一种减少复杂软件开发时间的方法。SDV 面临新兴技术的复杂软件开发挑战，试图保持封闭私有可能会严重限制 SDV 的可能性并带来诸多不确定性风险。我们有幸看到越来越多的 OEM 对在车内引入开源软件持开放态度，并积极主动融合进入开源生态。EMQ 一直秉持着开放标准、开放系统、开放生态的准则，方案采用的车云通信协议、数据格式均采用开放技术标准，架构透明，易于能力集成、生态集成，没有任何供应商绑定风险，并跟随技术趋势持续演进创新，自我鞭策为行业不停提供领先的数据基础设施。
-目前，EMQ 也已经加入 ELISA 组织（https://elisa.tech/announcement/2024/06/04/canonical-and-emq-join-the-enabling-linux-in-safety-applications-elisa-project-to-strengthen-their-commitment-to-safety-critical-applications-in-automobiles/），继续完成自己对开源汽车基础软件的安全承诺，与博世，华为，日产等老牌厂商一同为行业交付领先的 SDV 产品。
+目前，EMQ 也已经加入 [ELISA 组织](https://elisa.tech/announcement/2024/06/04/canonical-and-emq-join-the-enabling-linux-in-safety-applications-elisa-project-to-strengthen-their-commitment-to-safety-critical-applications-in-automobiles/)，继续完成自己对开源汽车基础软件的安全承诺，与博世，华为，日产等老牌厂商一同为行业交付领先的 SDV 产品。
