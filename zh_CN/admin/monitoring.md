@@ -6,7 +6,7 @@ sdv-flow 提供监控指标功能，可帮助用户实时了解 sdv-flow  的状
 
 - 心跳上报
 
-  每个sdv-flow 在注册成功后，会定时上报心跳信息到topic ecp/edgeagent/heartbeat，云端可通过订阅该topic 来获取信息。其中心跳信息的结构如下
+  每个 sdv-flow 在注册成功后，会定时上报心跳信息到主题 `ecp/edgeagent/heartbeat`，云端可通过订阅该主题来获取信息。其中心跳信息的结构如下
 
   ```json
   {
@@ -36,9 +36,9 @@ sdv-flow 提供监控指标功能，可帮助用户实时了解 sdv-flow  的状
   }
   ```
 
-  其中metrics 就是指标信息，结构为指标数据以 \n 分割。
+  其中 metrics 就是指标信息，结构为指标数据以 `\n` 分割。
   
-  指标信息的内容推送有2个模式：common，debug，common模式下默认只会推送常用的基础信息，debug模式下会推送所有的指标信息。默认为debug模式，如果当前默认模式下的指标不够，可以通过调sdv-platform的api 来切换模式。例如
+  指标信息的内容推送有2个模式：common，debug，common 模式下默认只会推送常用的基础信息，debug 模式下会推送所有的指标信息。默认为 debug 模式，如果当前默认模式下的指标不够，可以通过调 sdv-platform 的 api 来切换模式。例如
   
   ```shell
   curl --location --request POST 'http://127.0.0.1:8082/api/metric/conf' \

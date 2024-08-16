@@ -1,20 +1,20 @@
 # FAQ 常见问题解答
 
-## SDV-Flow 是什么
+## SDV Flow 是什么
 
-sdv-flow 是 EMQ 基于开源软件和车载标准协议提供的车内协议接入及实时数据处理程序，sdv-flow 读取车内 CAN、SOME-IP、DDS、RSTP视频流、文件等数据，通过预定义 SQL 规则或 sdv-platform 实时下发 SQL 规则，将车内数据进行处理并以指定方式存储或通过网络转发 。
+sdv-flow 是 EMQ 基于开源软件和车载标准协议提供的车内协议接入及实时数据处理程序，sdv-flow 读取车内 CAN、SOME-IP、DDS、RSTP 视频流、文件等数据，通过预定义 SQL 规则或 sdv-platform 实时下发 SQL 规则，将车内数据进行处理并以指定方式存储或通过网络转发 。
 
-## SDV-Platform 是什么
+## SDV Platform 是什么
 
 sdv-platform 是 EMQ 提供对 sdv-flow 进行统一管理程序，提供标准 REST API 与 sdv-flow 交互 。
 
-## SDV-Flow 是否支持 AI、ML 集成分析
+## SDV Flow 是否支持 AI、ML 集成分析
 
 sdv-flow 支持用户自定义函数扩展和 AI 算法集成，提供智能数据分析能力。
 
 ## 云端如何读取车端数据
 
-云端支持从 emqx 直接通过 mqtt 协议订阅获取车端实时数据，也支持通过 emqx 规则引擎将数据转发至 kafka、S3、时序数据库、关系数据库等存储中读取数据
+云端支持从 emqx 直接通过 MQTT 协议订阅获取车端实时数据，也支持通过 emqx 规则引擎将数据转发至 Kafka、S3、时序数据库、关系数据库等存储中读取数据
 
 ## 软件运行环境支持哪些系统？
 

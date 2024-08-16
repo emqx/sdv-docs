@@ -1,11 +1,12 @@
-# 通过Docker部署
-在本文中，我们将指导您如何在  Docker 中完成 sdv-flow 和 SDV Platform 及其所需组件的安装部署。
+# 通过 Docker 部署
+
+在本文中，我们将指导您如何在 Docker 中完成 sdv-flow 和 sdv-platform 及其所需组件的安装部署。
 
 ## 安装 SDV Platform
 
 ### 安装条件
 
-EMQX SDV Platform 部署前，请确认您的环境满足以下要求：
+sdv-platform 部署前，请确认您的环境满足以下要求：
 
 | OS             | 版本要求       |
 | :------------- | :------------- |
@@ -16,16 +17,16 @@ EMQX SDV Platform 部署前，请确认您的环境满足以下要求：
 
 ### 获取安装包
 
-欢迎访问 EMQ 官网获取 SDV Platform 的安装包。
+欢迎访问 EMQ 官网获取 sdv-platform 的安装包。
 
 1. 进入[联系我们](https://www.emqx.com/zh/contact?product=emqx-ecp)页面。
 2. 输入必要的联系信息，如姓名、公司、工作邮箱，国家和地区，以及您的联系方式。
 3. 您可在下方的文本框中填写您的应用场景及需求，以便我们为您提供更好的服务。
 4. 填写好以上信息后，点击**立即提交**，我们的销售将会尽快与您联系。
 
-### 安装 EMQX SDV Platform
+### 安装 SDV Platform
 
-将下载的安装包`emqx-sdv-platform-docker-compose-installer-*.tar.gz`上传到服务器上，解压缩后，进入解压缩后的目录，执行以下步骤完成 Platform 的安装。
+将下载的安装包 `emqx-sdv-platform-docker-compose-installer-*.tar.gz` 上传到服务器上，解压缩后，进入解压缩后的目录，执行以下步骤完成 sdv-platform 的安装。
 
 #### 依赖检查
 
@@ -47,21 +48,21 @@ $ ./emqx_sdv_platform_ctl precheck
 $ ./emqx_sdv_platform_ctl configure
 ```
 
-全部回车跳过表示，使用默认的ECP版本，通过公共docker镜像仓库获取镜像，持久化数据保存路径为`[当前脚本路径]/datavolumes/`。
+全部回车跳过表示，使用默认的 ECP 版本，通过公共 docker 镜像仓库获取镜像，持久化数据保存路径为`[当前脚本路径]/datavolumes/`。
 
 ![image-20240520165618758](_assets/configure.png)
 
 #### 启动服务
 
 - 如有必要， 可以修改配置文件 `sdv_platform.conf`
-- 执行以下命令，启动 Platform 服务。
+- 执行以下命令，启动 sdv-platform 服务。
 
 ```bash
 $ ./emqx_sdv_platform_ctl start
 ```
 
 :::tip 注意 
-在初次启动 Platform 服务时，需要拉取软件镜像，可能需要等待一段时间。您也可以[联系我们](https://www.emqx.com/zh/contact?product=emqx-ecp)，获取离线安装包。 
+在初次启动 sdv-platform 服务时，需要拉取软件镜像，可能需要等待一段时间。您也可以[联系我们](https://www.emqx.com/zh/contact?product=emqx-ecp)，获取离线安装包。 
 :::
 
 #### 检查服务状态
@@ -72,7 +73,7 @@ $ ./emqx_sdv_platform_ctl  status
 
 ![image-20240520165916678](_assets/status.png)
 
-#### 停止 Platform 服务
+#### 停止服务
 
 ```
 $ ./emqx_sdv_platform_ctl  stop
@@ -101,20 +102,24 @@ Please input password again:    # 请重复您的账户密码
 
 ### 访问API
 
-现在您已经成功部署 Platform，Platform 的默认访问地址为 `http://{您的机器IP}:8082`
+现在您已经成功部署 sdv-platform, 其默认访问地址为 `http://{您的机器IP}:8082`
 
 ## 安装 sdv-flow
 
 ### 获取镜像
+
 ```bash
 docker pull emqx/sdv-flow:latest
 ```
+
 启动最新版本的 sdv-flow
+
 ### 启动
 
 ```bash
 docker run -d --name  sdv-flow -p 1883:1883 -p 14260:14260 emqx/sdv-flow:latest
 ```
+
 - tcp 14260：端口映射，用于对 sdv-flow 访问 web 和 http api 端口。
 - tcp 1883：端口映射，用于访问 Mqtt 服务。
 - --restart=always：可选参数，docker 进程重启时，自动重启 sdv-flow 容器。
@@ -122,6 +127,7 @@ docker run -d --name  sdv-flow -p 1883:1883 -p 14260:14260 emqx/sdv-flow:latest
 - --log-opt：可选参数，限制 docker 标准输出(stdout)的大小（例如，--log-opt max-size=100m）。
 
 接下来通过 http api 修改 sdv-flow 连接云端的地址，将 bridges.mqtt.emqx1 的 server 地址修改为执行 ./emqx_sdv_platform_ctl configure 所配置的云端 emqx 的地址。如下：
+
 ```bash
 $ curl -i --basic -u admin:public -X PUT 'http://localhost:14260/api/nanomq/bridges/emqx1' -d '{
 "emqx1": {
@@ -150,6 +156,7 @@ $ curl -i --basic -u admin:public -X PUT 'http://localhost:14260/api/nanomq/brid
   }
 }'
 ```
+
 如果上述成功会收到如下返回：
 
 ```bash
