@@ -37,6 +37,10 @@
           "path": "installation/docker"
         },
         {
+          "title": "基于 Kubernetes 部署",
+          "path": "installation/install_platform_on_kubernetes"
+        },
+        {
           "title": "使用 .tar.gz 包安装",
           "path": "installation/ubuntu"
         },
