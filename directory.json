@@ -107,6 +107,13 @@
             {
               "title": "搜索数据和触发上传",
               "path": "communication-databus/mqtt-broker/data-fetch"
+            },
+            { "title": "可灵活配置的流模组，实现数据灵活落盘",
+              "path": "communication-databus/mqtt-broker/stream_module"
+            },
+            {
+              "title": "通过Schema查询Parquet数据",
+              "path": "communication-databus/mqtt-broker/new_schema_query"
             }
           ]
         },
