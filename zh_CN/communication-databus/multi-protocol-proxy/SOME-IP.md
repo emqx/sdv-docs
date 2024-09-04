@@ -11,7 +11,7 @@ Fidl-serial 是基于 CommonAPI 的代码生成工具。自动生成 SOME/IP 与
 
 ## 配置和使用
 ### 安装
--  安装依赖，1~6 是 CommonAPI 和 vsomeip 所需要的，g 是我们开发的代码生成工具。
+-  安装依赖，1~6 是 CommonAPI 和 vsomeip 所需要的，fidl-serial 是我们开发的代码生成工具。
     1. boost
     2. vsomeip
     3. core runtime
@@ -22,7 +22,7 @@ Fidl-serial 是基于 CommonAPI 的代码生成工具。自动生成 SOME/IP 与
 - 安装 NanoLink。
 
 ### 生成与编译
-- 用户需要首先提前写好 fidl 和 fdepl 文件。以下面这个简单的 fidl 事例为例：
+- 用户需要首先提前写好 fidl 和 fdepl 文件。以下面这个简单的 fidl 示例为例：
 fidl 文件:
 ```fidl
 package commonapi.examples
@@ -120,7 +120,7 @@ export VSOMEIP_CONFIGURATION=../etc/vsomeip-local.json && \
 export VSOMEIP_APPLICATION_NAME=nanolink && \
 ./nanolink --conf ../etc/server.conf
 ```
-用户只需要根据 fidl 文件修改 server.conf 即可，server 会根据读到的接口的数据，对客户端的 request 和 subscribe 进行响应。下面是 server.conf 的事例:
+用户只需要根据 fidl 文件修改 server.conf 即可，server 会根据读到的接口的数据，对客户端的 request 和 subscribe 进行响应。下面是 server.conf 的示例:
 
 ```json
 {
@@ -165,7 +165,7 @@ export LD_LIBRARY_PATH=/home/lee/workspace/NanoLink/build:$LD_LIBRARY_PATH && \
 export VSOMEIP_CONFIGURATION=../gab/vsomeip-local.json && \
 ./nanolink --conf ../nanolink.conf
 ```
-下面是 nanolink.conf 的事例：
+下面是 nanolink.conf 的示例：
 ```conf
 nanolink.mqtt {
     # # Bridge address: host:port .
