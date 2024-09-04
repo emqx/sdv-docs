@@ -70,6 +70,10 @@
         {
           "title": "边缘协同代理配置",
           "path": "configuration/sdv-flow"
+        },
+        {
+          "title": "协议转换配置",
+          "path": "configuration/nanolink"
         }
       ]
     },
@@ -123,7 +127,7 @@
         },
         {
           "title": "跨域通信和协议转换",
-          "path": "communication-databus/multi-protocol-proxy",
+          "path": "communication-databus/multi-protocol-proxy/introduction",
           "children": [
             {
               "title": "共享内存",
