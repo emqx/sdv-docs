@@ -124,3 +124,8 @@ server:
   - `metricsEnable`：上报心跳时，是否上报指标信息。
   - `level`：`metricsEnable`为 true 时，指标的内容级别，common 为基础信息，debug 为全部信息，方便调试。
 
+# 环境变量
+
+| 变量名              | 数据类型 | 描述                                           |
+| NANOMQ_PID_FILE    | String   | NanoMQ PID 文件路径。默认为 `/tmp/nanomq/nanomq.pid`|
+| SDV_ERR_LOG_DIR    | String   | 配置 nanomq 和 kuiper error log 的公共目录, 默认为 `sdv-flow/software/` |
