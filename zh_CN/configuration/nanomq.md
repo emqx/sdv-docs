@@ -72,6 +72,9 @@ log.level=debug
 system.num_taskq_thread            | Long          | 任务线程数。
 system.max_taskq_thread            | Long          | 最大任务线程数。
 system.parallel                    | Long          | 并行数。
+system.hook_ipc_url                | Long          | 指定 hook 的 ipc url。用于 kuiper 与 nanomq 之间的消息通信，默认为："ipc:///tmp/nanomq_hook.ipc"
+system.cmd_ipc_url                 | Long          | 指定 cmd 的 ipc url。用于 nanomq reload 等命令的通信。默认为："ipc:///opt/nanomq_cmd.ipc"
+system.parallel                    | Long          | 并行数。
 mqtt.max_packet_size               | Kbytes        | NanoMQ 收发的最大包大小 (Kbytes)
 mqtt.max_mqueue_len                | Integer       | 最大队列长度。
 mqtt.retry_interval                | Duration      | QOS 消息发送的间隔时间。
@@ -174,7 +177,7 @@ bridges.mqtt.cache                          | Object        | 桥接客户端 SQ
 
 **📢注意**：NanoMQ 支持通过配置文件 `nanomq.conf` 来配置多个桥接，您可通过不同的名称来区分多个桥接。此外，`cache` 相关配置项作为一个独立的组件工作，支持被多个组件引用。例如，您需要在多个桥接中实现消息缓存，可按照如下示例进行配置。
 
-```shell
+```conf
 ## 第一个桥接客户端
 bridges.mqtt.emqx1 {
   ......
@@ -406,7 +409,6 @@ rules.mysql.name.rules[0].table    | String   | 规则引擎 mysql 数据库名�
 rules.mysql.name.rules[0].sql      | String   | 规则引擎 sql 语句
 
 
-
 ### Repub 规则配置
 
 参数名                             | 数据类型     | 参数说明
@@ -422,3 +424,40 @@ rules.repub.rules[0].clean_start  | Boolean  | 规则引擎重新发布 clean_st
 rules.repub.rules[0].sql          | String   | 规则引擎 sql 语句
 
 
+# 环境变量
+NanoMQ 也支持通过环境变量自定义配置，支持的环境变量列表如下：
+
+| 变量名                          | 数据类型 | 描述                                                         |
+| ------------------------------- | -------- | ------------------------------------------------------------ |
+| NANOMQ_BROKER_URL               | String   | `nmq-tcp://host:port`<br /> `tls+nmq-tcp://host:port`        |
+| NANOMQ_DAEMON                   | Boolean  | 后台启动（默认：False）                                      |
+| NANOMQ_NUM_TASKQ_THREAD         | Integer  | 任务线程数  (范围：0 ~ 256)                                  |
+| NANOMQ_MAX_TASKQ_THREAD         | Integer  | 最大任务线程数 (范围：0 ~ 256)                               |
+| NANOMQ_PARALLEL                 | Long     | 并行数                                                       |
+| NANOMQ_PROPERTY_SIZE            | Integer  | 最大属性长度                                                 |
+| NANOMQ_MSQ_LEN                  | Integer  | 队列长度                                                     |
+| NANOMQ_QOS_DURATION             | Integer  | QoS 消息定时间隔时间                                         |
+| NANOMQ_ALLOW_ANONYMOUS          | Boolean  | 允许匿名登录（默认：True）                                   |
+| NANOMQ_WEBSOCKET_ENABLE         | Boolean  | 启动 WebSocket 监听（默认：True）                            |
+| NANOMQ_WEBSOCKET_URL            | String   | `nmq-ws://host:port/path` <br />`nmq-wss://host:port/path`   |
+| NANOMQ_HTTP_SERVER_ENABLE       | Boolean  | 启动 HTTP 服务监听（默认：False）                            |
+| NANOMQ_HTTP_SERVER_PORT         | Integer  | HTTP 服务端监听端口（默认：8081）                            |
+| NANOMQ_HTTP_SERVER_USERNAME     | String   | 访问 HTTP 服务的用户名                                       |
+| NANOMQ_HTTP_SERVER_PASSWORD     | String   | 访问 HTTP 服务的密码                                         |
+| NANOMQ_TLS_ENABLE               | Boolean  | 启动 TLS 监听（默认：False）                                 |
+| NANOMQ_TLS_URL                  | String   | 'tls+nmq-tcp://host:port'.                                   |
+| NANOMQ_TLS_CA_CERT_PATH         | String   | TLS CA 证书数据                                              |
+| NANOMQ_TLS_CERT_PATH            | String   | TLS Cert 证书数据                                            |
+| NANOMQ_TLS_KEY_PATH             | String   | TLS 私钥数据                                                 |
+| NANOMQ_TLS_KEY_PASSWORD         | String   | TLS 私钥密码                                                 |
+| NANOMQ_TLS_VERIFY_PEER          | Boolean  | 验证客户端证书 (默认：False）                                |
+| NANOMQ_TLS_FAIL_IF_NO_PEER_CERT | Boolean  | 拒绝无证书连接，与 tls.verify_peer 配合使用（默认：False）   |
+| NANOMQ_LOG_TO                   | String   | 日志输出类型数组，使用竖线 `|` 分隔多种类型<br />支持文件，控制台，Syslog输出，对应参数:<br />file, console, syslog, uds |
+| NANOMQ_LOG_LEVEL                | String   | 日志等级：trace, debug, info, warn, error, fatal             |
+| NANOMQ_LOG_DIR                  | String   | 日志文件存储路径（输出文件时生效）                           |
+| NANOMQ_LOG_FILE                 | String   | 日志文件名（输出文件时生效）                                 |
+| NANOMQ_LOG_UDS_ADDR             | String   | NanoMQ 日志 UDS 的地址。                                     |
+| NANOMQ_LOG_ROTATION_SIZE        | String   | 每个日志文件的最大占用空间<br />单位：`KB| MB | GB`<br />默认：`10MB` |
+| NANOMQ_LOG_ROTATION_COUNT       | Integer  | 轮换的最大日志文件数<br /> 默认： `5`                        |
+| NANOMQ_CONF_PATH                | String   | NanoMQ 配置文件路径（默认: `/etc/nanomq.conf`）              |
+| NANOMQ_PID_FILE                 | String   | NanoMQ PID 文件路径。默认为 `/tmp/nanomq/nanomq.pid`         |
