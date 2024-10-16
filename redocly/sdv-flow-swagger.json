@@ -58,7 +58,7 @@
         "parameters": [{
           "name": "module",
           "in": "path",
-          "description": "待重启的模块，可以是 nanomq ，ekuiper 或其他模块名称",
+          "description": "The module to be restarted can be nanoMQ, ekuiper, or other module names",
           "required": true,
           "example": "",
           "schema": {
@@ -115,6 +115,136 @@
                       "error": "error killing process"
                     }
                   }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/sdv-flow/configs/log/level": {
+      "post": {
+        "summary": "Update log level",
+        "deprecated": false,
+        "description": "Update the log level and restart sdvf low after success .",
+        "tags": ["System"],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "level": {
+                    "type": "string",
+                    "description": "log level,could be debug,info ,warn ,error"
+                  },
+                  "module": {
+                    "type": "string",
+                    "description": "module name,could be streamEngine,messageBus,agent or all,all includes 3 \nmodules."
+                  }
+                },
+                "required": ["level", "module"]
+              },
+              "example": {
+                "level": "debug",
+                "module": "agent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": ["code"]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0
+                    }
+                  },
+                  "2": {
+                    "summary": "成功示例",
+                    "value": {
+                      "error": "response timeout , the edge service may have been taken offline"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "500": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["error"]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/sdv-flow/loglist": {
+      "get": {
+        "summary": "Log list",
+        "deprecated": false,
+        "description": "Query log list and file time span.",
+        "tags": ["System"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "paths": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "path": {
+                            "type": "string"
+                          },
+                          "start": {
+                            "type": "string"
+                          },
+                          "end": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": ["paths"]
                 }
               }
             },
@@ -3995,6 +4125,7 @@
                 "properties": {
                   "[\"rule1\",\"rule2\"]": {
                     "type": "string",
+                    "examples": [""],
                     "example": ""
                   }
                 },
