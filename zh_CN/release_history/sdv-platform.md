@@ -6,6 +6,10 @@ _发布日期_：2024-10-17
 
 ### 功能的新增和修改
 
+- 修复 `/api/edgeservice/proxy/history` API 错误的方法的返回结果。
+- 修复 `/api/version` API Version 值为空。
+- 修复 `/api/edgeagents/{vin}/fileupload` API 下线返回结果。
+
 
 
 ## V1.1.0
