@@ -58,7 +58,7 @@
         "parameters": [{
           "name": "module",
           "in": "path",
-          "description": "The module to be restarted can be nanoMQ, ekuiper, or other module names",
+          "description": "The module to be restarted can be nanomq, ekuiper, sdv-flow or other module names",
           "required": true,
           "example": "",
           "schema": {
