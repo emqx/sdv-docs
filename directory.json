@@ -16,6 +16,10 @@
         {
           "title": "许可证政策",
           "path": "introduction/license-policy"
+        },
+        {
+          "title": "文件上传",
+          "path": "introduction/file-upload"
         }
       ]
     },
@@ -505,6 +509,10 @@
         {
           "title": "许可证政策",
           "path": "introduction/license-policy"
+        },
+        {
+          "title": "文件上传",
+          "path": "introduction/file-upload"
         }
       ]
     },
