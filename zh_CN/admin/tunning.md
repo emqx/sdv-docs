@@ -123,7 +123,7 @@ exchange_client.mq1 {
 			# # 对于 sdv-flow， 请使用 2 - 消息将统一由内部异步I/O 返回。会有内置的分区文件系统根据 Parquet 配置进行刷盘。
 			fullOp = 2
 		}
-	
+	}
 }
 ```
 分区文件配置和交换机配置一起决定了消息队列最大可以缓存的消息条数和时间长度。这对于针对硬件资源合理设计整车数据可回溯搜索的时间长度至关重要。
@@ -136,7 +136,7 @@ exchange_client.mq1 {
 # # 分区文件配置 Parquet configuration
 # #====================================================================
 parquet {
-	# # 刷盘前科选用的压缩算法或不压缩，有 uncompressed | snappy | gzip | brotli | zstd | lz4 可选
+	# # 刷盘前可选使用压缩算法或不压缩，有 uncompressed | snappy | gzip | brotli | zstd | lz4 可选
 	compress = uncompressed
 	# # 刷盘前是否进行加密，供对于数据安全有更高要求的用户使用。请注意加密动作发生在压缩之后。
 	encryption {
