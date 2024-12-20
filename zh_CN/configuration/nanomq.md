@@ -1,5 +1,5 @@
 # 配置说明
-NanoMQ 的默认配置文件格式是 HOCON 。 HOCON（ Human-Optimized Config Object Notation ）是一个 JSON 的超集，非常适用于易于人类读写的配置数据存储。你可以在 etc 目录找到这些配置文件，周边功能如鉴权/网关等可以使用独立的配置文件（通过 Include 方式指定路径），主要配置文件包括：
+MQTT 消息服务器 的默认配置文件格式是 HOCON 。 HOCON（ Human-Optimized Config Object Notation ）是一个 JSON 的超集，非常适用于易于人类读写的配置数据存储。你可以在 etc 目录找到这些配置文件，周边功能如鉴权/网关等可以使用独立的配置文件（通过 Include 方式指定路径），主要配置文件包括：
 
 | 配置文件                | 说明                                    |
 | ----------------------- | --------------------------------------- |
@@ -175,7 +175,7 @@ bridges.mqtt.cache                          | Object        | 桥接客户端 SQ
 | identifier    | Integer             | *订阅标识符*<br>*Value: 1 ~ 268,435,455*                |
 | user_property | Map[String, String] | *用户属性*<br>*Value: Map[key(String) - value(String)]* |
 
-**📢注意**：NanoMQ 支持通过配置文件 `nanomq.conf` 来配置多个桥接，您可通过不同的名称来区分多个桥接。此外，`cache` 相关配置项作为一个独立的组件工作，支持被多个组件引用。例如，您需要在多个桥接中实现消息缓存，可按照如下示例进行配置。
+**📢注意**：MQTT 消息服务器 支持通过配置文件 `nanomq.conf` 来配置多个桥接，您可通过不同的名称来区分多个桥接。此外，`cache` 相关配置项作为一个独立的组件工作，支持被多个组件引用。例如，您需要在多个桥接中实现消息缓存，可按照如下示例进行配置。
 
 ```conf
 ## 第一个桥接客户端

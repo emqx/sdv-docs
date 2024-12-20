@@ -108,9 +108,9 @@ openssl req -new -key client-key.pem -out client.csr
 openssl x509 -req -days 3650 -in client.csr -CA ca.pem -CAkey ca.key -CAcreateserial -out client.pem
 ```
 
-## NanoMQ通过SSL/TLS双向认证桥接
+## MQTT 消息服务器通过SSL/TLS双向认证桥接
 
-NanoMQ提供了双向认证的配置选项桥接到远端服务器。所需步骤也很简单，仅需要在配置文件中的桥接字段中新增证书即可，以下是示例：
+MQTT 消息服务器提供了双向认证的配置选项桥接到远端服务器。所需步骤也很简单，仅需要在配置文件中的桥接字段中新增证书即可，以下是示例：
 
 ```bash
 # nanomq.conf
