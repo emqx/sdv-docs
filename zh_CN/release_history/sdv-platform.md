@@ -1,12 +1,25 @@
 # SDV-Platform 发版历史
 
+## V1.2.0
+
+_发布日期_：2024-10-17
+
+### 功能的新增和修改
+
+- 修复 `/api/edgeservice/proxy/history` API 错误的方法的返回结果。
+- 修复 `/api/version` API Version 值为空。
+- 修复 `/api/edgeagents/{vin}/fileupload` API 下线返回结果。
+
+
+
 ## V1.1.0
-- 历史查询 API。
-- 批量下发API 中未注册车辆不阻塞其他车辆下发。
 
 _发布日期_：2024-09-24
 
 ### 功能的新增和修改
+
+- 历史查询 API。
+- 批量下发API 中未注册车辆不阻塞其他车辆下发。
 
 
 ## V1.0.0
