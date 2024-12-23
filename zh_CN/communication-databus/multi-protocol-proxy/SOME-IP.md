@@ -2,6 +2,8 @@
 NanoLink 的实现底层依赖 CommonAPI 和 NanoSDK （link），NanoSDK 负责 MQTT 消息的通信， CommonAPI 负责 SOME/IP 消息的通信。相比于纯粹的基于 vsomeip 开发， CommonAPI 在低代码的层面上做了很多的工作，如下图所示。在开发工程中我们只需要定义好 fidl/fdepl 相关文件，调用对应的代码生成工具，就可以生成 SOME/IP 通信和序列换相关的接口以及实现代码。所以我们在实现功能的过程中可以更加专注业务。
 ![commonAPI-arch](./_assets/commonAPI.png)
 
+同时，也可以单独提供裸 SOME/IP-MQTT 的消息桥接服务。
+
 当我们的功能涉及到云边互通时，多协议之间的相互转换使得很多工作依然需要手动完成。我们需要对序列化、反序列化手动进行转换，设计通信主题，考虑消息的吞吐，线程间的同步工作等问题。NanoLink 与 fidl-serial 的结合可以帮助我们轻松解决上述问题。如下图所示，在生成 CommonAPI Code 和 CommonAPI Binding 的代码以后，fidl-serial 工具会自动为 NanoLink 生成 Application 的代码：这部分生成的代码包括：JSON 序列化，反序列化代码， 动态的订阅、发布主题，以及根据服务的数量，生成多个单独的服务线程，还有测试的 service 等。
 
 Fidl-serial 是基于 CommonAPI 的代码生成工具。自动生成 SOME/IP 与 MQTT 相互转换的代码。如下可以看到各个生成器所负责的部分，fidl-serial 负责生成 Application 部分的代码。 
