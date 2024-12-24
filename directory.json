@@ -455,8 +455,8 @@
       "collapsed": true,
       "children": [
         {
-          "title": "常见问题",
-          "path": "admin/QA"
+          "title": "SDV-Platform 介绍",
+          "path": "admin/introduction.md"
         },
         {
           "title": "链路追踪",
@@ -467,12 +467,23 @@
           "path": "admin/tunning"
         },
         {
-          "title": "监控",
+          "title": "指标监控",
           "path": "admin/monitoring"
         },
         {
           "title": "管理日志文件",
           "path": "admin/log"
+        },
+        {
+          "title": "资源阈值监控",
+          "path": "admin/monitor.md"
+        },
+        {
+          "title": "远程配置",
+          "path": "admin/remote_configure.md"
+        },{
+          "title": "常见问题",
+          "path": "admin/QA"
         }
       ]
     },
