@@ -157,3 +157,76 @@ flowchart TD
 7. 返回成功或失败
 - 如果设置成功，返回 nil。
 - 如果出现错误，返回相应的错误。
+
+## 数据控制开关
+
+### 流程描述
+```mermaid
+flowchart TD
+    A["Start"] --> B["Run DataSwitchController"]
+    B --> C["Attempt to subscribe to DATASWITCHSUB"]
+    C --> D{"Subscription successful?"}
+    D -- No --> E["Log error and retry using backoff"]
+    D -- Yes --> F["Run handleMessages(chDataSwitch) in a safe goroutine"]
+    F --> G["Receive message from chDataSwitch"]
+    G --> H{"Valid MQTT message received?"}
+    H -- No --> I["Log error and continue"]
+    H -- Yes --> J["Log message content"]
+    J --> K["Respond to message and restart process"]
+    K --> L["Parse payload JSON into a map"]
+    L --> M{"JSON parsing successful?"}
+    M -- No --> N["Log error and continue"]
+    M -- Yes --> O["Process command from the payload"]
+    O --> P{"Command is 'on' or 'off'?"}
+    P -- 'on' --> Q["Check if data should be uploaded (ShouldUploadData)"]
+    Q --> R{"Should upload data?"}
+    R -- Yes --> S["Turn on DataSwitch"]
+    R -- No --> T["Do nothing"]
+    P -- 'off' --> U["Check if data should be stopped (ShouldUploadData)"]
+    U --> V{"Should upload data?"}
+    V -- No --> W["Turn off DataSwitch"]
+    V -- Yes --> T
+    P -- Invalid --> X["Log invalid command error and continue"]
+    S --> Z["Continue processing next message"]
+    T --> Z
+    W --> Z
+    X --> Z
+    N --> Z
+    I --> Z
+    Z --> G
+```
+
+1. 启动 DataSwitchController
+    - 数据开关控制器开始运行，进入主流程。
+2. 尝试订阅主题 cmd/req/+
+    - 使用 subscribeTopic 函数订阅 MQTT 主题。
+3. 检查订阅是否成功
+    - 如果订阅失败：
+        - 记录错误日志。
+        - 使用重试机制（带回退）再次尝试订阅。
+    - 如果订阅成功：
+        - 开启一个安全的协程，运行 handleMessages(chDataSwitch) 来处理接收到的消息。
+4. 接收并处理 MQTT 消息
+    - 从 chDataSwitch 通道中接收消息。
+    - 如果接收到的消息无效：
+        - 记录错误日志并继续处理下一条消息。
+    - 如果消息有效：
+        - 记录消息的主题和内容。
+5. 响应消息
+    - 使用 respond 函数生成响应并将其发布到 cmd/ack/{id} 主题。
+    - 如果响应失败，记录错误日志。
+6. 解析消息的 JSON 有效负载
+    - 使用 parsePayload 函数解析消息负载。
+    - 如果解析失败：
+        - 记录错误日志并继续处理下一条消息。
+    - 如果解析成功：
+        - 进入下一步处理。
+7. 根据命令处理消息
+    - 从解析后的负载中提取命令（cmd）。
+    - 如果命令为：
+        - "on"：检查是否需要上传数据。如果需要，调用 TurnOnDataSwitch 启用数据开关。
+        - "off"：检查是否需要停止上传数据。如果需要，调用 TurnOffDataSwitch 禁用数据开关。
+        - 无效命令：记录无效命令错误并继续。
+
+8. 结束当前消息处理
+    - 处理完成后，继续处理下一条消息，直到所有消息处理完成。
