@@ -51,3 +51,45 @@ flowchart TB
     - 将当前数据开关的状态保存到持久化文件中，确保下次启动时状态一致。
 - 成功退出
     - 记录日志并安全退出程序。
+
+## 软开关上传判断条件
+```mermaid
+flowchart TD
+    A["Start"] --> B["Log vehicle info"]
+    B --> C{"Is VIN valid?"}
+    C -- No --> D["Return false, error: invalid VIN"]
+    C -- Yes --> E{"Check car type (CS)"}
+    E -- CS == E245 --> F{"Check market code (NC)"}
+    E -- CS != E245 --> G["Return false, error: unknown car configuration"]
+    F -- NC in [42, 43, A8, A7, A6] --> H{"Check vehicle mode"}
+    F -- Other NC --> I["Return false, error: unknown NC"]
+    H -- VehicleMode in [Normal, Crash, Dyno] --> J{"Check power mode"}
+    H -- Other VehicleMode --> K["Return false, error: unknown vehicle mode"]
+    J -- PowerMode != abandoned --> L["Return DataSwitch, nil"]
+    J -- PowerMode == abandoned --> M["Return false, error: unknown power mode"]
+    D --> L
+    G --> L
+    I --> L
+    K --> L
+    M --> L
+```
+## 流程图描述：
+- 开始
+    - 从函数 ShouldUploadData() 开始执行。
+- 日志打印信息
+    - 打印车辆相关信息：nc、cs、vehicleMode 和 powerMode。
+- 检查 VIN 是否有效
+    - 如果 VIN 是无效的INVALIDVIN(00000000000000000)，返回 false 和错误信息 "invalid VIN"。
+    - 如果 VIN 是有效的，继续执行下一步。
+- 检查车辆类型 (CS)
+    - 如果 CS 是 E245(E4)，则进入下一步。
+    - 如果 CS 不是 E245，返回 false 和错误信息 "unknown car configuration"。
+- 检查市场代码 (NC)
+    - 如果 NC 是 42、43、A8、A7 或 A6（表示特定的市场，如澳大利亚、新西兰、泰国、印度尼西亚和马来西亚），进入下一步。
+    - 如果 NC 不是这几个值，返回 false 和错误信息 "unknown NC"。
+- 检查车辆模式 (VehicleMode)
+    - 如果 VehicleMode 是 VehModNorm（正常模式）、VehModCrash（碰撞模式）或 VehModDyno（台架模式），进入下一步。
+    - 如果 process.VehicleMode 不是这些值，返回 false 和错误信息 "unknown vehicle mode"。
+- 检查电源模式 (PowerMode)
+    - 如果 PowerMode 不是 PowerModAbdnd（废弃模式），则返回 DataSwitch 的值和 nil（表示数据上传可用）。
+    - 如果 PowerMode 是 PowerModAbdnd，返回 false 和错误信息 "unknown power mode"。
