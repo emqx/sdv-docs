@@ -1,4 +1,4 @@
-# mqtt stream
+# MQTT stream 车载消息队列
 
 MQTT Stream 即消息总线里的消息队列功能，其与 MQTT 消息服务器功能相辅相成，主要负责消息的有序落盘和查询回溯。
 
@@ -15,6 +15,18 @@ MQTT Stream 即消息总线里的消息队列功能，其与 MQTT 消息服务�
 
 ![ Parquet 格式示意图](parquet.jpg)
 Parquet是一种列式存储格式，最早在 Hadoop 生态圈中流行，现在 Parquet 就是大数据时代存储格式的事实标准。最早是由 Twitter 和 Cloudera 合作开发，2015 年 5 月从 Apache 孵化器里毕业成为 Apache 顶级项目。其设计初衷是为了实现高性能的IO操作。它使用高效的压缩算法和数据编码方式，对表格型数据进行精简存储，从而减少数据IO，提高性能。Parquet支持嵌套格式数据，能够自然地描述互联网和科学计算等领域的数据，降低了大规模数据的处理成本。至今，行业研究显示数据密集型行业对 Parquet 的使用量增加了 45%，超过了 Avro 和 ORC 等格式。而且 Parquet 相比其他格式具有更高查询性能和存储效率。72% 的新数据湖数据实施使用 Parquet，这要归功于它的压缩以及与已有大数据工具的无缝集成。Apache Parquet 的应用已经日益广泛，尤其是在管理大型复杂数据集（如远程信息处理和车联网/物联网）的领域。对于车云数据闭环则尤其需要具备上文所述这些特性的强大的数据基础设施来支持车辆数字孪生，能够方便车端和云端的数据同步分析。 所以SDV-Flow & Platform 就基于 Parquet 设计，具有环形队列，滚动消息存储，Schema 匹配，文件管理和历史数据回溯等功能，通过结合 MQTT 轻量高效的订阅模型，MQTT Stream 可以被称为 Parquet on steroids，实现了可靠的车端历史时序数据管理，并且针对车端的存储介质进行了文件 I/O 优化，使其能够以低成本支撑高速、复杂的持久化数据读写需求。
+
+#### Apache Parquet VS CSV
+| 功能特性      | Parquet    | CSV             |
+| ------------ | ----------- | ----------- |
+| 存储类型      | 列存   |  行列式  |
+| 文件大小                              | 小 （针对数据结构优化压缩后）     | 中等（压缩倍率有限） |
+| 查询性能                  | 快（针对列查询尤其优秀）    | 慢 |
+| Schema自由度                           | 原生 Schema 支持自由定义     | 无 Schema 支持 |
+| 数据类型保真度                              | 保留原始数据类型，无需特殊编码    | 只能以文本形式存储，必须经过编码转换     |
+| 可否分割文件并行处理                              | 可    | 不可    |
+| 是否人类可读           | 不可，是二进制流      | 可     |
+| 与大数据生态兼容度             | 原生完美支持     | 部分支持      |
 
 ### 消息队列功能介绍
 
@@ -182,8 +194,81 @@ exchange_client.mq2 {
     }
     ```
 
-    
 
+从 SDV-Flow 1.3.0 版本开始可以针对每个 MQTT Stream 单独配置 Parquet 文件管理器。只需在交换机配置中增加即可：
+
+```
+
+# #====================================================================
+# # Exchange configuration for Embedded Messaging Queue
+# #====================================================================
+# # Initalize multiple MQ exchanger by giving them different name (mq1)
+exchange_client.mq1 {
+	# # Currently NanoMQ only support one MQ object. URL shall be exactly same.
+	exchange_url = "tcp://127.0.0.1:10000"
+	# # The rate limit parameter, which controls the number of queries issued within 5 seconds
+	limit_frequency = 5
+	# # exchanges contains multiple MQ exchanger
+	exchange {
+		# # MQTT Topic for filtering messages and saving to queue
+		topic = "exchange/topic1",
+		# # Only for the case of ringbus fullop=2
+		# # Stream Type 0: Raw stream
+		# # Stream Type 1: Can Message type
+		streamType = 0,
+		# # MQ name
+		name = "exchange_no1",
+		# # MQ category. Only support Ringbus for now
+		ringbus = {
+			# # ring buffer name
+			name = "ringbus",
+			# # max length of ring buffer (msg count)
+			cap = 1000,
+			# #  0: RB_FULL_NONE: When the ringbus is full, no action is taken and the message enqueue fail
+			# #  1: RB_FULL_DROP: When the ringbus is full, the data in the ringbus is discarded
+			# #  2: RB_FULL_RETURN: When the ringbus is full, the data in the ringbus is taken out and returned to the aio
+			# #  3: RB_FULL_FILE: When the ringbus is full, the data in the ringbus is written to the file
+			#
+			# # Value: 0-4
+			# # Default: 0
+			fullOp = 2
+		}
+		# # 原先独立的文件管理器被纳入了主题交换器中，新增如下部分：
+		parquet {
+			# # Parquet compress type.
+			# #
+			# # Value: uncompressed | snappy | gzip | brotli | zstd | lz4
+			compress = zstd
+			# # The dir for parquet files.
+			# #
+			# # Value: Folder
+			dir = "./parquet"
+			# # The prefix of parquet files written.
+			# #
+			# # Value: string
+			file_name_prefix = "nanomq1"
+			# # Maximum rotation count of parquet files.
+			# #
+			# # Value: Number
+			# # Default: 5
+			file_count = 5
+			# # The max size of parquet file written.
+			# #
+			# # Default: 10M
+			# # Value: Number
+			# # Supported Unit: KB | MB | GB
+			file_size = 100MB
+			# # The max number of searches per second.
+			# #
+			# # Default: 5
+			# # Value: Number
+			limit_frequency = 5
+		}
+	}
+}
+
+```
+如此即可为每个消息流单独管理滚动落盘的文件。
     
 ### 测试MQTT STREAM
 

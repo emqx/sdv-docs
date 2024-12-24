@@ -1,4 +1,4 @@
-# NanoLink 协议转换配置
+# 多协议网关 NanoLink 协议转换配置
 ## 配置说明
 
 NanoLink 的默认配置文件格式是 HOCON。HOCON（Human-Optimized Config Object Notation）是 JSON 的超集，非常适合存储易于人类读写的配置数据。你可以在 `software/nanolink/etc/` 目录找到配置文件 `nanolink.conf`。包括 MQTT、AVTP、UDP、SOME/IP 等部分的配置。以下内容基于 HOCON 配置文件格式。
