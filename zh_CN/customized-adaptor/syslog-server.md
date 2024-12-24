@@ -67,3 +67,59 @@ flowchart TD
         - 通过加密通道传输文件。
 5. **成功与失败处理**:
     - 传输处理可参考 [mqtt 消息/文件传输功能](../../communication-databus/file-transfer.md) 。
+
+## syslog server 代码流程
+
+```mermaid
+flowchart TD
+    A[Start Server] --> B[Initialize syslog server configuration]
+    B --> C[Set defaults for syslogAddr and syslogFile]
+    C --> D[Set default rotation limits: MaxSize, MaxAge, MaxBackups]
+    D --> E[Enable log upload if configured]
+    E --> F[Handle syslogServerCfg.Type]
+    F --> F1{syslogServerCfg.Type}
+    F1 -->|UNIXGRAM| G[Remove existing UDS socket]
+    F1 -->|UDP4| H[Listen on UDP address]
+    F1 -->|Unknown| I[Return error for unknown type]
+    G --> J[Listen on Unix domain socket]
+    H --> J
+    J --> K[Boot syslog server]
+
+    K --> L[Ensure syslog file directory exists]
+    L --> M[Clear .zst files in directory]
+    M --> N[Open syslog file for writing]
+
+    N --> O[Initialize buffered writer and rotation channel]
+    O --> P[Start goroutines]
+    P --> P1[Log rotation goroutine]
+    P --> P2[Log saving goroutine]
+    P1 --> Q[Wait for rotation signal or timeout]
+    P2 --> R[Save log message to file]
+
+    Q --> Q1[Rotate log file]
+    Q1 --> Q2[Reset log file writer]
+    Q2 --> P1
+
+    R --> R1[Check log size for rotation]
+    R1 -->|Exceeds limit| S[Send rotation signal]
+    S --> Q
+    R1 -->|Within limit| P2
+
+    P --> T{Enable log upload?}
+    T -->|Yes| U[Start file upload processes]
+    T -->|No| V[Wait for shutdown signal]
+
+    V --> W[Shutdown server]
+    W --> X[KillServer function]
+    X --> Y[Stop syslog server and close log file]
+    Y --> Z[Exit program]
+```
+### 流程说明:
+1. **配置初始化**：设置默认的 syslog 地址、日志文件路径和日志旋转参数。
+2. **服务器类型处理**：根据 syslogServerCfg.Type 配置监听 Unix 域套接字或 UDP 地址。
+3. **服务器启动**：确保日志目录存在，清除旧的 .zst 文件并打开日志文件。
+4. **日志写入和旋转**：
+    - 启动两个 goroutine：一个处理日志写入，另一个处理日志文件的旋转。
+    - 当日志大小超出限制或时间间隔到达时触发旋转。
+5. **日志上传（如果启用）**：启动异步日志上传处理。
+6. **优雅关闭**：处理关闭信号，确保资源释放。
