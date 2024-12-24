@@ -514,6 +514,29 @@
           "path": "release_history/sdv-platform"
         }
       ]
+    },
+    {
+      "title": "车型适配定制模块",
+      "path": "customized-adaptor/intro",
+      "collapsed": true,
+      "children":[
+        {
+          "title": "geely_api",
+          "path": "customized-adaptor/geely_api/geely_api"
+        },
+        {
+          "title": "RVDC",
+          "path": "customized-adaptor/RVDC/rvdc"
+        },
+        {
+          "title": "数据上传软开关",
+          "path": "customized-adaptor/upload-switch/upload_switch"
+        },
+        {
+          "title": "数据上传软开关的 APP SDK",
+          "path": "customized-adaptor/upload-switch/upload_switch_sdk"
+        }
+      ]
     }
   ],
   "en": [
