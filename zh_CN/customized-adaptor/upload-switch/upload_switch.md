@@ -93,3 +93,67 @@ flowchart TD
 - 检查电源模式 (PowerMode)
     - 如果 PowerMode 不是 PowerModAbdnd（废弃模式），则返回 DataSwitch 的值和 nil（表示数据上传可用）。
     - 如果 PowerMode 是 PowerModAbdnd，返回 false 和错误信息 "unknown power mode"。
+
+## 加载并存储软开关
+
+```mermaid
+flowchart TD
+    A["Start"] --> B{"Is EnableDataSwitch enabled?"}
+    B -- Yes --> C["Log: sdv-flow data switch is enabled"]
+    C --> F["Get Android Property:  persist.sys.dataSwitch"]
+    F --> G{"Is property empty?"}
+    G -- Yes --> H{"Check if file dataSwitch Not exists"}
+    H -- No --> I["Read property from file"]
+    I --> M{"Set DataSwitch"}
+    H -- Yes --> J@{ label: "Set default property: 'off'" }
+    J --> K@{ label: "Create file and write 'off'" }
+    K --> O["DataSwitch = false"]
+    L["Save property to file dataSwitch"] --> M
+    M -- on --> N["DataSwitch = true"]
+    M -- off --> O
+    M -- Invalid --> P["Error: Invalid property"]
+    P --> Q["Return error"]
+    N --> R["Return nil"]
+    O --> R
+    G -- No --> L
+    N --> n1["Untitled Node"]
+
+    J@{ shape: rect}
+    K@{ shape: rect}
+
+```
+### 流程描述
+1. EnableDataSwitch 检查
+- 条件：如果 EnableDataSwitch 为 true，则继续执行。
+- 操作：打印日志 "sdv-flow data switch is enabled"。
+2. 加载并保存 persist.sys.dataSwitch 属性
+- 操作：调用 agent.LoadAndSaveProperty("persist.sys.dataSwitch")。
+- 成功：继续执行。
+- 失败：如果 err != nil，则打印错误日志："LoadAndSaveProperty: 错误信息"。
+3. LoadAndSaveProperty 函数处理
+- 输入：传入 key（persist.sys.dataSwitch）到 LoadAndSaveProperty。
+- 操作：
+    - 获取 Android 属性：调用 getAndroidProperty(key) 获取属性。
+    - 如果成功，打印获取到的属性值。
+    - 如果失败，打印错误信息。
+4. 检查属性是否为空
+- 条件：如果属性为空，执行以下操作：
+    - 文件检查：检查 filePath 指定的文件是否存在。
+        - 如果文件不存在：
+            - 设置默认值 "off"。
+            - 创建文件并写入 "off"。
+            - 打印日志："Set default property off." 和 "Write property to file."。
+        - 如果文件存在：
+            - 读取文件内容。
+            - 打印日志："Read property from file."。
+5. 写入属性
+- 操作：如果属性不为空，将其保存到文件中，并打印日志："Save the retrieved property to the file"。
+6. 设置 DataSwitch
+- 条件：根据属性值设置 DataSwitch：
+    - 如果值为 "on"，设置 DataSwitch = true。
+    - 如果值为 "off"，设置 DataSwitch = false。
+    - 如果属性值无效，打印错误并返回。
+
+7. 返回成功或失败
+- 如果设置成功，返回 nil。
+- 如果出现错误，返回相应的错误。
