@@ -95,12 +95,32 @@
           "path": "communication-databus/mqtt-broker",
           "children": [
             {
-              "title": "访问控制",
+              "title": "MQTT 消息服务器介绍",
+              "path": "communication-databus/mqtt-broker/mqtt-broker"
+            },
+            {
+              "title": "访问控制介绍",
               "path": "communication-databus/mqtt-broker/access-control/introduction"
+            },
+            {
+              "title": "访问控制 ACL",
+              "path": "communication-databus/mqtt-broker/access-control/acl"
+            },
+            {
+              "title": "访问控制结合 HTTP",
+              "path": "communication-databus/mqtt-broker/access-control/HTTP"
+            },
+            {
+              "title": "用户名密码控制",
+              "path": "communication-databus/mqtt-broker/access-control/login"
             },
             {
               "title": "WebHook",
               "path": "communication-databus/mqtt-broker/WebHook"
+            },
+            {
+              "title": "WebHook配置",
+              "path": "communication-databus/mqtt-broker/WebHookHocon"
             }
           ]
         },
@@ -109,23 +129,27 @@
           "path": "communication-databus/mqtt-stream",
           "children": [
             {
+              "title": "MQTT 消息队列功能介绍",
+              "path": "communication-databus/mqtt-stream/mqtt-stream"
+            },
+            {
               "title": "环形队列配置",
-              "path": "communication-databus/mqtt-broker/ringbus"
+              "path": "communication-databus/mqtt-stream/ringbus"
             },
             {
               "title": "消费者协议和SDK",
-              "path": "communication-databus/mqtt-broker/consumer"
+              "path": "communication-databus/mqtt-stream/consumer"
             },
             {
               "title": "搜索数据和触发上传",
-              "path": "communication-databus/mqtt-broker/data-fetch"
+              "path": "communication-databus/mqtt-stream/data-fetch"
             },
             { "title": "可灵活配置的流模组，实现数据灵活落盘",
-              "path": "communication-databus/mqtt-broker/stream_module"
+              "path": "communication-databus/mqtt-stream/stream_module"
             },
             {
               "title": "通过Schema查询Parquet数据",
-              "path": "communication-databus/mqtt-broker/new_schema_query"
+              "path": "communication-databus/mqtt-stream/new_schema_query"
             }
           ]
         },
@@ -137,10 +161,6 @@
           "title": "跨域通信和协议转换",
           "path": "communication-databus/multi-protocol-proxy/introduction",
           "children": [
-            {
-              "title": "共享内存",
-              "path": "communication-databus/multi-protocol-proxy/iceoryx"
-            },
             {
               "title": "DDS",
               "path": "communication-databus/multi-protocol-proxy/dds"
@@ -449,7 +469,7 @@
       ]
     },
     {
-      "title": "远程诊断指南",
+      "title": "车云协同管理",
       "path": "admin/introduction",
       "url": "",
       "collapsed": true,
@@ -457,6 +477,10 @@
         {
           "title": "SDV-Platform 介绍",
           "path": "admin/introduction.md"
+        },
+        {
+          "title": "远程配置",
+          "path": "admin/remote_configure"
         },
         {
           "title": "链路追踪",
