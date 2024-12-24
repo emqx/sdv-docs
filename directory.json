@@ -546,10 +546,31 @@
         {
           "title": "数据上传软开关的 APP SDK",
           "path": "customized-adaptor/upload-switch/upload_switch_sdk"
+        },
+        {
+          "title": "car property",
+          "path": "customized-adaptor/car-proper"
+        },
+        {
+          "title": "syslog server",
+          "path": "customized-adaptor/syslog-server"
+        },
+        {
+          "title": "Android 路径管理",
+          "path": "customized-adaptor/Android-working-dir-manager"
+        },
+        {
+          "title": "aes 加密",
+          "path": "customized-adaptor/encrypt/aes"
+        },
+        {
+          "title": "上线通知",
+          "path": "customized-adaptor/online/online"
         }
       ]
     }
   ],
+
   "en": [
     {
       "title": "产品概览",
