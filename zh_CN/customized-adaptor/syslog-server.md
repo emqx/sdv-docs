@@ -123,3 +123,56 @@ flowchart TD
     - 当日志大小超出限制或时间间隔到达时触发旋转。
 5. **日志上传（如果启用）**：启动异步日志上传处理。
 6. **优雅关闭**：处理关闭信号，确保资源释放。
+
+## file transfer
+下面是 file transfer 的代码流程图，file transfer 启动过程中会启动三个 goroutine 并行执行下面的工作流：
+```mermaid
+flowchart TB
+    subgraph generateFileTransferPayload
+        A1[Start] --> A2[Compress File Using Zstd]
+        A2 -->|Success| A3[Prepare File Transfer Request]
+        A2 -->|Failure| A8[Log Compression Error]
+
+        A3 --> A4[Marshal Request to JSON]
+        A4 -->|Success| A5[Send Payload to pubChan]
+        A4 -->|Failure| A9[Log Marshal Error]
+    end
+
+    subgraph publishFileTransfer
+        B1[Start]
+        B1 --> B2[Read from pubChan]
+        B2 --> B3[Publish Message to MQTT]
+        B3 -->|Success| B4[Store Payload in payloadMap]
+        B3 -->|Failure| B5[Log Publish Error]
+    end
+
+    subgraph processPeriodicFileUploadResult
+        C1[Start]
+        C1 --> C2[Read from PeriodicUploadResultChan]
+        C2 -->|Success| C3[Remove Payload from payloadMap]
+        C2 -->|Failure| C4[Log Upload Error]
+    end
+
+    subgraph file transfer
+        D1[start] --> generateFileTransferPayload
+        D1 --> publishFileTransfer
+        D1 --> processPeriodicFileUploadResult
+    end
+
+
+```
+### 流程说明
+1. generateFileTransferPayload:
+    - 接收文件路径并调用 compressFileZstd 对文件进行压缩。
+    - 如果压缩成功，构造文件传输请求消息并将其序列化为 JSON。
+    - 成功后，将消息和文件名作为 Pair 对象发送到 pubChan。
+    - 如果失败，记录错误日志。
+2. publishFileTransfer:
+    - 异步从 pubChan 读取 Pair 数据。
+    - 使用 MQTT 将文件传输请求消息发布到指定主题。
+    - 发布成功后，将文件名和请求数据存储到 payloadMap 中。
+    - 如果发布失败，记录错误日志。
+3. processPeriodicFileUploadResult:
+    - 异步处理 PeriodicUploadResultChan 中的上传结果。
+    - 如果上传成功，从 payloadMap 中移除对应的文件名。
+    - 如果上传失败，记录上传错误信息。
